@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  backend:
+    build: ../../backend
+    environment:
+      POSTGRES_USER: ${HUB_DB_USER}
+      POSTGRES_PASSWORD: ${HUB_DB_PASS}
+    command: bundle exec rails s -b '0.0.0.0'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+  postgres:
+    image: postgres:14.7-alpine
+    environment:
+      POSTGRES_USER: ${HUB_DB_USER}
+      POSTGRES_PASSWORD: ${HUB_DB_PASS}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${HUB_DB_USER}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  postgres_data:
