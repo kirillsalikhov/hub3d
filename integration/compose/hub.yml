@@ -1,16 +1,26 @@
 version: '3.7'
+
+x-base-backend: &base_backend
+  build: ../../backend
+  environment:
+    VITE_RUBY_HOST: ${VITE_HOST:-frontend}
+    POSTGRES_USER: ${HUB_DB_USER}
+    POSTGRES_PASSWORD: ${HUB_DB_PASS}
+  depends_on:
+    postgres:
+      condition: service_healthy
+
 services:
   backend:
-    build: ../../backend
-    environment:
-      POSTGRES_USER: ${HUB_DB_USER}
-      POSTGRES_PASSWORD: ${HUB_DB_PASS}
+    <<: *base_backend
     command: bundle exec rails s -b '0.0.0.0'
-    depends_on:
-      postgres:
-        condition: service_healthy
     ports:
       - "3000:3000"
+
+  # Yes, it's empty container, that starts and stop immediately
+  # it's override in dev/frontend.yml
+  frontend:
+    <<: *base_backend
 
   postgres:
     image: postgres:14.7-alpine

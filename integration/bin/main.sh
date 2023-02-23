@@ -5,7 +5,8 @@ Script usage:
   scripts/main.sh [--dev=DEV_LETTERS] {up|down|stop|other docker-compose cmd}
 
 DEV_LETTERS:
-  b - backend : store_backend
+  b - backend : backend
+  f - frontend : frontend (through ruby vite inside rails)
 Examples:
   main.sh up // all container in prod mode
 
@@ -43,6 +44,10 @@ do
         b)
             echo "DEV backend : backend"
             dev_compose+=" -f ../compose/dev/backend.yml"
+        ;;
+        f)
+            echo "DEV frontend : frontend from another rails container"
+            dev_compose+=" -f ../compose/dev/frontend.yml"
         ;;
     esac
 done
