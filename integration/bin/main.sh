@@ -34,7 +34,7 @@ do
     fi
 done
 
-prod_compose="-f ../compose/hub.yml"
+prod_compose="-f ../compose/hub.yml -f ../compose/conversion-service.prod.yml"
 
 dev_compose=()
 

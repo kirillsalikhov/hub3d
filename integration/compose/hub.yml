@@ -13,9 +13,9 @@ x-base-backend: &base_backend
 services:
   backend:
     <<: *base_backend
-    command: bundle exec rails s -b '0.0.0.0'
+    command: bundle exec rails s -p 3050 -b '0.0.0.0'
     ports:
-      - "3000:3000"
+      - "3050:3050"
 
   # Yes, it's empty container, that starts and stop immediately
   # it's override in dev/frontend.yml
