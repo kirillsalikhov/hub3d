@@ -3,11 +3,14 @@ version: '3.7'
 x-base-backend: &base_backend
   build: ../../backend
   environment:
+    # TODO Think of it, if it's needed in prod or sidekiq
     VITE_RUBY_HOST: ${VITE_HOST:-frontend}
     POSTGRES_USER: ${HUB_DB_USER}
     POSTGRES_PASSWORD: ${HUB_DB_PASS}
   depends_on:
     postgres:
+      condition: service_healthy
+    redis:
       condition: service_healthy
 
 services:
@@ -22,6 +25,10 @@ services:
   frontend:
     <<: *base_backend
 
+  sidekiq:
+    <<: *base_backend
+    command: bundle exec sidekiq
+
   postgres:
     image: postgres:14.7-alpine
     environment:
@@ -35,6 +42,16 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:6.2.11-alpine
+    healthcheck:
+      test: [ "CMD", "redis-cli","ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis_data:/data
 
 volumes:
   postgres_data:
+  redis_data:

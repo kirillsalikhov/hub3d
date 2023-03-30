@@ -7,3 +7,11 @@ services:
       RAILS_ENV: development
     volumes:
       - ../../backend:/backend
+
+  sidekiq:
+    image: docker.webgears3d.com/hub/backend__dev
+    build: ../../backend
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - ../../backend:/backend
