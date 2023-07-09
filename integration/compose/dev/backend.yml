@@ -15,3 +15,7 @@ services:
       RAILS_ENV: development
     volumes:
       - ../../backend:/backend
+
+  postgres:
+    ports:
+      - "6432:5432"

@@ -5,3 +5,13 @@ local:
 test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
+
+# TODO make separation for dev, test (change bucket)
+minio:
+  service: S3
+  access_key_id: <%= ENV['MINIO_ROOT_USER'] %>
+  secret_access_key: <%= ENV['MINIO_ROOT_PASSWORD'] %>
+  region: us-east-1
+  bucket: default-bucket
+  endpoint: <%= ENV['S3_ENDPOINT'] %>
+  force_path_style: true

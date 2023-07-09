@@ -33,5 +33,8 @@ module Backend
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # To allow access from inner docker network
+    config.hosts << 'backend'
   end
 end
