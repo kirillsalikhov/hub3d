@@ -71,14 +71,14 @@ module Conversion
       JSON.parse(res)['logs']
     end
 
-    def download_file(src, path)
-      #TODO change to TemporaryFile
-      dest = "/tmp/#{path}"
-      FileUtils.mkdir_p(File.dirname(dest))
-      File.open(dest, 'wb' ) do |output|
+    def download_file(src)
+      tempfile = Tempfile.new('change_for_debugging')
+      # TODO Likely RestClient loads file to memory
+      File.open(tempfile, 'wb' ) do |output|
         output.write RestClient.get(src)
       end
-      File.new(dest)
+
+      tempfile
     end
 
   end
