@@ -1,4 +1,8 @@
 import * as ActiveStorage from '@rails/activestorage'
+import "./style.css"
+
+
+// TODO move somewhere where it's needed ?
 ActiveStorage.start()
 
 import {fooBarFunc} from "~/dummy/dummy-module";
