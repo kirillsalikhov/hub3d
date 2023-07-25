@@ -2,7 +2,30 @@ class Conversion::CreateConversion
   include Interactor
 
   def call
-    puts '!!! Convert CreateConversion called !!! '
-    # TODO
+    create_conversion_job
+    create_conversion_task
+
+    # TODO add validation to ConversionTask, and handle errors
+    @conversion_task.save!
+
+    context.conversion_task = @conversion_task
+  end
+
+  private
+
+  def create_conversion_job
+
+    @conversion_job_id = Conversion::Client.create_job(
+      input: context.input.url(expires_in: 1.week),
+      recipe: context.recipe
+    )
+  end
+
+  def create_conversion_task
+    @conversion_task = Store::ConversionTask.new(
+      conversion_job_id: @conversion_job_id,
+      on_success: context.on_success,
+      start_time: Time.now
+    )
   end
 end
