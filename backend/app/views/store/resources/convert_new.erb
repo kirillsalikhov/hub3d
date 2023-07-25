@@ -7,6 +7,11 @@
   </div>
 
   <div>
+    <%= form.label :convert_input, style: "display: block" %>
+    <%= form.file_field :convert_input, direct_upload: true %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
