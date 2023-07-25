@@ -1,3 +1,6 @@
+import * as ActiveStorage from '@rails/activestorage'
+ActiveStorage.start()
+
 import {fooBarFunc} from "~/dummy/dummy-module";
 // To see this message, add the following to the `<head>` section in your
 // views/layouts/application.html.erb
@@ -19,8 +22,10 @@ console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify
 // import * as Turbo from '@hotwired/turbo'
 // Turbo.start()
 //
-// import ActiveStorage from '@rails/activestorage'
-// ActiveStorage.start()
+
+
+
+
 //
 // // Import all channels.
 // const channels = import.meta.globEager('./**/*_channel.js')
