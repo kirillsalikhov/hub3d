@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get '/foo', to: 'dummy#foo'
+  get '/dummy', to: 'dummy#dummy_page'
 end

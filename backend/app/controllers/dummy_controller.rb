@@ -4,4 +4,8 @@
 class DummyController < ApplicationController
   def foo
   end
+
+  def dummy_page
+    render inertia: 'Dummy', props: {}
+  end
 end
