@@ -1,7 +1,7 @@
 # Starts Vite-ruby dev server in rails container, see link below for more info
 # https://evilmartians.com/chronicles/vite-lizing-rails-get-live-reload-and-hot-replacement-with-vite-ruby
 # it overrides frontend service in hub.yml, because 23.02.2023 it's impossible to use external x-tension(
-
+version: "3.7"
 services:
   frontend:
     # Yes, it should be same image as backend__dev

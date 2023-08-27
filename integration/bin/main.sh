@@ -52,4 +52,4 @@ do
     esac
 done
 
-docker-compose ${prod_compose} ${dev_compose} -p hub "${ARGS[@]}"
+docker compose ${prod_compose} ${dev_compose} -p hub "${ARGS[@]}"

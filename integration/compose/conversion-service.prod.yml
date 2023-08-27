@@ -11,8 +11,7 @@ x-minio-config: &minio-config
   MINIO_SECRET_KEY: $MINIO_SECRET_KEY
 x-converter: &converter
   environment:
-    << : *storage
-    << : *minio-config
+    << : [*storage, *minio-config]
     TIMEOUT: "${TIMEOUT:-30}"
   restart: on-failure
   deploy:
@@ -25,8 +24,7 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      << : *storage
-      << : *minio-config
+      << : [*storage, *minio-config]
       DB_USER: ${CS_DB_USER}
       DB_PASS: ${CS_DB_PASS}
       DB_HOST: ${CS_DB_HOST}
@@ -105,8 +103,7 @@ services:
     << : *converter
     image: docker.webgears3d.com/converters/optimizer:3.0.2-utils3.1.1
     environment:
-      << : *storage
-      << : *minio-config
+      << : [*storage, *minio-config]
       MAX_CPUS_LIMIT: 30
       CS_PROGRESS: "True"
       TIMEOUT: "${TIMEOUT:-30}"
