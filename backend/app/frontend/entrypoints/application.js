@@ -7,10 +7,8 @@ import "./style.css"
 // TODO move somewhere where it's needed ?
 ActiveStorage.start()
 
-import {fooBarFunc} from "~/dummy/dummy-module";
 
 console.log('Vite ⚡️ Rails')
-fooBarFunc();
 
 console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails');
 

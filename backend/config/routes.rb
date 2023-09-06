@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'pages#root'
+
   namespace :store do
     resources :resources do
       get 'convert_new', on: :collection
@@ -10,9 +12,4 @@ Rails.application.routes.draw do
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-  get '/foo', to: 'dummy#foo'
-  get '/dummy', to: 'dummy#dummy_page'
 end
