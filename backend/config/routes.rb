@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'pages#root'
 
+  get '/resources/:id', to: 'pages#resource'
+
   namespace :store do
     resources :resources do
       get 'convert_new', on: :collection
