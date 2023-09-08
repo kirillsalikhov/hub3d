@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
   def root
-    render inertia: 'Root', props: {}
+    render inertia: 'Root', props: {
+      uploadsPath: rails_direct_uploads_path
+    }
   end
 
   def resource
