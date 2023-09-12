@@ -22,9 +22,12 @@ class Conversion::CreateConversion
   end
 
   def create_conversion_task
+    # TODO move default status and progress to inializer or whatever
     @conversion_task = Store::ConversionTask.new(
       conversion_job_id: @conversion_job_id,
       on_success: context.on_success,
+      status: Store::ConversionTask::STATUSES[:in_progress],
+      progress: 0,
       start_time: Time.now
     )
   end

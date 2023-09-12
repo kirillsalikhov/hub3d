@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
   root 'pages#root'
 
+
   get '/resources/:id', to: 'pages#resource'
+
+  namespace :api do
+    scope :v1 do
+      post 'op/convert-anonym', to: 'op#convert_anonym'
+    end
+  end
 
   namespace :store do
     resources :resources do

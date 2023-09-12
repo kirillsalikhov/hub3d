@@ -12,14 +12,18 @@ module Conversion
 
   SYNC_CHECK_INTERVAL = 1
 
+  class ConversionError < StandardError; end
+
   module Conversion::Client
     extend self
 
     def create_job(conversion_params)
-      # TODO + error check
       res = RestClient.post(JOB_CREATE_URL, conversion_params)
-      res_json = JSON.parse(res)
-      res_json['id']
+      JSON.parse(res)['id']
+    rescue RestClient::NotFound => e
+      # RestClient on this url returns 404 when recipe doesn't exist
+      # TODO ask change in CS for providing err, and status 422
+      raise ConversionError.new('Wrong conversion params')
     end
 
     def cancel_job(job_id)

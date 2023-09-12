@@ -4,6 +4,8 @@ class Store::ConversionJob
   CHECK_INTERVAL = 1.second
   CHECK_TIMEOUT = 4.days
 
+  STATUSES = Store::ConversionTask::STATUSES
+
   def perform(conversion_task_id)
     @task = Store::ConversionTask.find(conversion_task_id)
 
@@ -19,15 +21,11 @@ class Store::ConversionJob
   private
 
   def check_status
-    puts '-- @task -- '
     status, progress = Conversion::Client
                          .check_status(@task.conversion_job_id)
                          .values_at(:status, :progress)
 
-    puts '--- progress ---'
-    puts progress, status
     track_progress(progress)
-    puts '--- progress ---'
 
     case status
     when 'finished', 'warnings'
@@ -46,20 +44,20 @@ class Store::ConversionJob
   end
 
   def finished
-    track_task_end
+    track_task_end(STATUSES[:finished])
 
     @task.on_success.context.conversion_job_id = @task.conversion_job_id
     @task.on_success.call()
   end
 
   def canceled
-    track_task_end
+    track_task_end(STATUSES[:canceled])
     # TODO do cancel
     raise NoMethodError
   end
 
   def failed
-    track_task_end
+    track_task_end(STATUSES[:failed])
     # TODO do fail
     raise NoMethodError
   end
@@ -71,12 +69,14 @@ class Store::ConversionJob
   def track_progress(progress)
     return if progress.nil?
     return if @task.progress == progress
-
     @task.update!({progress: progress})
   end
 
-  def track_task_end
-    @task.update!({end_time: Time.now})
+  def track_task_end(status)
+    @task.update!({
+                    status: status,
+                    end_time: Time.now
+                  })
   end
 
 end
