@@ -40,7 +40,11 @@ class Conversion::ConvertAnonymOp
   def schedule_task
     @conversion_task.on_success = Store::SuccessVersionConvertOrg.new(
       version_id: @version.id)
+
+    @conversion_task.meta[:dest_resource_id] = @resource.id
+    @conversion_task.meta[:dest_version_id] = @version.id
     @conversion_task.save!
+
     Store::ConversionJob.perform_async(@conversion_task.id)
   end
 

@@ -1,7 +1,6 @@
 class Store::ConversionTask < ApplicationRecord
-  serialize :on_success, ServiceObjectSerializer
-
   # TODO add validation on status
+  # TODO Move out here, think about it
   STATUSES = {
     finished: 'finished',
     in_progress: 'inProgress',
@@ -9,4 +8,9 @@ class Store::ConversionTask < ApplicationRecord
     canceled: 'canceled',
     canceling: 'canceling'
   }
+
+  attribute :status, default: STATUSES[:in_progress]
+  attribute :meta, default: {}
+
+  serialize :on_success, ServiceObjectSerializer
 end

@@ -5,6 +5,21 @@ class PagesController < ApplicationController
     }
   end
 
+  def conversion
+    conversion_task = Store::ConversionTask.find(params[:id])
+    if (conversion_task.status == Store::ConversionTask::STATUSES[:finished])
+      resource_id = conversion_task.meta.with_indifferent_access[:dest_resource_id]
+      redirect_to action: "resource", id: resource_id
+    else
+      render inertia: 'Conversion', props: {
+        # TODO use serializer or a kind of instead of as_json
+        conversionTask: conversion_task.as_json(
+          except: [:on_success, :on_failure]
+        )
+      }
+    end
+  end
+
   def resource
     resource = Store::Resource.find(params[:id])
     # TODO  Should be current, not first

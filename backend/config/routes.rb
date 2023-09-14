@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
 
   get '/resources/:id', to: 'pages#resource'
+  get '/conversions/:id', to: 'pages#conversion'
 
   namespace :api do
     scope :v1 do
