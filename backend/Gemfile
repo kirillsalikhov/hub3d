@@ -13,6 +13,7 @@ gem 'inertia_rails'
 gem "interactor-rails", "~> 2.0"
 
 gem "pg", "~> 1.1"
+gem "redis", "~> 5.0"
 gem "aws-sdk-s3", require: false
 
 gem 'rest-client'

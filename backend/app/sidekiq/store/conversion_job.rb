@@ -1,6 +1,8 @@
 class Store::ConversionJob
   include Sidekiq::Job
 
+  sidekiq_options retry: false
+
   CHECK_INTERVAL = 1.second
   CHECK_TIMEOUT = 4.days
 
@@ -15,6 +17,17 @@ class Store::ConversionJob
       # TODO use logger
       print "Conversion Error: #{e.message}\n\tat #{e.backtrace.join("\n\tat ")}"
       failed
+    ensure
+      if @task.changed?
+        @task.save!
+        # TODO use serializer!
+        ActionCable.server.broadcast(
+          'tasks',
+          {
+            operation: :update,
+            record: @task.as_json( except: [:on_success, :on_failure])
+          })
+      end
     end
   end
 
@@ -25,7 +38,7 @@ class Store::ConversionJob
                          .check_status(@task.conversion_job_id)
                          .values_at(:status, :progress)
 
-    track_progress(progress)
+    @task.progress = progress
 
     case status
     when 'finished', 'warnings'
@@ -66,17 +79,8 @@ class Store::ConversionJob
     Time.now - @task.start_time > CHECK_TIMEOUT
   end
 
-  def track_progress(progress)
-    return if progress.nil?
-    return if @task.progress == progress
-    @task.update!({progress: progress})
-  end
-
   def track_task_end(status)
-    @task.update!({
-                    status: status,
-                    end_time: Time.now
-                  })
+    @task.status = status
+    @task.end_time = Time.now
   end
-
 end

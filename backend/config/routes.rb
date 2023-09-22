@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   namespace :api do
     scope :v1 do
       post 'op/convert-anonym', to: 'op#convert_anonym'
+
+      resources :conversions, only: [:show]
     end
   end
 
@@ -21,5 +23,6 @@ Rails.application.routes.draw do
       get 'testjob', on: :collection
     end
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  mount ActionCable.server => '/cable'
 end

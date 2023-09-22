@@ -3,6 +3,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@inertiajs/react": "^1.0.9",
+    "@rails/actioncable": "^7.0.8",
     "@rails/activestorage": "^7.0.4-3",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
