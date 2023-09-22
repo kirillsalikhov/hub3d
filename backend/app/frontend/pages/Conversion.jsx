@@ -1,26 +1,52 @@
-import { createConsumer } from "@rails/actioncable"
+import React, { useEffect, useState } from 'react';
+import { Header } from '../components/Header';
+import { Progress } from '../components/Progress';
+import { ConversionLogs } from '../components/ConversionLogs';
+import { useWebsocket } from '../util/useWebsocket';
 
-// TODO make smth more robust
-const cableEndpoint = () => {
-    // TODO That's definetly not good, may be this path should be send from backend
-    const actionCableUrl = `ws://${window.location.host}/cable`;
-    console.log(actionCableUrl, 'actionCableUrl');
-    // should be called once for tab
-    return createConsumer(actionCableUrl);
+const STATUSES = {
+    finished: 'finished',
+    inProgress: 'inProgress',
+    failed: 'failed',
+    canceled: 'canceled',
+    canceling: 'canceling'
 }
+const resourceUrl = (resourceId) => `/resources/${resourceId}`;
+export default function Resource({ conversionTask, resource }) {
+    const [ progress, setProgress ] = useState( Math.max(conversionTask.progress, .01) );
+    const [ status, setStatus ] = useState(STATUSES.inProgress);
+    const { operation, record } = useWebsocket('TaskChannel');
 
-cableEndpoint().subscriptions.create(
-    'TaskChannel',
-    {
-            received: (data) => { console.log(data); }
-    }
-);
+    useEffect(() => {
+        if (record?.progress) {
+            setProgress(record?.progress);
+        }
+        if (record?.status) {
+            setStatus(record?.status);
+        }
+    }, [ record?.progress, record?.status ]);
 
-export default function Resource({ conversionTask }) {
-    console.log(conversionTask);
+    useEffect(() => {
+        if (status === STATUSES.finished) {
+            setTimeout(() => {
+                window.location.href = resourceUrl(conversionTask.meta.dest_resource_id)
+            }, 1000);
+        }
+    }, [status]);
+
     return (
-        <>
-            <div>Conversion page</div>
-        </>
+        <div className='min-h-full'>
+            <Header/>
+            <main>
+                <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+                    <div className='py-1 flex justify-between'>
+                        <span>{ resource.name }</span>
+                        <span>{ status }</span>
+                    </div>
+                    <Progress progress={ progress }/>
+                </div>
+                { status === STATUSES.failed && <ConversionLogs logs={conversionTask.logs}/>}
+            </main>
+        </div>
     )
 }

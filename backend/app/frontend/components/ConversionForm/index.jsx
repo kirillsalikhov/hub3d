@@ -1,5 +1,6 @@
 import { Dropzone } from '../Dropzone';
 
+const conversionUrl = (conversionId) => `/conversions/${conversionId}`;
 export const ConversionForm = ({ uploadsPath }) => {
     const submitForm = (signedId) => {
         const formData = new FormData();
@@ -8,24 +9,29 @@ export const ConversionForm = ({ uploadsPath }) => {
             method: 'POST',
             body: formData
         }).then((response) => {
-            console.log(response);
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                console.log(response);
+                throw new Error(`${response.status}`);
+            }
+        }).then((conversion) => {
+            setTimeout(() => {
+                window.location.href = conversionUrl(conversion.id);
+            }, 1000)
         }).catch(error => {
             console.error(error);
         });
     }
 
     return (
-        <main>
-            <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                <div className="col-span-full">
-                    <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                        Your model
-                    </label>
-                    <form className='relative'>
-                        <Dropzone uploadsPath={ uploadsPath } filesUploaded={ submitForm }/>
-                    </form>
-                </div>
-            </div>
-        </main>
+        <div className="col-span-full">
+            <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
+                Your model
+            </label>
+            <form className='relative'>
+                <Dropzone uploadsPath={ uploadsPath } filesUploaded={ submitForm }/>
+            </form>
+        </div>
     )
 }

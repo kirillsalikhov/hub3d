@@ -1,11 +1,12 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone';
 import { Uploader } from './Uploader';
+import { UploadProgress } from './UploadProgress';
 
 export const Dropzone = ({uploadsPath, filesUploaded}) => {
 
     const [file, setFile] = useState(null);
-    const uploadRef = useRef(null);
+    const [progress, setProgress] = useState(0);
 
     const onDrop = useCallback(acceptedFiles => {
         if (acceptedFiles.length === 0) {
@@ -24,23 +25,12 @@ export const Dropzone = ({uploadsPath, filesUploaded}) => {
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
-    const UploadNode = ({ uploadId, filename }) => {
-        return <div id={`upload-${uploadId}`} className='py-3 border-b' ref={uploadRef}>
-            <div className='py-1'>
-                { filename }
-            </div>
-            <div className='relative h-4 overflow-hidden rounded-full bg-secondary w-full'>
-                <div className='progress h-full w-full flex-1 bg-indigo-500 py-2 transition-transform' style={{transform: 'translateX(-100%)'}} />
-            </div>
-        </div>
-    }
-
     const uploadFile = (file) => {
         const uploader = new Uploader(file, uploadsPath)
         setFile(uploader)
 
         uploader.onProgress = ({loaded, total}) => {
-            uploadRef.current.querySelector('.progress').style.transform = `translateX(-${100 - 100 * loaded/total}%)`;
+            setProgress(loaded/total);
         }
 
         uploader.create((error, blob) => {
@@ -54,7 +44,7 @@ export const Dropzone = ({uploadsPath, filesUploaded}) => {
     }
 
     if (file) {
-        return <UploadNode key={file.upload.id} uploadId={file.upload.id} filename={file.file.name} />
+        return <UploadProgress file={file} progress={progress} />
     }
 
     return (

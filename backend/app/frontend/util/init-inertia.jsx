@@ -1,5 +1,6 @@
 import {createInertiaApp} from "@inertiajs/react";
 import {createRoot} from "react-dom/client";
+import ActionCable from './ActionCable';
 
 export async function initInertia() {
     return createInertiaApp({
@@ -10,6 +11,7 @@ export async function initInertia() {
         },
         setup({el, App, props}) {
             createRoot(el).render(<App {...props} />);
+            ActionCable.url = `ws://${window.location.host}/cable`;
         },
     });
 }
