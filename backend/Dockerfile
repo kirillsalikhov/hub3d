@@ -11,7 +11,9 @@ RUN mkdir -p /backend
 WORKDIR /backend
 
 COPY Gemfile* ./
-
 RUN bundle install --jobs 8 --retry 3
+
+COPY package.json package-lock.json .npmrc ./
+RUN npm ci
 
 COPY . .
