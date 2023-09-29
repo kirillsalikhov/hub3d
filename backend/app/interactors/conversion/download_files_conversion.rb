@@ -5,10 +5,10 @@ class Conversion::DownloadFilesConversion
     context.files = get_files_list.map do |cs_file|
       # TODO check that originFilePath works
       ActiveStorage::Blob.create_and_upload!(
-        io: download_tmp_file(cs_file['url']),
-        filename: cs_file['name'],
+        io: download_tmp_file(cs_file["url"]),
+        filename: cs_file["name"],
         metadata: {
-          origin_file_path: cs_file['name']
+          origin_file_path: cs_file["name"]
         }
       )
     end

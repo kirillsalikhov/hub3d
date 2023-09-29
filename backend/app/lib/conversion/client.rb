@@ -1,14 +1,13 @@
-require 'rest_client'
+require "rest_client"
 
 module Conversion
-
-  CONVERSION_HOST = 'http://manager:3000'
+  CONVERSION_HOST = "http://manager:3000"
   JOB_CREATE_URL = "#{CONVERSION_HOST}/jobs"
-  JOB_STATUS_URL = -> (job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/status" }
-  JOB_FILES_URL = -> (job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/files" }
-  JOB_LOGS_URL = -> (job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/logs" }
-  JOB_CANCEL_URL = -> (job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/cancel" }
-  JOB_FILE_DOWNLOAD_URL = -> (path) {"#{CONVERSION_HOST}/#{path}" }
+  JOB_STATUS_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/status" }
+  JOB_FILES_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/files" }
+  JOB_LOGS_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/logs" }
+  JOB_CANCEL_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/cancel" }
+  JOB_FILE_DOWNLOAD_URL = ->(path) { "#{CONVERSION_HOST}/#{path}" }
 
   SYNC_CHECK_INTERVAL = 1
 
@@ -19,25 +18,25 @@ module Conversion
 
     def create_job(conversion_params)
       res = RestClient.post(JOB_CREATE_URL, conversion_params)
-      JSON.parse(res)['id']
+      JSON.parse(res)["id"]
     rescue RestClient::NotFound => e
       # RestClient on this url returns 404 when recipe doesn't exist
       # TODO ask change in CS for providing err, and status 422
-      raise ConversionError.new('Wrong conversion params')
+      raise ConversionError.new("Wrong conversion params")
     end
 
     def cancel_job(job_id)
-      res = RestClient.get( JOB_CANCEL_URL.call(job_id) )
+      res = RestClient.get(JOB_CANCEL_URL.call(job_id))
       JSON.parse(res)
     end
 
     def check_status(job_id)
-      res = RestClient.get( JOB_STATUS_URL.call(job_id))
+      res = RestClient.get(JOB_STATUS_URL.call(job_id))
       JSON.parse(res).with_indifferent_access
     end
 
     def wait_for_ready_sync(job_ids, timeout)
-      jobs = job_ids.map{ |id|
+      jobs = job_ids.map { |id|
         {
           id: id,
           done: false,
@@ -45,18 +44,18 @@ module Conversion
         }
       }
       start = Time.now
-      while (jobs.any?{|j| !j[:done]}) &&
-        (Time.now - start < timeout)
+      while (jobs.any? { |j| !j[:done] }) &&
+          (Time.now - start < timeout)
 
         sleep SYNC_CHECK_INTERVAL
 
         jobs
-          .select{|j| !j[:done]}
+          .select { |j| !j[:done] }
           .each { |j|
           status = check_status(j[:id])
-          conversion_status = status['status']
+          conversion_status = status["status"]
 
-          if ['finished', 'warnings', 'error'].include?(conversion_status)
+          if %w[finished warnings error].include?(conversion_status)
             j[:done] = true
             j[:status] = conversion_status
           end
@@ -66,24 +65,23 @@ module Conversion
     end
 
     def get_files(job_id)
-      res = RestClient.get( JOB_FILES_URL.call(job_id), {params: {use_external_host: false}})
+      res = RestClient.get(JOB_FILES_URL.call(job_id), {params: {use_external_host: false}})
       JSON.parse(res)
     end
 
     def get_logs(job_id)
-      res = RestClient.get( JOB_LOGS_URL.call(job_id))
-      JSON.parse(res)['logs']
+      res = RestClient.get(JOB_LOGS_URL.call(job_id))
+      JSON.parse(res)["logs"]
     end
 
     def download_file(src)
-      tempfile = Tempfile.new('change_for_debugging')
+      tempfile = Tempfile.new("change_for_debugging")
       # TODO Likely RestClient loads file to memory
-      File.open(tempfile, 'wb' ) do |output|
+      File.open(tempfile, "wb") do |output|
         output.write RestClient.get(src)
       end
 
       tempfile
     end
-
   end
 end

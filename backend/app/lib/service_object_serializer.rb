@@ -1,5 +1,4 @@
 class ServiceObjectSerializer
-
   def self.dump(value)
     ActiveSupport::JSON.encode({
       class_name: value.class.name,
@@ -14,5 +13,4 @@ class ServiceObjectSerializer
 
     data[:class_name].constantize.new(data[:context])
   end
-
 end

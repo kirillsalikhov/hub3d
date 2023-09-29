@@ -17,7 +17,7 @@ class Conversion::ConvertAnonymOp
     result = Conversion::CreateConversion.call(
       input: context.input,
       # TODO detect recepie from file extension
-      recipe: 'cad2wmd',
+      recipe: "cad2wmd",
       on_success: nil # !!! TODO think about, because ConversionTask is saved
     )
     if result.success?
@@ -25,7 +25,7 @@ class Conversion::ConvertAnonymOp
       context.conversion_task = @conversion_task
     else
       # TODO fail context => return cs error
-      put '!!! ERROR See TODO !!!'
+      put "!!! ERROR See TODO !!!"
     end
   end
 
@@ -39,7 +39,8 @@ class Conversion::ConvertAnonymOp
 
   def schedule_task
     @conversion_task.on_success = Store::SuccessVersionConvertOrg.new(
-      version_id: @version.id)
+      version_id: @version.id
+    )
 
     @conversion_task.meta[:dest_resource_id] = @resource.id
     @conversion_task.meta[:dest_version_id] = @version.id
@@ -51,5 +52,4 @@ class Conversion::ConvertAnonymOp
   def resource_name
     context.input.filename
   end
-
 end

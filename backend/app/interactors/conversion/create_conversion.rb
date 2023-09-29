@@ -14,7 +14,6 @@ class Conversion::CreateConversion
   private
 
   def create_conversion_job
-
     @conversion_job_id = Conversion::Client.create_job(
       input: context.input.url(expires_in: 1.week),
       recipe: context.recipe

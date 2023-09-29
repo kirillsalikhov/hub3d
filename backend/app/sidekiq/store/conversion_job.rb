@@ -22,11 +22,12 @@ class Store::ConversionJob
         @task.save!
         # TODO use serializer!
         ActionCable.server.broadcast(
-          'tasks',
+          "tasks",
           {
             operation: :update,
-            record: @task.as_json( except: [:on_success, :on_failure])
-          })
+            record: @task.as_json(except: [:on_success, :on_failure])
+          }
+        )
       end
     end
   end
@@ -35,17 +36,17 @@ class Store::ConversionJob
 
   def check_status
     status, progress = Conversion::Client
-                         .check_status(@task.conversion_job_id)
-                         .values_at(:status, :progress)
+      .check_status(@task.conversion_job_id)
+      .values_at(:status, :progress)
 
     @task.progress = progress
 
     case status
-    when 'finished', 'warnings'
+    when "finished", "warnings"
       finished
-    when 'error'
+    when "error"
       failed
-    when 'canceled'
+    when "canceled"
       canceled
     else
       if is_timeout?
@@ -60,7 +61,7 @@ class Store::ConversionJob
     track_task_end(STATUSES[:finished])
 
     @task.on_success.context.conversion_job_id = @task.conversion_job_id
-    @task.on_success.call()
+    @task.on_success.call
   end
 
   def canceled

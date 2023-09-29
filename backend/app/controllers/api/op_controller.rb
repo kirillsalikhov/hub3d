@@ -1,5 +1,4 @@
 class Api::OpController < Api::ApplicationController
-
   def convert_anonym
     # TODO remove when not needed (input_signed_url exist only on kirill pc anyway)
     # input_signed_url = 'eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaWsxT0RNME1XTmxNUzFqT1RNNExUUTVOVEF0T0dKbU1TMHdaV0kyWWpNNVptTXhNbUVHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--3afe1c08b50091a022ca1e80c3779fa25150243c'
@@ -19,5 +18,4 @@ class Api::OpController < Api::ApplicationController
   def convert_params
     params.require(:input_file)
   end
-
 end

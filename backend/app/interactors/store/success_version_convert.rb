@@ -2,8 +2,8 @@ class Store::SuccessVersionConvert
   include Interactor
 
   def call
-    puts '---'
-    puts 'SuccessVersionConvert !!! call'
+    puts "---"
+    puts "SuccessVersionConvert !!! call"
     version = load_version
 
     # TODO add status
@@ -13,7 +13,7 @@ class Store::SuccessVersionConvert
     version.files.attach(context.files)
 
     version.save!
-    puts 'SuccessVersionConvert !!! end'
+    puts "SuccessVersionConvert !!! end"
   end
 
   private
@@ -22,5 +22,4 @@ class Store::SuccessVersionConvert
     # TODO check if not exist
     Store::Version.find(context.version_id)
   end
-
 end

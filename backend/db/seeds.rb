@@ -8,8 +8,8 @@
 
 def _resource_files(path)
   Dir.glob("#{path}/**/*")
-     .reject { |f| File.directory?(f) }
-     .each do |f|
+    .reject { |f| File.directory?(f) }
+    .each do |f|
     yield Pathname(f)
   end
 end
@@ -21,7 +21,7 @@ end
 # It's a stub function, and won't be needed for db:setup
 # so it'll be removed
 def create_resources
-  Rails.root.join('db', 'seed', 'resources').each_child do |path|
+  Rails.root.join("db", "seed", "resources").each_child do |path|
     name = path.basename.to_s
 
     if Store::Resource.find_by(name: name)
@@ -29,14 +29,14 @@ def create_resources
       next
     end
 
-    resource = Store::Resource.create(name: name, res_type: 'ivasset')
-    version = resource.versions.create(ver_type: 'ivasset')
+    resource = Store::Resource.create(name: name, res_type: "ivasset")
+    version = resource.versions.create(ver_type: "ivasset")
 
     _resource_files(path) do |f_path|
       version.files.attach(
         io: File.open(f_path),
         filename: f_path.basename,
-        metadata: { origin_file_path: f_path.relative_path_from(path) }
+        metadata: {origin_file_path: f_path.relative_path_from(path)}
       )
     end
 
@@ -44,7 +44,4 @@ def create_resources
   end
 end
 
-
-create_resources()
-
-
+create_resources
