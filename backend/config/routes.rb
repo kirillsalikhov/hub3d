@@ -8,7 +8,12 @@ Rails.application.routes.draw do
     scope :v1 do
       post "op/convert-anonym", to: "op#convert_anonym"
 
-      resources :conversions, only: [:show]
+      resources :conversions do
+        member do
+          get :show
+          get :logs
+        end
+      end
     end
   end
 

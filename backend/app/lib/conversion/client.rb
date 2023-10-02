@@ -70,6 +70,8 @@ module Conversion
     end
 
     def get_logs(job_id)
+      # TODO this method is used to store to active store
+      # better have to have to load to temfile
       res = RestClient.get(JOB_LOGS_URL.call(job_id))
       JSON.parse(res)["logs"]
     end

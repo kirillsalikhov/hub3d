@@ -62,18 +62,17 @@ class Store::ConversionJob
 
     @task.on_success.context.conversion_job_id = @task.conversion_job_id
     @task.on_success.call
+
+    save_logs
   end
 
   def canceled
     track_task_end(STATUSES[:canceled])
-    # TODO do cancel
-    raise NoMethodError
   end
 
   def failed
     track_task_end(STATUSES[:failed])
-    # TODO do fail
-    raise NoMethodError
+    save_logs
   end
 
   def is_timeout?
@@ -83,5 +82,9 @@ class Store::ConversionJob
   def track_task_end(status)
     @task.status = status
     @task.end_time = Time.now
+  end
+
+  def save_logs
+    Conversion::SaveLogs.call(task: @task)
   end
 end

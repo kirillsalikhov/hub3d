@@ -14,7 +14,9 @@ const STATUSES = {
 const resourceUrl = (resourceId) => `/resources/${resourceId}`;
 export default function Resource({ conversionTask, resource }) {
     const [ progress, setProgress ] = useState( Math.max(conversionTask.progress, .01) );
+    // TODO Kirill: Probably here should be conversionTask.status as default state
     const [ status, setStatus ] = useState(STATUSES.inProgress);
+    const [ logs, setLogs ] = useState(null);
     const { operation, record } = useWebsocket('TaskChannel');
 
     useEffect(() => {
@@ -34,6 +36,37 @@ export default function Resource({ conversionTask, resource }) {
         }
     }, [status]);
 
+    //  TODO fix me, Kirill doesn't know how to hook
+    // --- trash start ---
+    useEffect(() => {
+        if (status !== STATUSES.failed) {
+            return;
+        }
+
+        const logsUrl = `/api/v1/conversions/${conversionTask.id}/logs`;
+
+        const fetchLogs = async () => {
+            const fetchData = await fetch(logsUrl)
+                .then((response) => {
+                    if (response.status === 200) {
+                        return response.json();
+                    } else {
+                        // I return 404 status when there is conversionTask but no logs
+                        // It could be so for some reason
+                        // TODO 1. there is still error in console, I don't know why(
+                        // TODO 2. We should use something indication that logs are loaded
+                        //  but there is no logs
+                        return false;
+                    }
+                });
+
+            setLogs(fetchData);
+        }
+
+        fetchLogs();
+    }, [status])
+    // --- trash end ---
+
     return (
         <div className='min-h-full'>
             <Header/>
@@ -45,7 +78,7 @@ export default function Resource({ conversionTask, resource }) {
                     </div>
                     <Progress progress={ progress }/>
                 </div>
-                { status === STATUSES.failed && <ConversionLogs logs={conversionTask.logs}/>}
+                { status === STATUSES.failed && <ConversionLogs logs={logs}/>}
             </main>
         </div>
     )

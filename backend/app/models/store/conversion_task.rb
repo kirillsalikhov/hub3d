@@ -1,4 +1,6 @@
 class Store::ConversionTask < ApplicationRecord
+  has_one_attached :logs
+
   # TODO add validation on status
   # TODO Move out here, think about it
   STATUSES = {
