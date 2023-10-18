@@ -14,5 +14,8 @@
     "tailwindcss": "^3.3.3",
     "vite": "^4.1.4",
     "vite-plugin-ruby": "^3.1.3"
+  },
+  "dependencies": {
+    "@wg/industrial-app": "^7.0.3"
   }
 }
