@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users
+  devise_scope :user do
+    # TODO delete when not needed
+    # Just helper method
+    get "logout" => "devise/sessions#destroy"
+  end
+
   root "pages#root"
 
   get "/resources/:id", to: "pages#resource"

@@ -18,6 +18,8 @@ gem "aws-sdk-s3", require: false
 
 gem "rest-client"
 
+gem "devise", "~> 4.9"
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -39,3 +41,4 @@ group :development do
   gem "standard", "~> 1.28", require: false
   gem "standard-rails", require: false
 end
+
