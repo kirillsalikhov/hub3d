@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # TODO may be make it in development only now
+  # Also try to move down
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
+
   root "pages#root"
 
   get "/resources/:id", to: "pages#resource"
@@ -8,9 +13,8 @@ Rails.application.routes.draw do
     scope :v1 do
       post "op/convert-anonym", to: "op#convert_anonym"
 
-      resources :conversions do
+      resources :conversions, only: [:index, :show] do
         member do
-          get :show
           get :logs
         end
       end

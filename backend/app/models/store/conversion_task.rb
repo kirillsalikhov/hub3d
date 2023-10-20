@@ -12,6 +12,7 @@ class Store::ConversionTask < ApplicationRecord
   }
 
   attribute :status, default: STATUSES[:in_progress]
+  attribute :progress, default: 0
   attribute :meta, default: {}
 
   serialize :on_success, ServiceObjectSerializer

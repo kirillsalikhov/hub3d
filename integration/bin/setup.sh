@@ -10,6 +10,7 @@ function minio_setup() {
   docker run --net=host --entrypoint sh minio/mc -c "
     mc config host add minio http://127.0.0.1:10000 $HUB__MINIO_ROOT_USER $HUB__MINIO_ROOT_PASSWORD
     mc mb minio/default-bucket
+    mc mb minio/test-bucket
     "
 }
 cd "$(dirname "$0")"

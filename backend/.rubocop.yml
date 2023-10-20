@@ -6,12 +6,14 @@ require:
   - standard-performance
   - rubocop-performance
   - rubocop-rails
+  - rubocop-rspec
 
 inherit_gem:
   standard: config/base.yml
   standard-performance: config/base.yml
   standard-custom: config/base.yml
   standard-rails: config/base.yml
+  rswag-specs: .rubocop_rspec_alias_config.yml
 
 AllCops:
   NewCops: enable
@@ -20,3 +22,6 @@ AllCops:
     - bin/**/*
     - public/**/*
     - vendor/**/*
+
+RSpec/NestedGroups:
+  Max: 4

@@ -8,6 +8,7 @@ class Conversion::ConvertAnonymOp
     # create user
     # create space
     create_resource
+    prepare_task
     schedule_task
   end
 
@@ -37,7 +38,7 @@ class Conversion::ConvertAnonymOp
     @resource.save
   end
 
-  def schedule_task
+  def prepare_task
     @conversion_task.on_success = Store::SuccessVersionConvertOrg.new(
       version_id: @version.id
     )
@@ -45,7 +46,9 @@ class Conversion::ConvertAnonymOp
     @conversion_task.meta[:dest_resource_id] = @resource.id
     @conversion_task.meta[:dest_version_id] = @version.id
     @conversion_task.save!
+  end
 
+  def schedule_task
     Store::ConversionJob.perform_async(@conversion_task.id)
   end
 

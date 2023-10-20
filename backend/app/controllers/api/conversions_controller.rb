@@ -1,4 +1,10 @@
 class Api::ConversionsController < Api::ApplicationController
+  def index
+    # TODO get tasks only visible to user
+    tasks = Store::ConversionTask.all
+    render json: tasks, except: [:on_success, :on_failure]
+  end
+
   def show
     task = Store::ConversionTask.find(params[:id])
     render json: task, except: [:on_success, :on_failure]

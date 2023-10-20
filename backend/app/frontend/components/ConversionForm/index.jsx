@@ -1,27 +1,13 @@
 import { Dropzone } from '../Dropzone';
+import Client from '../../util/Client';
 
 const conversionUrl = (conversionId) => `/conversions/${conversionId}`;
 export const ConversionForm = ({ uploadsPath }) => {
-    const submitForm = (signedId) => {
-        const formData = new FormData();
-        formData.set('input_file', signedId);
-        fetch('/api/v1/op/convert-anonym', {
-            method: 'POST',
-            body: formData
-        }).then((response) => {
-            if (response.status === 200) {
-                return response.json()
-            } else {
-                console.log(response);
-                throw new Error(`${response.status}`);
-            }
-        }).then((conversion) => {
-            setTimeout(() => {
-                window.location.href = conversionUrl(conversion.id);
-            }, 1000)
-        }).catch(error => {
-            console.error(error);
-        });
+    const submitForm = async (signedId) => {
+        const { data: conversion } = await Client.convertAnonym({ 'input_file': signedId })
+        setTimeout(() => {
+            window.location.href = conversionUrl(conversion.id);
+        }, 1000);
     }
 
     return (

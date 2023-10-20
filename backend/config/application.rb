@@ -35,6 +35,6 @@ module Backend
     config.generators.system_tests = nil
 
     # To allow access from inner docker network
-    config.hosts << "backend"
+    config.hosts += %w[backend localhost]
   end
 end

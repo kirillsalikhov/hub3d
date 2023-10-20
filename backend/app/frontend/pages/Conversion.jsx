@@ -3,6 +3,7 @@ import { Header } from '../components/Header';
 import { Progress } from '../components/Progress';
 import { ConversionLogs } from '../components/ConversionLogs';
 import { useWebsocket } from '../util/useWebsocket';
+import Client from '../util/Client';
 
 const STATUSES = {
     finished: 'finished',
@@ -14,8 +15,7 @@ const STATUSES = {
 const resourceUrl = (resourceId) => `/resources/${resourceId}`;
 export default function Resource({ conversionTask, resource }) {
     const [ progress, setProgress ] = useState( Math.max(conversionTask.progress, .01) );
-    // TODO Kirill: Probably here should be conversionTask.status as default state
-    const [ status, setStatus ] = useState(STATUSES.inProgress);
+    const [ status, setStatus ] = useState(conversionTask.status);
     const [ logs, setLogs ] = useState(null);
     const { operation, record } = useWebsocket('TaskChannel');
 
@@ -34,38 +34,16 @@ export default function Resource({ conversionTask, resource }) {
                 window.location.href = resourceUrl(conversionTask.meta.dest_resource_id)
             }, 1000);
         }
-    }, [status]);
-
-    //  TODO fix me, Kirill doesn't know how to hook
-    // --- trash start ---
-    useEffect(() => {
-        if (status !== STATUSES.failed) {
-            return;
-        }
-
-        const logsUrl = `/api/v1/conversions/${conversionTask.id}/logs`;
-
-        const fetchLogs = async () => {
-            const fetchData = await fetch(logsUrl)
-                .then((response) => {
-                    if (response.status === 200) {
-                        return response.json();
-                    } else {
-                        // I return 404 status when there is conversionTask but no logs
-                        // It could be so for some reason
-                        // TODO 1. there is still error in console, I don't know why(
-                        // TODO 2. We should use something indication that logs are loaded
-                        //  but there is no logs
+        if (status === STATUSES.failed) {
+            Client.getConversionLogs(conversionTask.id)
+                .then(({ data: logs }) => setLogs(logs))
+                .catch(({ status }) => {
+                    if (status === 404) {
                         return false;
                     }
                 });
-
-            setLogs(fetchData);
         }
-
-        fetchLogs();
-    }, [status])
-    // --- trash end ---
+    }, [status]);
 
     return (
         <div className='min-h-full'>
