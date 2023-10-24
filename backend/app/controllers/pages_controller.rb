@@ -5,6 +5,38 @@ class PagesController < ApplicationController
     }
   end
 
+  # TODO delete test method
+  def foo
+    puts '---'
+    puts 'CURRENT USER :'
+    # pp current_user
+    # puts '***'
+    # puts 'GUEST USER :'
+    # pp guest_user
+    # puts '***'
+    puts 'CURRENT_OR_GUEST_USER'
+    u = current_or_guest_user
+    pp u
+    pp u.guest?
+    puts '!!!'
+    puts "User signed_in #{user_signed_in?}"
+    pp user_session
+    puts "session[:guest_user_id] #{session[:guest_user_id]}"
+    puts '---'
+
+    render html: "Foo page"
+  end
+
+  # TODO delete test method
+  def bar
+    puts '---'
+    puts "User signed_in #{user_signed_in?}"
+    puts "session[:guest_user_id] #{session[:guest_user_id]}"
+    #pp is_guest?
+    puts '---'
+    render html: "Bar page"
+  end
+
   def conversion
     conversion_task = Store::ConversionTask.find(params[:id])
     # TODO maybe move helper method on ConversionTask ?

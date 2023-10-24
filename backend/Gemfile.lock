@@ -99,6 +99,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-guests (0.8.1)
+      devise
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dry-cli (1.0.0)
@@ -295,6 +297,7 @@ DEPENDENCIES
   aws-sdk-s3
   debug
   devise (~> 4.9)
+  devise-guests (~> 0.8.1)
   inertia_rails
   interactor-rails (~> 2.0)
   pg (~> 1.1)

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,
+    controllers: {
+      sessions: "users/sessions",
+      registrations: "users/registrations"
+    }
   devise_scope :user do
     # TODO delete when not needed
     # Just helper method
@@ -7,6 +11,10 @@ Rails.application.routes.draw do
   end
 
   root "pages#root"
+
+  # TODO remove before commiting
+  get "foo", to: "pages#foo"
+  get "bar", to: "pages#bar"
 
   get "/resources/:id", to: "pages#resource"
   get "/conversions/:id", to: "pages#conversion"
