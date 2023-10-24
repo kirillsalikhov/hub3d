@@ -11,13 +11,10 @@ export const ConversionForm = ({ uploadsPath }) => {
     }
 
     return (
-        <div className="col-span-full">
-            <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                Your model
-            </label>
-            <form className='relative'>
+        <form>
+            <div className="col-span-full">
                 <Dropzone uploadsPath={ uploadsPath } filesUploaded={ submitForm }/>
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
