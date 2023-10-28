@@ -5,7 +5,7 @@ version: "3.7"
 services:
   frontend:
     # Yes, it should be same image as backend__dev
-    image: docker.webgears3d.com/hub/backend__dev
+    image: docker.webgears3d.com/hub3d/backend__dev
     command: ./bin/vite dev
     ports:
       - "3036:3036"
