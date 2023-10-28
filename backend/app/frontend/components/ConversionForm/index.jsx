@@ -1,5 +1,6 @@
 import { Dropzone } from '../Dropzone';
 import Client from '../../util/Client';
+import { progressTransitionDuration } from '../Progress';
 
 const conversionUrl = (conversionId) => `/conversions/${conversionId}`;
 export const ConversionForm = ({ uploadsPath }) => {
@@ -7,7 +8,7 @@ export const ConversionForm = ({ uploadsPath }) => {
         const { data: conversion } = await Client.convertAnonym({ 'input_file': signedId })
         setTimeout(() => {
             window.location.href = conversionUrl(conversion.id);
-        }, 1000);
+        }, progressTransitionDuration);
     }
 
     return (

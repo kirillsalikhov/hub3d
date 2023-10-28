@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '../components/Header';
-import { Progress } from '../components/Progress';
+import { Progress, progressTransitionDuration } from '../components/Progress';
 import { ConversionLogs } from '../components/ConversionLogs';
 import { useWebsocket } from '../util/useWebsocket';
 import Client from '../util/Client';
+import Layout from '../components/Layout';
 
 const STATUSES = {
     finished: 'finished',
@@ -11,6 +12,14 @@ const STATUSES = {
     failed: 'failed',
     canceled: 'canceled',
     canceling: 'canceling'
+}
+
+const STATUSES_NAMES = {
+    finished: 'Finished',
+    inProgress: 'Converting',
+    failed: 'Failed',
+    canceled: 'Canceled',
+    canceling: 'Canceling'
 }
 const resourceUrl = (resourceId) => `/resources/${resourceId}`;
 export default function Resource({ conversionTask, resource }) {
@@ -32,7 +41,7 @@ export default function Resource({ conversionTask, resource }) {
         if (status === STATUSES.finished) {
             setTimeout(() => {
                 window.location.href = resourceUrl(conversionTask.meta.dest_resource_id)
-            }, 1000);
+            }, progressTransitionDuration);
         }
         if (status === STATUSES.failed) {
             Client.getConversionLogs(conversionTask.id)
@@ -46,18 +55,26 @@ export default function Resource({ conversionTask, resource }) {
     }, [status]);
 
     return (
-        <div className='min-h-full'>
-            <Header/>
-            <main>
-                <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                    <div className='py-1 flex justify-between'>
-                        <span>{ resource.name }</span>
-                        <span>{ status }</span>
+        <Layout>
+            <div className="mx-auto max-w-7xl px-6 ">
+                <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white/40 shadow-2xl shadow-indigo-500">
+                    <div className="px-6 py-5 sm:p-6">
+                        <div>
+                            <h4 className="sr-only">Status</h4>
+                            <p className="text-xl font-medium text-blue-950">Converting { resource.name }...</p>
+                            <div className="mt-6" aria-hidden="true">
+                                <Progress progress={ progress }/>
+                                <div className="mt-6 hidden grid-cols-4 text-sm font-medium text-gray-400 sm:grid">
+                                    <div className="text-blue-800">{ STATUSES_NAMES[status] } </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <Progress progress={ progress }/>
                 </div>
+            </div>
+            <div className="mt-12 sm:mt-16">
                 { status === STATUSES.failed && <ConversionLogs logs={logs}/>}
-            </main>
-        </div>
+            </div>
+        </Layout>
     )
 }
