@@ -2,8 +2,7 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useUploader } from '../Uploader/useUploader';
 
-export const useDropzoneUpload = ({uploadsPath, filesUploaded}) => {
-    const { uploadFile, file, progress } = useUploader({ uploadsPath, upload: filesUploaded })
+export const useDropzoneUpload = ({ uploadFile }) => {
 
     const onDrop = useCallback(acceptedFiles => {
         if (acceptedFiles.length === 0) {
@@ -25,8 +24,6 @@ export const useDropzoneUpload = ({uploadsPath, filesUploaded}) => {
     return {
         rootProps: getRootProps(),
         inputProps: getInputProps(),
-        isDragActive,
-        file,
-        progress
+        isDragActive
     }
 }
