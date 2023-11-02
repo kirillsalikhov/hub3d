@@ -1,6 +1,7 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
+import { Link } from '@inertiajs/react'
 
 const navigation = [
     { name: 'Demos', href: '#' },
@@ -14,30 +15,28 @@ export const Header = () => (
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
             <div className="flex flex-1 items-center">
                 <div className="flex w-full items-center justify-between md:w-auto">
-                    <a href="#">
+                    <Link to="/">
                         <span className="sr-only">Your Company</span>
                         <img
                             className="h-8 w-auto sm:h-10"
                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                             alt=""
                         />
-                    </a>
+                    </Link>
                     <div className="-mr-2 flex items-center md:hidden">
-                        <Popover.Button
-                            className=" relative inline-flex items-center justify-center rounded-full bg-blue-950 p-2 text-gray-200 hover:bg-blue-800 focus:outline-none ">
-                            <span className="absolute -inset-0.5"/>
+                        <Popover.Button className=" relative inline-flex p-2 text-blue-950 hover:bg-blue-800 focus:outline-none ">
+                            <span className="absolute -inset-0.5" />
                             <span className="sr-only">Open main menu</span>
-                            <Bars3Icon className="h-6 w-6" aria-hidden="true"/>
+                            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                         </Popover.Button>
                     </div>
                 </div>
                 <div className="hidden space-x-10 md:ml-10 md:flex">
-                    { navigation.map((item) => (
-                        <a key={ item.name } href={ item.href }
-                           className="font-medium text-blue-950 hover:text-blue-800">
-                            { item.name }
-                        </a>
-                    )) }
+                    {navigation.map((item) => (
+                        <Link key={item.name} to={item.href} className="font-medium text-blue-950 hover:text-blue-800">
+                            {item.name}
+                        </Link>
+                    ))}
                 </div>
             </div>
             <div className="hidden md:flex">
@@ -51,7 +50,7 @@ export const Header = () => (
         </nav>
 
         <Transition
-            as={ Fragment }
+            as={Fragment}
             enter="duration-150 ease-out"
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"
@@ -74,23 +73,23 @@ export const Header = () => (
                         </div>
                         <div className="-mr-2">
                             <Popover.Button className="relative inline-flex items-center justify-center rounded-full bg-white p-2 text-gray-400 hover:bg-gray-200/50
-                     focus:outline-none ">
-                                <span className="absolute -inset-0.5"/>
+           focus:outline-none ">
+                                <span className="absolute -inset-0.5" />
                                 <span className="sr-only">Close menu</span>
-                                <XMarkIcon className="h-6 w-6" aria-hidden="true"/>
+                                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                             </Popover.Button>
                         </div>
                     </div>
                     <div className="space-y-1 px-2 pb-3 pt-2">
-                        { navigation.map((item) => (
-                            <a
-                                key={ item.name }
-                                href={ item.href }
+                        {navigation.map((item) => (
+                            <Link
+                                key={item.name}
+                                to={item.href}
                                 className="block rounded-full px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                             >
-                                { item.name }
-                            </a>
-                        )) }
+                                {item.name}
+                            </Link>
+                        ))}
                     </div>
                     <a
                         href="#"

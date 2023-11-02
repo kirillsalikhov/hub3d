@@ -11,7 +11,7 @@ export const Progress = ({progress}) => {
     }, [ref.current, progress])
 
     return (
-        <div className="overflow-hidden rounded-full bg-white/40">
+        <div className="w-full overflow-hidden rounded-full">
             <div className={`h-4 rounded-full bg-blue-800 transition-transform duration-${progressTransitionDuration} ease-linear`} style={{transform: 'translateX(-100%)'}} ref={ref} />
         </div>
     )
