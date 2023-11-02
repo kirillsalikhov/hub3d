@@ -17,8 +17,7 @@ class Conversion::ConvertAnonymOp
   def create_conversion
     result = Conversion::CreateConversion.call(
       input: context.input,
-      # TODO detect recepie from file extension
-      recipe: "cad2wmd",
+      recipe: Conversion::Recipe.from_input(context.input.filename.to_s),
       on_success: nil # !!! TODO think about, because ConversionTask is saved
     )
     if result.success?

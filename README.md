@@ -58,7 +58,7 @@ RAILS_ENV=test rspec
 
 ## Open API
 
-## UI
+### UI
 http://localhost:3050/api-docs/
 
 login: developer
@@ -88,4 +88,14 @@ npm ci
 To generate/update api client
 ```
 npm run generate-client
+```
+
+## Deploy
+Optionally build and push new images
+```
+bin/main.sh build [backend|nginx] --push
+```
+Deploy
+```
+deploy/prod.sh
 ```

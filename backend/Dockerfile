@@ -17,3 +17,5 @@ COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 
 COPY . .
+
+RUN RAILS_ENV=production bundle exec rails assets:precompile

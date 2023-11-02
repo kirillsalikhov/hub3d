@@ -5,6 +5,7 @@ class Api::OpController < Api::ApplicationController
       result = Conversion::ConvertAnonymOp.call(input: blob)
       render json: result.conversion_task, except: [:on_success, :on_failure]
     # TODO make more centralized, or may be move them to Conversion::ConvertAnonymOp
+    # TODO this is works not only on ConversionError
     rescue Conversion::ConversionError => e
       render status: 422, json: {errors: e.message}
     end

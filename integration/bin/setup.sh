@@ -28,5 +28,6 @@ minio_setup
 
 
 docker compose ${compose_files} -p hub run -e RAILS_ENV=development backend rake db:setup
+docker compose ${compose_files} -p hub run -e RAILS_ENV=production backend rake db:setup
 
 docker compose ${compose_files} -p hub down
