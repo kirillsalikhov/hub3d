@@ -12,7 +12,7 @@ const navigation = [
 
 export const Header = () => (
     <Popover>
-        <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
+        <nav className="relative mx-auto flex max-w-7xl items-center justify-between p-6" aria-label="Global">
             <div className="flex flex-1 items-center">
                 <div className="flex w-full items-center justify-between md:w-auto">
                     <Link to="/">
@@ -24,7 +24,7 @@ export const Header = () => (
                         />
                     </Link>
                     <div className="-mr-2 flex items-center md:hidden">
-                        <Popover.Button className=" relative inline-flex p-2 text-blue-950 hover:bg-blue-800 focus:outline-none ">
+                        <Popover.Button className="relative inline-flex p-2 rounded-full text-blue-950 hover:bg-gray-100/10 focus:outline-none ">
                             <span className="absolute -inset-0.5" />
                             <span className="sr-only">Open main menu</span>
                             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -72,8 +72,7 @@ export const Header = () => (
                             />
                         </div>
                         <div className="-mr-2">
-                            <Popover.Button className="relative inline-flex items-center justify-center rounded-full bg-white p-2 text-gray-400 hover:bg-gray-200/50
-           focus:outline-none ">
+                            <Popover.Button className="relative inline-flex items-center justify-center rounded-full text-gray-400 hover:text-gray-500 bg-white p-2 hover:bg-gray-100 focus:outline-none ">
                                 <span className="absolute -inset-0.5" />
                                 <span className="sr-only">Close menu</span>
                                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
