@@ -5,3 +5,11 @@
 html, body, #app {
     @apply h-full;
 }
+
+#app {
+    font-size: 16px;
+}
+
+#viewer {
+    font-size: 14px;
+}
