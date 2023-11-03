@@ -4,11 +4,10 @@ import { ConversionForm } from '../components/ConversionForm';
 const MainText = () => (
     <div>
         <h1 className="text-4xl font-black tracking-normal text-blue-950 sm:text-5xl md:text-6xl ">
-            SHARE IFC FILES IN&nbsp;A&nbsp;HEARTBEAT
+            SHARE YOUR 3D&nbsp;MODEL IN&nbsp;A&nbsp;HEARTBEAT
         </h1>
         <p className="mt-3 text-base font-medium text-blue-950 sm:mt-8 sm:text-xl lg:text-lg xl:text-xl">
-            Online viewer lets you view and share CAD models with no licenses needed. Enjoy
-            freedom! No registration. Absolutely secure
+            Online viewer lets you view and easily share CAD models with your team. Fast & secure. No license or registration - just freedom!
         </p>
     </div>
 )
