@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  layout "resource", only: :resource
   def root
     render inertia: "Root", props: {
       uploadsPath: rails_direct_uploads_path
