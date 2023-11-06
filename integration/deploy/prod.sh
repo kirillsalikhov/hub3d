@@ -2,7 +2,8 @@
 cd "$(dirname "$0")"
 
 USER="deployer"
-HOST="31.172.83.73"
+#HOST="31.172.83.73"
+HOST="95.217.39.188"
 PROJECT="hub3d"
 REMOTE_PATH="/home/$USER/$PROJECT"
 
