@@ -14,7 +14,3 @@ html, body, #app {
 #viewer {
     font-size: 14px;
 }
-
-.bg-dropzone:hover {
-    background: linear-gradient(white, white) padding-box, linear-gradient(to top right, var(--tw-gradient-stops)) border-box;
-}
