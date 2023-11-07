@@ -1,13 +1,11 @@
 class PagesController < ApplicationController
   def root
-    @page_id = "root"
     render inertia: "Root", props: {
       uploadsPath: rails_direct_uploads_path
     }
   end
 
   def conversion
-    @page_id = "conversion"
     conversion_task = Store::ConversionTask.find(params[:id])
     # TODO maybe move helper method on ConversionTask ?
     # TODO maybe add title computed field on conversion task ?
@@ -30,7 +28,6 @@ class PagesController < ApplicationController
   end
 
   def resource
-    @page_id = "resource"
     resource = Store::Resource.find(params[:id])
     # TODO  Should be current, not first
     version = resource.versions.with_attached_files.first
