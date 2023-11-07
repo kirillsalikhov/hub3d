@@ -4,17 +4,15 @@
 
 html, body, #app {
     @apply h-full;
-    --font-size: 16px
+    --font-size: 16px;
 }
 
-#app {
-    font-size: 16px;
-}
-
-#viewer {
-    font-size: 14px;
-}
-
-.bg-dropzone:hover {
-    background: linear-gradient(white, white) padding-box, linear-gradient(to top right, var(--tw-gradient-stops)) border-box;
+body.body-pages-resource {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    display: block;
+    overflow: hidden;
+    --font-size: 14px;
 }
