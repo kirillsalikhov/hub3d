@@ -75,5 +75,5 @@ Rails.application.configure do
 
   config.active_storage.service = :minio
 
-  config.hosts += ["31.172.83.73"]
+  config.hosts += %w[31.172.83.73 95.217.39.188]
 end
