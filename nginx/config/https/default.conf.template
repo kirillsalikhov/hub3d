@@ -1,0 +1,43 @@
+upstream app {
+    server backend:3050;
+}
+
+server {
+  server_name ${SERVER_NAME};
+  listen 80 default_server;
+  return 301 https://${SERVER_NAME}$request_uri;
+}
+
+server {
+    server_name ${SERVER_NAME};
+    listen 443 ssl;
+    # TODO change to Server_name to be more explicit
+    ssl_certificate         /etc/nginx/certs/public.crt;
+    ssl_certificate_key     /etc/nginx/certs/private.key;
+
+    root /var/assets_volume/public;
+
+    location ~* ^/(assets|vite)/ {
+        # ???
+        expires 1h;
+        add_header Cache-Control public;
+        gzip_static on;
+        break;
+    }
+
+    location /cable {
+        proxy_pass http://app;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }
+
+    location / {
+            proxy_pass http://app;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-Server $host;
+        }
+}

@@ -47,14 +47,19 @@ services:
     build: ../../nginx
     image: docker.webgears3d.com/hub3d/nginx
     # TODO command
+    environment:
+      NGINX_ENVSUBST_TEMPLATE_DIR: "/etc/nginx/templates/${HUB_NGINX_TEMPLATE}"
+      SERVER_NAME: ${SERVER_NAME:-localhost}
     depends_on:
       - backend
     volumes:
       - nginx_static:/var/assets_volume
+      - ../certs/nginx:/etc/nginx/certs:ro
       # for debug only (don't forget restart nginx container as it's template conf)
       # - ../../nginx/config:/etc/nginx/templates
     ports:
       - "80:80"
+      - "443:443"
 
   minio_for_backend:
     # TODO maked fixed version
@@ -73,6 +78,7 @@ services:
       retries: 3
     volumes:
       - minio_backend_data:/data
+      - ../certs/minio:/root/.minio/certs:ro
 
   postgres:
     image: postgres:14.7-alpine

@@ -1,4 +1,3 @@
 FROM nginx:latest
-COPY config/default.conf.template /etc/nginx/templates/default.conf.template
-
+COPY config /etc/nginx/templates
 CMD [ "nginx", "-g", "daemon off;" ]
