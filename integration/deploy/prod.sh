@@ -13,6 +13,8 @@ mkdir -p $REMOTE_PATH
 cd $REMOTE_PATH
 mkdir -p compose
 mkdir -p bin
+mkdir -p certs/minio
+mkdir -p certs/nginx
 exit
 EOF
 
