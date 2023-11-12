@@ -74,6 +74,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.active_storage.service = :minio
-  # TODO add SERVER_HOST env variable here
-  config.hosts += %w[31.172.83.73 95.217.39.188]
+  # TODO remove when staging (we have ENV SERVER_NAME for this)
+  config.hosts += %w[31.172.83.73]
+  if ENV["SERVER_NAME"].present?
+    config.hosts << ENV["SERVER_NAME"].to_s
+  end
 end
