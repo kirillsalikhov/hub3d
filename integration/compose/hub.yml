@@ -2,7 +2,7 @@ version: '3.7'
 
 x-base-backend: &base_backend
   build: ../../backend
-  image: docker.webgears3d.com/hub3d/backend:${CI_TAG:-1.0.0}
+  image: docker.webgears3d.com/hub3d/backend:${CI_TAG:-1.0.1}
   environment:
     RAILS_ENV: production
     # TODO move to Dockerfile, we always need it
@@ -45,7 +45,7 @@ services:
 
   nginx:
     build: ../../nginx
-    image: docker.webgears3d.com/hub3d/nginx:1.0.0
+    image: docker.webgears3d.com/hub3d/nginx:1.1.0
     # TODO command
     environment:
       NGINX_ENVSUBST_TEMPLATE_DIR: "/etc/nginx/templates/${HUB_NGINX_TEMPLATE}"
