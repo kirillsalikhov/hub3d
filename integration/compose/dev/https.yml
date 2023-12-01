@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  minio_for_backend:
+    volumes:
+      - /etc/letsencrypt/live/${CERT_DOMAIN}/fullchain.cer:/root/.minio/certs/public.crt
+      - /etc/letsencrypt/live/${CERT_DOMAIN}/${CERT_DOMAIN}.key:/root/.minio/certs/private.key
+  nginx:
+    volumes:
+      - /etc/letsencrypt/live/${CERT_DOMAIN}/fullchain.cer:/etc/nginx/certs/public.crt
+      - /etc/letsencrypt/live/${CERT_DOMAIN}/${CERT_DOMAIN}.key:/etc/nginx/certs/private.key

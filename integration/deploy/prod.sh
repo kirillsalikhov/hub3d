@@ -12,9 +12,8 @@ ssh -tt $USER@$HOST << EOF
 mkdir -p $REMOTE_PATH
 cd $REMOTE_PATH
 mkdir -p compose
+mkdir -p compose/dev
 mkdir -p bin
-mkdir -p certs/minio
-mkdir -p certs/nginx
 exit
 EOF
 
@@ -22,6 +21,9 @@ EOF
 # !!! Copy .env manually to ./compose
 scp ../compose/conversion-service.prod.yml ../compose/hub.yml \
     $USER@$HOST:$REMOTE_PATH/compose/
+
+scp ../compose/dev/https.yml \
+    $USER@$HOST:$REMOTE_PATH/compose/dev/
 
 scp ../bin/main.sh \
     $USER@$HOST:$REMOTE_PATH/bin/
@@ -32,7 +34,7 @@ ssh -tt $USER@$HOST << EOF
 cd $REMOTE_PATH
 bin/main.sh pull \
 && bin/main.sh down \
-&& bin/main.sh up -d
+&& bin/main.sh --dev=s up -d
 
 exit
 EOF
