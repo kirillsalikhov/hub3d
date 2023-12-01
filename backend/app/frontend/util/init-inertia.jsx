@@ -11,7 +11,8 @@ export async function initInertia() {
         },
         setup({el, App, props}) {
             createRoot(el).render(<App {...props} />);
-            ActionCable.url = `ws://${window.location.host}/cable`;
+            const wsProtocol = window.location.protocol.includes('https') ? 'wss' : 'ws';
+            ActionCable.url = `${wsProtocol}://${window.location.host}/cable`;
         },
     });
 }
