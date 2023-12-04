@@ -1,0 +1,15 @@
+local_pool:
+  servers:
+    - name: local
+      base_url: "http://manager:3000"
+      performance: low
+
+prod_pool:
+  servers:
+    - name: local
+      base_url: "http://manager:3000"
+      performance: low
+    - name: standbim
+      base_url: "http://standbim.com:3000"
+      performance: high
+

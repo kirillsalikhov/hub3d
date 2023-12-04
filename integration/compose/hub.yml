@@ -17,6 +17,7 @@ x-base-backend: &base_backend
     S3_ENDPOINT: ${HUB__S3_ENDPOINT}
     MINIO_ROOT_USER: ${HUB__MINIO_ROOT_USER}
     MINIO_ROOT_PASSWORD: ${HUB__MINIO_ROOT_PASSWORD}
+    CS_HUB_POOL: ${HUB_CS_POOL}
 
   depends_on:
     postgres:
