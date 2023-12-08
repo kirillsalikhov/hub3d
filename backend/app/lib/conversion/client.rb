@@ -11,8 +11,6 @@ module Conversion
 
   SYNC_CHECK_INTERVAL = 1
 
-  class ConversionError < StandardError; end
-
   module Conversion::Client
     extend self
 
