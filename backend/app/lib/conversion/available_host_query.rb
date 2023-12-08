@@ -26,17 +26,18 @@ class Conversion::AvailableHostQuery
     if fit_servers.any?
       server = min_usage(fit_servers)
       # if there are free servers that fit complexity
-      return server if server[:usage] < 1
+      return server[:name] if server[:usage] < 1
 
       # try to find free server in upper group,
       # e.g. for low complexity try high performance server
       suitable_servers = get_suitable_servers(complexity)
-      min_usage(suitable_servers)
+      server = min_usage(suitable_servers)
     else
       # TODO add logger message about this, when low server is used for high complexity
       # if there is now server for complexity take any
-      min_usage(@servers)
+      server = min_usage(@servers)
     end
+    server[:name]
   end
 
   def conversion_complexity(recipe, filename, byte_size)

@@ -61,12 +61,12 @@ RSpec.describe Conversion::AvailableHostQuery, focus: true do
 
       it "choose :low server for :low complexity conversion" do
         result = _query_new(low_servers, low_usage).call(*low_conversion)
-        expect(result[:name]).to eql("local")
+        expect(result).to eql("local")
       end
 
       it "choose :low server for :high complexity (because no high server in pool)" do
         result = _query_new(low_servers, low_usage).call(*high_conversion)
-        expect(result[:name]).to eql("local")
+        expect(result).to eql("local")
       end
     end
 
@@ -84,7 +84,7 @@ RSpec.describe Conversion::AvailableHostQuery, focus: true do
 
       it "choose :high server for :low complexity conversion" do
         result = _query_new(low_servers, low_usage).call(*low_conversion)
-        expect(result[:name]).to eql("local_performant")
+        expect(result).to eql("local_performant")
       end
     end
 
@@ -118,22 +118,22 @@ RSpec.describe Conversion::AvailableHostQuery, focus: true do
 
       it "choose :high server for :high complexity conversion" do
         result = _query_new(three_servers, low_usage).call(*high_conversion)
-        expect(result[:name]).to eql("performant1")
+        expect(result).to eql("performant1")
       end
 
       it "choose :low server for :low complexity conversion, when low available" do
         result = _query_new(three_servers, low_usage).call(*low_conversion)
-        expect(result[:name]).to eql("local2")
+        expect(result).to eql("local2")
       end
 
       it "choose :high server for :low complexity conversion, when low servers are busy" do
         result = _query_new(three_servers, average_usage).call(*low_conversion)
-        expect(result[:name]).to eql("performant1")
+        expect(result).to eql("performant1")
       end
 
       it "choose :high server for :high complexity even if there are free low servers" do
         result = _query_new(three_servers, high_usage).call(*high_conversion)
-        expect(result[:name]).to eql("performant1")
+        expect(result).to eql("performant1")
       end
     end
   end
