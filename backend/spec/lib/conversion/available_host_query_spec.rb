@@ -70,6 +70,24 @@ RSpec.describe Conversion::AvailableHostQuery, focus: true do
       end
     end
 
+    context "when one high server" do
+      let(:low_servers) {
+        [{
+          name: "local_performant",
+          base_url: "http://manager:3000",
+          performance: "high",
+          capacity: 1
+        }]
+      }
+
+      let(:low_usage) { {"local" => 0} }
+
+      it "choose :high server for :low complexity conversion" do
+        result = _query_new(low_servers, low_usage).call(*low_conversion)
+        expect(result[:name]).to eql("local_performant")
+      end
+    end
+
     context "when three servers (low, low, high)" do
       let(:three_servers) {
         [
