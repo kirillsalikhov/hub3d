@@ -56,7 +56,7 @@ RSpec.describe Conversion::AvailableHostQuery, focus: true do
           capacity: 1
         }]
       }
-      # TODO don't forget to change when capacity will be used
+      # TODO don't forget to change when capacity will be used, and in other places
       let(:low_usage) { {"local" => 0} }
 
       it "choose :low server for :low complexity conversion" do
