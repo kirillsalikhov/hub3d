@@ -31,11 +31,11 @@ class Conversion::AvailableHostQuery
       # try to find free server in upper group,
       # e.g. for low complexity try high performance server
       suitable_servers = get_suitable_servers(complexity)
-      return min_usage(suitable_servers)
+      min_usage(suitable_servers)
     else
       # TODO add logger message about this, when low server is used for high complexity
       # if there is now server for complexity take any
-      return min_usage(@servers)
+      min_usage(@servers)
     end
   end
 
