@@ -1,7 +1,7 @@
 require "rails_helper"
 require Rails.root.join("app/lib/conversion/available_host_query")
 
-RSpec.describe Conversion::AvailableHostQuery, focus: true do
+RSpec.describe Conversion::AvailableHostQuery do
   let(:low_conversion) { ["ifc2wmdOpt", "file1.ifc", 10_000_000] }
   let(:high_conversion) { ["ifc2wmdOpt", "file2.ifc", 100_000_000] }
 

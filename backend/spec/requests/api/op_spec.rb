@@ -31,11 +31,12 @@ RSpec.describe "api/op" do
 
         before do
           # !!! STUB CS createJob, random uuid returned
-          allow(Conversion::Client).to receive(:create_job)
+          fake_client = instance_double(Conversion::Client)
+          allow(fake_client).to receive(:create_job)
             .and_return(SecureRandom.uuid)
-          # allow_any_instance_of(Conversion::Client)
-          #   .to receive(:create_job)
-          #   .and_return(SecureRandom.uuid)
+
+          allow(Conversion::Client).to receive(:new)
+            .and_return(fake_client)
 
           # !!! STUB
           # To not raise error, stub schedule ConversionJob
