@@ -12,7 +12,7 @@ class Conversion::AvailableHostQuery
     "fbx" => 100_000_000
   }
 
-  def initialize(servers = Rails.configuration.conversion_pool.servers, usage = {})
+  def initialize(servers = Conversion.get_servers, usage = {})
     @servers = servers.clone
     @usage = usage
   end
