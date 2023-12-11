@@ -28,3 +28,6 @@ RSpec/NestedGroups:
 
 RSpec/MultipleMemoizedHelpers:
   Max: 8
+
+Layout/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true
