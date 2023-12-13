@@ -5,6 +5,7 @@ FactoryBot.define do
     progress { 0 }
     conversion_job_id { SecureRandom.uuid }
     start_time { Time.now }
+    cs_server { "local" }
     meta {
       {
         dest_resource_id: SecureRandom.uuid,

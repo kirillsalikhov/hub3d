@@ -18,4 +18,6 @@ class Store::ConversionTask < ApplicationRecord
   attribute :meta, default: {}
 
   serialize :on_success, ServiceObjectSerializer
+
+  def cs_server_url = Conversion.get_server(cs_server)[:base_url]
 end

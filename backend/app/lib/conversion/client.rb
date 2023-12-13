@@ -1,12 +1,10 @@
 require "rest_client"
 
 module Conversion
-  CONVERSION_HOST = "http://manager:3000"
   SYNC_CHECK_INTERVAL = 1
 
   class Conversion::Client
-    # TODO remove CONVERSION_HOST
-    def initialize(base_path = CONVERSION_HOST)
+    def initialize(base_path)
       @base_path = base_path
     end
 

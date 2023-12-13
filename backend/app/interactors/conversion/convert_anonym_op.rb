@@ -39,7 +39,8 @@ class Conversion::ConvertAnonymOp
 
   def prepare_task
     @conversion_task.on_success = Store::SuccessVersionConvertOrg.new(
-      version_id: @version.id
+      version_id: @version.id,
+      cs_server_url: @conversion_task.cs_server_url
     )
 
     @conversion_task.meta[:dest_resource_id] = @resource.id

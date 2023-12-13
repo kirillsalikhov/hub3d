@@ -5,7 +5,8 @@ class Conversion::SaveLogs
     task = context.task
     job_id = task.conversion_job_id
     # TODO do smth when there is no logs on CS
-    logs = Conversion::Client.new().get_logs(job_id)
+    logs = Conversion::Client.new(task.cs_server_url)
+      .get_logs(job_id)
     task.logs.attach(
       io: StringIO.new(JSON.generate(logs)),
       filename: "#{job_id}_logs.json",

@@ -35,7 +35,7 @@ class Store::ConversionJob
   private
 
   def check_status
-    status, progress = Conversion::Client.new()
+    status, progress = Conversion::Client.new(@task.cs_server_url)
       .check_status(@task.conversion_job_id)
       .values_at(:status, :progress)
 
