@@ -36,6 +36,12 @@ module Backend
 
     # To allow access from inner docker network
     config.hosts += %w[backend localhost]
-    config.conversion_pool = config_for(:conversion_service, env: ENV["CS_HUB_POOL"])
+
+    config.conversion_pool = if ENV["CS_HUB_POOL"].present?
+      config_for(:conversion_service, env: ENV["CS_HUB_POOL"])
+    else
+      config_for(:conversion_service, env: "local_pool")
+    end
+
   end
 end
