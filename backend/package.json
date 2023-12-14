@@ -16,7 +16,7 @@
     "vite-plugin-rails": "^0.1.0"
   },
   "dependencies": {
-    "@wg/industrial-app": "^7.0.4",
+    "@wg/industrial-app": "^8.0.8",
     "axios": "^0.27.2"
   }
 }
