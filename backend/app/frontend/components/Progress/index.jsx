@@ -1,18 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 
 export const progressTransitionDuration = 300
-export const Progress = ({progress}) => {
+export const Progress = ({ progress }) => {
     const ref = useRef(null);
 
     useEffect(() => {
         if (ref.current) {
-            ref.current.style.transform = `translateX(-${100 - 100 * progress}%)`;
+            ref.current.style.transform = `translateX(-${ 100 - 100 * progress }%)`;
         }
-    }, [ref.current, progress])
+    }, [ ref.current, progress ])
 
     return (
-        <div className="w-full overflow-hidden rounded-full">
-            <div className={`h-4 rounded-full bg-blue-800 transition-transform duration-${progressTransitionDuration} ease-linear`} style={{transform: 'translateX(-100%)'}} ref={ref} />
+        <div className="mt-6" aria-hidden="true">
+            <div className="overflow-hidden rounded-full bg-gray-200 shadow-inner">
+                <div
+                    className={ `h-4 rounded-full motion-safe:animate-pulse bg-gradient-to-tr from-indigo-600 to-purple-700 transition-transform duration-${ progressTransitionDuration } ease-linear w-full` }
+                    style={ { transform: 'translateX(-100%)' } } ref={ ref } />
+            </div>
         </div>
     )
 }
