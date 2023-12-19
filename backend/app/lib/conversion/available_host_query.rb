@@ -14,7 +14,6 @@ class Conversion::AvailableHostQuery
 
   def initialize(servers = Conversion.get_servers)
     @servers = servers.clone
-    @usage = nil
   end
 
   def call(recipe, filename, byte_size)
@@ -25,18 +24,20 @@ class Conversion::AvailableHostQuery
 
     if fit_servers.any?
       server = min_usage(fit_servers)
-      # if there are free servers that fit complexity
-      return server[:name] if server[:usage] < 1
-
-      # try to find free server in upper group,
-      # e.g. for low complexity try high performance server
-      suitable_servers = get_suitable_servers(complexity)
-      server = min_usage(suitable_servers)
+      # if there are not free servers that fit complexity
+      if server[:usage] >= 1
+        # try to find free server in upper group,
+        # e.g. for low complexity try high performance server
+        suitable_servers = get_suitable_servers(complexity)
+        server = min_usage(suitable_servers)
+      end
     else
       # TODO add logger message about this, when low server is used for high complexity
       # if there is now server for complexity take any
       server = min_usage(@servers)
+      Rails.logger.warn "balancer: Low performance server is used for high complexity!"
     end
+    report(complexity, server)
     server[:name]
   end
 
@@ -46,8 +47,10 @@ class Conversion::AvailableHostQuery
     limits = opt ? OPT_LIMITS : RAW_LIMITS
 
     # we return high, because we don't know what is
-    # TODO add logger when unknown
-    return :high if limits[ext].nil?
+    if limits[ext].nil?
+      Rails.logger.warn "balancer: Unknown extension #{ext}!"
+      return :high
+    end
 
     if byte_size > limits[ext]
       :high
@@ -59,6 +62,10 @@ class Conversion::AvailableHostQuery
   def fetch_usage!
     tasks = Store::ConversionTask.in_progress_by_server
     @servers.each { |s| s[:usage] = tasks.fetch(s[:name], 0) / s[:capacity].to_f }
+  end
+
+  def usage
+    @servers.to_h { |s| [s[:name], s[:usage]] }
   end
 
   private
@@ -76,6 +83,12 @@ class Conversion::AvailableHostQuery
 
   def min_usage(servers)
     servers.min_by { |s| s[:usage] }
+  end
+
+  def report(complexity, server)
+    Rails.logger.info "balancer [complexity]: \t #{complexity}"
+    Rails.logger.info "balancer [usage]: \t #{usage}"
+    Rails.logger.info "balancer [server]: \t #{server[:name]}"
   end
 
 end
