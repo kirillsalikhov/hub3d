@@ -2,7 +2,7 @@ class Store::ConversionTask < ApplicationRecord
   has_one_attached :logs
   validates :cs_server, presence: true
 
-  scope :in_progress, -> {where(status: "inProgress")}
+  scope :in_progress, -> { where(status: "inProgress") }
 
   # TODO add validation on status
   # TODO Move out here, think about it

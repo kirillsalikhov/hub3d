@@ -9,4 +9,3 @@ module Conversion
     get_servers.find { |s| s[:name] == name }
   end
 end
-

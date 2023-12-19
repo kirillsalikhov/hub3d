@@ -80,10 +80,9 @@ RSpec.describe Conversion::AvailableHostQuery do
   end
 
   describe "#fetch_usage!" do
-
     subject(:query) { described_class.new(three_servers) }
 
-    it "handle :low_usage for :three_servers"  do
+    it "handle :low_usage for :three_servers" do
       low_usage!
 
       query.fetch_usage!
@@ -106,7 +105,6 @@ RSpec.describe Conversion::AvailableHostQuery do
   end
 
   describe "#call" do
-
     context "when one low server" do
       subject(:query) { described_class.new(one_low_server) }
 

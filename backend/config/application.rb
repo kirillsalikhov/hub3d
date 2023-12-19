@@ -42,6 +42,5 @@ module Backend
     else
       config_for(:conversion_service, env: "local_pool")
     end
-
   end
 end

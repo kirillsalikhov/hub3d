@@ -1,5 +1,4 @@
 class Conversion::AvailableHostQuery
-
   COMPLEXITIES = [:low, :high]
 
   OPT_LIMITS = {
@@ -90,5 +89,4 @@ class Conversion::AvailableHostQuery
     Rails.logger.info "balancer [usage]: \t #{usage}"
     Rails.logger.info "balancer [server]: \t #{server[:name]}"
   end
-
 end
