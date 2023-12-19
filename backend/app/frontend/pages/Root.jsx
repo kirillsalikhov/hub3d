@@ -15,14 +15,16 @@ const MainText = () => (
 export default function Root({ uploadsPath }) {
     return (
         <Layout>
-            <div className="mx-auto max-w-7xl">
-                <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-                    <div className="px-6 sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:flex lg:items-center lg:text-left hidden sm:block">
-                        <MainText />
-                    </div>
-                    <ConversionForm uploadsPath={ uploadsPath } />
-                    <div className="m-8 md:max-w-2xl sm:hidden">
-                        <MainText />
+            <div className="my-16 sm:my-24">
+                <div className="mx-auto max-w-7xl">
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+                        <div className="px-6 sm:text-center md:mx-auto md:max-w-2xl lg:col-span-6 lg:flex lg:items-center lg:text-left hidden sm:block">
+                            <MainText />
+                        </div>
+                        <ConversionForm uploadsPath={ uploadsPath } />
+                        <div className="m-8 md:max-w-2xl sm:hidden">
+                            <MainText />
+                        </div>
                     </div>
                 </div>
             </div>

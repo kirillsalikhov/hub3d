@@ -21,9 +21,9 @@ const STATUSES_NAMES = {
     canceled: 'Canceled',
     canceling: 'Canceling'
 }
-const resourceUrl = (resourceId) => `/resources/${resourceId}`;
+const resourceUrl = (resourceId) => `/resources/${ resourceId }`;
 export default function Resource({ conversionTask, resource }) {
-    const [ progress, setProgress ] = useState( Math.max(conversionTask.progress, .01) );
+    const [ progress, setProgress ] = useState(Math.max(conversionTask.progress, .01));
     const [ status, setStatus ] = useState(conversionTask.status);
     const [ logs, setLogs ] = useState(null);
     const { operation, record } = useWebsocket('TaskChannel');
@@ -52,28 +52,36 @@ export default function Resource({ conversionTask, resource }) {
                     }
                 });
         }
-    }, [status]);
+    }, [ status ]);
 
     return (
         <Layout>
-            <div className="mx-auto max-w-7xl px-6 ">
-                <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white/40 shadow-2xl shadow-indigo-500">
-                    <div className="px-6 py-5 sm:p-6">
-                        <div>
-                            <h4 className="sr-only">Status</h4>
-                            <p className="text-xl font-medium text-blue-950">Converting { resource.name }...</p>
-                            <div className="mt-6" aria-hidden="true">
-                                <Progress progress={ progress }/>
-                                <div className="mt-6 hidden grid-cols-4 text-sm font-medium text-gray-400 sm:grid">
-                                    <div className="text-blue-800">{ STATUSES_NAMES[status] } </div>
+            <div className="flex h-full flex-col">
+                <div className="flex flex-col flex-grow place-content-center">
+                    <div className="mx-auto w-full max-w-7xl px-6 pb-24 ">
+                        <div
+                            className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white/80 shadow-2xl shadow-indigo-500">
+                            <div className="p-6">
+                                <div className="flex max-w-7xl items-center justify-between gap-2 text-xl ">
+                                    <p className="text-blue-950 italic truncate">
+                                        <span className="font-bold">Converting</span>  { resource.name }...
+                                    </p>
+                                    <p className="text-gray-400">{ progress * 100 }%</p>
                                 </div>
+                                <Progress progress={ progress } />
+                            </div>
+                            <div className="px-6 py-4 text-center text-sm text-blue-950">
+                                <p className="w-full mx-auto max-w-md items-center justify-center">
+                                    You may <span className="font-bold">save this browser link</span> to check it later,
+                                    and close the window now. Or log in to get the link in your profile once ready
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="mt-12 sm:mt-16">
-                { status === STATUSES.failed && <ConversionLogs logs={logs}/>}
+                <div className="mt-12 sm:mt-16">
+                    { status === STATUSES.failed && <ConversionLogs logs={ logs } /> }
+                </div>
             </div>
         </Layout>
     )
