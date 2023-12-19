@@ -12,9 +12,9 @@ class Conversion::AvailableHostQuery
     "fbx" => 100_000_000
   }
 
-  def initialize(servers = Conversion.get_servers, usage = {})
+  def initialize(servers = Conversion.get_servers)
     @servers = servers.clone
-    @usage = usage
+    @usage = nil
   end
 
   def call(recipe, filename, byte_size)
@@ -56,6 +56,11 @@ class Conversion::AvailableHostQuery
     end
   end
 
+  def fetch_usage!
+    tasks = Store::ConversionTask.in_progress_by_server
+    @servers.each { |s| s[:usage] = tasks.fetch(s[:name], 0) / s[:capacity].to_f }
+  end
+
   private
 
   def get_suitable_servers(complexity)
@@ -71,13 +76,6 @@ class Conversion::AvailableHostQuery
 
   def min_usage(servers)
     servers.min_by { |s| s[:usage] }
-  end
-
-  def fetch_usage!
-    # TODO logic with ConversionTask in process count
-    # TODO Use capacity
-    # dummy_usage = {"local" => 1, "standbim" => 0.5}
-    @servers.each { |s| s[:usage] = @usage.fetch(s[:name], 0) }
   end
 
 end

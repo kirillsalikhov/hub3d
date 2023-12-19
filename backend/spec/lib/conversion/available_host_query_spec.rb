@@ -5,6 +5,43 @@ RSpec.describe Conversion::AvailableHostQuery do
   let(:low_conversion) { ["ifc2wmdOpt", "file1.ifc", 10_000_000] }
   let(:high_conversion) { ["ifc2wmdOpt", "file2.ifc", 100_000_000] }
 
+  let(:three_servers) {
+    [
+      {
+        name: "local1",
+        base_url: "http://manager:3000",
+        performance: "low",
+        capacity: 1
+      },
+      {
+        name: "local2",
+        base_url: "http://manager2:3000",
+        performance: "low",
+        capacity: 2
+      },
+      {
+        name: "performant1",
+        base_url: "http://performant_host:3000",
+        performance: "high",
+        capacity: 2
+      }
+    ]
+  }
+
+  let(:low_usage!) {
+    create_list(:conversion_task, 1, cs_server: "local1")
+  }
+
+  let(:average_usage!) {
+    create_list(:conversion_task, 1, cs_server: "local1")
+    create_list(:conversion_task, 4, cs_server: "local2")
+  }
+
+  let(:high_usage!) {
+    create_list(:conversion_task, 1, cs_server: "local1")
+    create_list(:conversion_task, 4, cs_server: "performant1")
+  }
+
   # TODO try to extract tests to other place
   describe "#conversion_complexity" do
     subject(:query) { described_class.new }
@@ -42,13 +79,42 @@ RSpec.describe Conversion::AvailableHostQuery do
     end
   end
 
-  describe "#call" do
-    def _query_new(servers, usage = {})
-      described_class.new(servers, usage)
+  describe "#fetch_usage!" do
+
+    def _usage_short(servers)
+      servers.to_h { |s| [s[:name], s[:usage]] }
     end
 
+    subject(:query) { described_class.new(three_servers) }
+
+    it "handle :low_usage for :three_servers"  do
+      low_usage!
+
+      servers = query.fetch_usage!
+      expect(_usage_short(servers)).to eql({"local1" => 1.0, "local2" => 0.0, "performant1" => 0.0})
+    end
+
+    it "handle :average_usage for :three_servers" do
+      average_usage!
+
+      servers = query.fetch_usage!
+      expect(_usage_short(servers)).to eql({"local1" => 1.0, "local2" => 2.0, "performant1" => 0.0})
+    end
+
+    it "handle :high_usage for :three_servers" do
+      high_usage!
+
+      servers = query.fetch_usage!
+      expect(_usage_short(servers)).to eql({"local1" => 1.0, "local2" => 0.0, "performant1" => 2.0})
+    end
+  end
+
+  describe "#call" do
+
     context "when one low server" do
-      let(:low_servers) {
+      subject(:query) { described_class.new(one_low_server) }
+
+      let(:one_low_server) {
         [{
           name: "local",
           base_url: "http://manager:3000",
@@ -56,22 +122,22 @@ RSpec.describe Conversion::AvailableHostQuery do
           capacity: 1
         }]
       }
-      # TODO don't forget to change when capacity will be used, and in other places
-      let(:low_usage) { {"local" => 0} }
 
       it "choose :low server for :low complexity conversion" do
-        result = _query_new(low_servers, low_usage).call(*low_conversion)
+        result = query.call(*low_conversion)
         expect(result).to eql("local")
       end
 
       it "choose :low server for :high complexity (because no high server in pool)" do
-        result = _query_new(low_servers, low_usage).call(*high_conversion)
+        result = query.call(*high_conversion)
         expect(result).to eql("local")
       end
     end
 
     context "when one high server" do
-      let(:low_servers) {
+      subject(:query) { described_class.new(one_high_server) }
+
+      let(:one_high_server) {
         [{
           name: "local_performant",
           base_url: "http://manager:3000",
@@ -80,59 +146,36 @@ RSpec.describe Conversion::AvailableHostQuery do
         }]
       }
 
-      let(:low_usage) { {"local" => 0} }
-
       it "choose :high server for :low complexity conversion" do
-        result = _query_new(low_servers, low_usage).call(*low_conversion)
+        result = query.call(*low_conversion)
         expect(result).to eql("local_performant")
       end
     end
 
     context "when three servers (low, low, high)" do
-      let(:three_servers) {
-        [
-          {
-            name: "local1",
-            base_url: "http://manager:3000",
-            performance: "low",
-            capacity: 1
-          },
-          {
-            name: "local2",
-            base_url: "http://manager2:3000",
-            performance: "low",
-            capacity: 2
-          },
-          {
-            name: "performant1",
-            base_url: "http://performant_host:3000",
-            performance: "high",
-            capacity: 2
-          }
-        ]
-      }
-
-      let(:low_usage) { {"local1" => 1, "local2" => 0, "performant" => 0} }
-      let(:average_usage) { {"local1" => 1, "local2" => 2, "performant" => 0} }
-      let(:high_usage) { {"local1" => 1, "local2" => 0, "performant" => 2} }
+      subject(:query) { described_class.new(three_servers) }
 
       it "choose :high server for :high complexity conversion" do
-        result = _query_new(three_servers, low_usage).call(*high_conversion)
+        low_usage!
+        result = query.call(*high_conversion)
         expect(result).to eql("performant1")
       end
 
       it "choose :low server for :low complexity conversion, when low available" do
-        result = _query_new(three_servers, low_usage).call(*low_conversion)
+        low_usage!
+        result = query.call(*low_conversion)
         expect(result).to eql("local2")
       end
 
       it "choose :high server for :low complexity conversion, when low servers are busy" do
-        result = _query_new(three_servers, average_usage).call(*low_conversion)
+        average_usage!
+        result = query.call(*low_conversion)
         expect(result).to eql("performant1")
       end
 
       it "choose :high server for :high complexity even if there are free low servers" do
-        result = _query_new(three_servers, high_usage).call(*high_conversion)
+        high_usage!
+        result = query.call(*high_conversion)
         expect(result).to eql("performant1")
       end
     end

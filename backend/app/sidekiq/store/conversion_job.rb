@@ -50,6 +50,7 @@ class Store::ConversionJob
       canceled
     else
       if is_timeout?
+        # TODO add info that timeout
         failed
       else
         self.class.perform_in(CHECK_INTERVAL, @task.id)

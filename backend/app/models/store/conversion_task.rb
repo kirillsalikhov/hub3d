@@ -1,7 +1,8 @@
 class Store::ConversionTask < ApplicationRecord
   has_one_attached :logs
-
   validates :cs_server, presence: true
+
+  scope :in_progress, -> {where(status: "inProgress")}
 
   # TODO add validation on status
   # TODO Move out here, think about it
@@ -20,4 +21,8 @@ class Store::ConversionTask < ApplicationRecord
   serialize :on_success, ServiceObjectSerializer
 
   def cs_server_url = Conversion.get_server(cs_server)[:base_url]
+
+  def self.in_progress_by_server
+    in_progress.group(:cs_server).count
+  end
 end
