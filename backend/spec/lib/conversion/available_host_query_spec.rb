@@ -81,31 +81,27 @@ RSpec.describe Conversion::AvailableHostQuery do
 
   describe "#fetch_usage!" do
 
-    def _usage_short(servers)
-      servers.to_h { |s| [s[:name], s[:usage]] }
-    end
-
     subject(:query) { described_class.new(three_servers) }
 
     it "handle :low_usage for :three_servers"  do
       low_usage!
 
-      servers = query.fetch_usage!
-      expect(_usage_short(servers)).to eql({"local1" => 1.0, "local2" => 0.0, "performant1" => 0.0})
+      query.fetch_usage!
+      expect(query.usage).to eql({"local1" => 1.0, "local2" => 0.0, "performant1" => 0.0})
     end
 
     it "handle :average_usage for :three_servers" do
       average_usage!
 
-      servers = query.fetch_usage!
-      expect(_usage_short(servers)).to eql({"local1" => 1.0, "local2" => 2.0, "performant1" => 0.0})
+      query.fetch_usage!
+      expect(query.usage).to eql({"local1" => 1.0, "local2" => 2.0, "performant1" => 0.0})
     end
 
     it "handle :high_usage for :three_servers" do
       high_usage!
 
-      servers = query.fetch_usage!
-      expect(_usage_short(servers)).to eql({"local1" => 1.0, "local2" => 0.0, "performant1" => 2.0})
+      query.fetch_usage!
+      expect(query.usage).to eql({"local1" => 1.0, "local2" => 0.0, "performant1" => 2.0})
     end
   end
 
