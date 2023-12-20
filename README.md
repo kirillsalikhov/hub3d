@@ -95,7 +95,12 @@ Optionally build and push new images
 ```
 bin/main.sh build [backend|nginx] --push
 ```
-Deploy
+### Prod 
 ```
 deploy/prod.sh
+```
+
+### Staging
+```
+deploy/staging.sh
 ```
