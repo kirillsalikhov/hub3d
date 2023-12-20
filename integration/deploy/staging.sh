@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 
 USER="deployer"
-HOST="95.217.39.188"
+HOST="31.172.83.73"
 PROJECT="hub3d"
 REMOTE_PATH="/home/$USER/$PROJECT"
 
@@ -28,12 +28,12 @@ scp ../bin/main.sh \
     $USER@$HOST:$REMOTE_PATH/bin/
 
 # !!! Copy setup manually to bin and delete after !!!
-
+# TODO add --dev=s to support httsp
 ssh -tt $USER@$HOST << EOF
 cd $REMOTE_PATH
 bin/main.sh pull \
 && bin/main.sh down \
-&& bin/main.sh --dev=s up -d
+&& bin/main.sh up -d
 
 exit
 EOF
