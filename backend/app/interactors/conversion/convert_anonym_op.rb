@@ -17,7 +17,7 @@ class Conversion::ConvertAnonymOp
   def create_conversion
     result = Conversion::CreateConversion.call(
       input: context.input,
-      recipe: Conversion::Recipe.from_input(context.input.filename.to_s),
+      recipe: get_recipe,
       on_success: nil # !!! TODO think about, because ConversionTask is saved
     )
     if result.success?
@@ -55,5 +55,12 @@ class Conversion::ConvertAnonymOp
 
   def resource_name
     context.input.filename
+  end
+
+  private
+
+  def get_recipe
+    filename, byte_size = context.input.values_at(:filename, :byte_size)
+    Conversion::Recipe.from_input(filename.to_s, byte_size)
   end
 end
