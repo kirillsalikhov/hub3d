@@ -64,7 +64,7 @@ module Conversion
     end
 
     def get_files(job_id)
-      res = RestClient.get(job_files_url(job_id), {params: {use_external_host: false}})
+      res = RestClient.get(job_files_url(job_id))
       JSON.parse(res)
     end
 
@@ -76,6 +76,7 @@ module Conversion
     end
 
     def download_file(src)
+      # TODO change for debugging, (thought it adds hash at the end )
       tempfile = Tempfile.new("change_for_debugging")
       # TODO Likely RestClient loads file to memory
       File.open(tempfile, "wb") do |output|
