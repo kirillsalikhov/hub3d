@@ -15,7 +15,7 @@ export const Header = () => (
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between p-6" aria-label="Global">
             <div className="flex flex-1 items-center">
                 <div className="flex w-full items-center justify-between md:w-auto">
-                    <Link to="/">
+                    <Link href="/">
                         <span className="sr-only">Your Company</span>
                         <img
                             className="h-8 w-auto sm:h-10"
@@ -33,7 +33,7 @@ export const Header = () => (
                 </div>
                 <div className="hidden space-x-10 md:ml-10 md:flex">
                     {navigation.map((item) => (
-                        <Link key={item.name} to={item.href} className="font-medium text-blue-950 hover:text-blue-800">
+                        <Link key={item.name} href={item.href} className="font-medium text-blue-950 hover:text-blue-800">
                             {item.name}
                         </Link>
                     ))}
@@ -83,7 +83,7 @@ export const Header = () => (
                         {navigation.map((item) => (
                             <Link
                                 key={item.name}
-                                to={item.href}
+                                href={item.href}
                                 className="block rounded-full px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                             >
                                 {item.name}
