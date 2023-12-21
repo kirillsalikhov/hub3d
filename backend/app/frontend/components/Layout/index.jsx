@@ -2,9 +2,9 @@ import { Header } from '../Header';
 
 export default function Layout({ children }) {
     return (
-        <div className="h-full relative overflow-hidden bg-front bg-cover">
+        <div className="min-h-full flex flex-col relative bg-front bg-cover">
             <Header/>
-            <main className="h-full">
+            <main className="flex-auto flex flex-col">
                 { children }
             </main>
         </div>
