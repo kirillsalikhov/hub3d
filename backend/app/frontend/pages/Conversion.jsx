@@ -29,6 +29,11 @@ export default function Resource({ conversionTask, resource }) {
     const { operation, record } = useWebsocket('TaskChannel');
 
     useEffect(() => {
+        if (!record || record.id !== conversionTask.id) {
+            // it's data from other conversionTask
+            return;
+        }
+
         if (record?.progress) {
             setProgress(record?.progress);
         }
