@@ -56,7 +56,7 @@ export default function Resource({ conversionTask, resource }) {
 
     return (
         <Layout>
-            <div className="flex h-full flex-col">
+            <div className="flex h-full flex-col flex-auto">
                 <div className="flex flex-col flex-grow place-content-center">
                     <div className="mx-auto w-full max-w-7xl px-6 pb-24 ">
                         <div
