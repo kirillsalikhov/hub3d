@@ -9,7 +9,7 @@ prod_pool:
   servers:
     - name: local
       base_url: "http://manager:3000"
-      performance: low,
+      performance: low
       capacity: 1
     - name: standbim
       base_url: "http://standbim.com:3000"

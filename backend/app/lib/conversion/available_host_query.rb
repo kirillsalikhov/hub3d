@@ -31,10 +31,9 @@ class Conversion::AvailableHostQuery
         server = min_usage(suitable_servers)
       end
     else
-      # TODO add logger message about this, when low server is used for high complexity
-      # if there is now server for complexity take any
+      # if there is no server for complexity take any
       server = min_usage(@servers)
-      Rails.logger.warn "balancer: Low performance server is used for high complexity!"
+      Rails.logger.warn "balancer: Not fit servers #{server[:performance]} performance server is used for #{complexity} complexity!"
     end
     report(complexity, server)
     server[:name]
