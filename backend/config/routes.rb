@@ -17,10 +17,6 @@ Rails.application.routes.draw do
 
   root "pages#root"
 
-  # TODO remove before commiting
-  get "foo", to: "pages#foo"
-  get "bar", to: "pages#bar"
-
   get "/resources/:id", to: "pages#resource"
   get "/conversions/:id", to: "pages#conversion"
 
