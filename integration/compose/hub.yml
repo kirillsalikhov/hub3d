@@ -2,15 +2,22 @@ version: '3.7'
 
 x-base-backend: &base_backend
   build: ../../backend
+  image: docker.webgears3d.com/hub3d/backend:1.0.10
   environment:
+    RAILS_ENV: production
+    SERVER_NAME: ${SERVER_NAME:-localhost}
+    # TODO move to Dockerfile, we always need it
+    RAILS_LOG_TO_STDOUT: true
     # TODO Think of it, if it's needed in prod or sidekiq
     VITE_RUBY_HOST: ${VITE_HOST:-frontend}
+
     POSTGRES_USER: ${HUB_DB_USER}
     POSTGRES_PASSWORD: ${HUB_DB_PASS}
 
     S3_ENDPOINT: ${HUB__S3_ENDPOINT}
     MINIO_ROOT_USER: ${HUB__MINIO_ROOT_USER}
     MINIO_ROOT_PASSWORD: ${HUB__MINIO_ROOT_PASSWORD}
+    CS_HUB_POOL: ${HUB_CS_POOL}
 
   depends_on:
     postgres:
@@ -23,19 +30,39 @@ services:
     <<: *base_backend
     command: bundle exec rails s -p 3050 -b '0.0.0.0'
     ports:
+      # TODO remove from prod
       - "3050:3050"
 
   # Yes, it's empty container, that starts and stop immediately
   # it's override in dev/frontend.yml
   frontend:
     <<: *base_backend
+    command: bundle exec bin/copy_assets
+    volumes:
+      - nginx_static:/backend/assets_volume
 
   sidekiq:
     <<: *base_backend
     command: bundle exec sidekiq
 
+  nginx:
+    build: ../../nginx
+    image: docker.webgears3d.com/hub3d/nginx:1.1.2
+    environment:
+      NGINX_ENVSUBST_TEMPLATE_DIR: "/etc/nginx/templates/${HUB_NGINX_TEMPLATE}"
+      SERVER_NAME: ${SERVER_NAME:-localhost}
+    depends_on:
+      - backend
+    volumes:
+      - nginx_static:/var/assets_volume
+      # for debug only (don't forget restart nginx container as it's template conf)
+      # - ../../nginx/config:/etc/nginx/templates
+    ports:
+      - "80:80"
+      - "443:443"
+
   minio_for_backend:
-    image: minio/minio
+    image: minio/minio:RELEASE.2023-11-01T18-37-25Z-cpuv1
     ports:
       - "10000:9000"
       - "10001:9001"
@@ -44,6 +71,7 @@ services:
       MINIO_ROOT_PASSWORD: ${HUB__MINIO_ROOT_PASSWORD}
     command: minio server /data --console-address ":9001"
     healthcheck:
+      # NOT USED, not working
       test: [ "CMD", "curl", "-f", "http://localhost:10000/minio/health/live" ]
       interval: 30s
       timeout: 20s
@@ -78,3 +106,4 @@ volumes:
   postgres_data:
   redis_data:
   minio_backend_data:
+  nginx_static:

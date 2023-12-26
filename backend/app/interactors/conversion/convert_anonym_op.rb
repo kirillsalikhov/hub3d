@@ -8,6 +8,7 @@ class Conversion::ConvertAnonymOp
     # create user
     # create space
     create_resource
+    prepare_task
     schedule_task
   end
 
@@ -16,8 +17,7 @@ class Conversion::ConvertAnonymOp
   def create_conversion
     result = Conversion::CreateConversion.call(
       input: context.input,
-      # TODO detect recepie from file extension
-      recipe: "cad2wmd",
+      recipe: get_recipe,
       on_success: nil # !!! TODO think about, because ConversionTask is saved
     )
     if result.success?
@@ -37,19 +37,30 @@ class Conversion::ConvertAnonymOp
     @resource.save
   end
 
-  def schedule_task
+  def prepare_task
+    # TODO probably pass job id, instead of passing it in finish
     @conversion_task.on_success = Store::SuccessVersionConvertOrg.new(
-      version_id: @version.id
+      version_id: @version.id,
+      cs_server_url: @conversion_task.cs_server_url
     )
 
     @conversion_task.meta[:dest_resource_id] = @resource.id
     @conversion_task.meta[:dest_version_id] = @version.id
     @conversion_task.save!
+  end
 
+  def schedule_task
     Store::ConversionJob.perform_async(@conversion_task.id)
   end
 
   def resource_name
     context.input.filename
+  end
+
+  private
+
+  def get_recipe
+    filename, byte_size = context.input.values_at(:filename, :byte_size)
+    Conversion::Recipe.from_input(filename.to_s, byte_size)
   end
 end

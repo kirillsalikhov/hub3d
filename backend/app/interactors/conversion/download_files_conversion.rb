@@ -17,10 +17,12 @@ class Conversion::DownloadFilesConversion
   private
 
   def get_files_list
-    Conversion::Client.get_files(context.conversion_job_id)
+    Conversion::Client.new(context.cs_server_url)
+      .get_files(context.conversion_job_id)
   end
 
   def download_tmp_file(url)
-    Conversion::Client.download_file(url)
+    Conversion::Client.new(context.cs_server_url)
+      .download_file(url)
   end
 end

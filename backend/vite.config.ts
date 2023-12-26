@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import RubyPlugin from 'vite-plugin-ruby'
+import ViteRails from 'vite-plugin-rails'
 import ReactPlugin from '@vitejs/plugin-react'
 
 export default defineConfig({
@@ -16,7 +16,11 @@ export default defineConfig({
     }
   },
   plugins: [
-    RubyPlugin(),
+    ViteRails({
+      compress: { brotli: false },
+      compression: {filter: /\.(js|mjs|json|css|wenv|gltf|html)$/i },
+      stimulus: false
+    }),
     ReactPlugin(),
   ]
 });

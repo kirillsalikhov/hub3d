@@ -1,23 +1,22 @@
 require "rest_client"
 
 module Conversion
-  CONVERSION_HOST = "http://manager:3000"
-  JOB_CREATE_URL = "#{CONVERSION_HOST}/jobs"
-  JOB_STATUS_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/status" }
-  JOB_FILES_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/files" }
-  JOB_LOGS_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/logs" }
-  JOB_CANCEL_URL = ->(job_id) { "#{CONVERSION_HOST}/jobs/#{job_id}/cancel" }
-  JOB_FILE_DOWNLOAD_URL = ->(path) { "#{CONVERSION_HOST}/#{path}" }
-
   SYNC_CHECK_INTERVAL = 1
 
-  class ConversionError < StandardError; end
+  class Conversion::Client
+    def initialize(base_path)
+      @base_path = base_path
+    end
 
-  module Conversion::Client
-    extend self
+    def job_create_url = "#{@base_path}/jobs"
+    def job_status_url(job_id) = "#{@base_path}/jobs/#{job_id}/status"
+    def job_files_url(job_id) = "#{@base_path}/jobs/#{job_id}/files"
+    def job_logs_url(job_id) = "#{@base_path}/jobs/#{job_id}/logs"
+    def job_cancel_url(job_id) = "#{@base_path}/jobs/#{job_id}/cancel"
+    def job_file_download_url(path) = "#{@base_path}/#{path}"
 
     def create_job(conversion_params)
-      res = RestClient.post(JOB_CREATE_URL, conversion_params)
+      res = RestClient.post(job_create_url, conversion_params)
       JSON.parse(res)["id"]
     rescue RestClient::NotFound => e
       # RestClient on this url returns 404 when recipe doesn't exist
@@ -26,12 +25,12 @@ module Conversion
     end
 
     def cancel_job(job_id)
-      res = RestClient.get(JOB_CANCEL_URL.call(job_id))
+      res = RestClient.get(job_cancel_url(job_id))
       JSON.parse(res)
     end
 
     def check_status(job_id)
-      res = RestClient.get(JOB_STATUS_URL.call(job_id))
+      res = RestClient.get(job_status_url(job_id))
       JSON.parse(res).with_indifferent_access
     end
 
@@ -65,18 +64,19 @@ module Conversion
     end
 
     def get_files(job_id)
-      res = RestClient.get(JOB_FILES_URL.call(job_id), {params: {use_external_host: false}})
+      res = RestClient.get(job_files_url(job_id))
       JSON.parse(res)
     end
 
     def get_logs(job_id)
       # TODO this method is used to store to active store
       # better have to have to load to temfile
-      res = RestClient.get(JOB_LOGS_URL.call(job_id))
+      res = RestClient.get(job_logs_url(job_id))
       JSON.parse(res)["logs"]
     end
 
     def download_file(src)
+      # TODO change for debugging, (thought it adds hash at the end )
       tempfile = Tempfile.new("change_for_debugging")
       # TODO Likely RestClient loads file to memory
       File.open(tempfile, "wb") do |output|

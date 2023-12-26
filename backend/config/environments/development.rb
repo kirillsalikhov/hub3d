@@ -59,7 +59,8 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  #
+
+  # TODO change to minio_dev to make it separate from prod
   config.active_storage.service = :minio
 
   config.action_mailer.default_url_options = {host: "localhost", port: 3050}

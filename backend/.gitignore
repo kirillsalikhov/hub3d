@@ -13,6 +13,7 @@
 !/tmp/pids/.keep
 
 /public/assets
+/public/vite
 /public/vite-dev
 /public/vite-test
 

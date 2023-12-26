@@ -7,9 +7,10 @@ function load_env() {
 function minio_setup() {
   # -net=host - needed for 127.0.0.1 to be host
   # default-bucket - our name
-  docker run --net=host --entrypoint sh minio/mc -c "
+  docker run --net=host --entrypoint sh minio/mc:RELEASE.2023-10-24T21-42-22Z -c "
     mc config host add minio http://127.0.0.1:10000 $HUB__MINIO_ROOT_USER $HUB__MINIO_ROOT_PASSWORD
     mc mb minio/default-bucket
+    mc mb minio/test-bucket
     "
 }
 cd "$(dirname "$0")"
@@ -27,5 +28,6 @@ minio_setup
 
 
 docker compose ${compose_files} -p hub run -e RAILS_ENV=development backend rake db:setup
+docker compose ${compose_files} -p hub run -e RAILS_ENV=production backend rake db:setup
 
 docker compose ${compose_files} -p hub down

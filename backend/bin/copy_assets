@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+# this script is intended to deliver compiled assets for Nginx container
+# it just copies public folder to nginx accessible volume
+# but tries to do that safely
+
+require "fileutils"
+
+local_public = "./public"
+
+volume_path = "./assets_volume"
+public_new = "#{volume_path}/public_new"
+
+public_current = "#{volume_path}/public"
+
+deploy_time = Time.now.strftime("%Y-%d-%m--%H_%M_%S")
+public_old = "#{volume_path}/pubic__#{deploy_time}"
+
+FileUtils.remove_entry(public_new) if File.exist?(public_new)
+# copy new assets to volume/public_new
+FileUtils.copy_entry(local_public, public_new)
+# save current volume/public to volume/public_DATE--Time
+FileUtils.mv(public_current, public_old) if File.exist?(public_current)
+# rename volume/public_new to volume/public
+FileUtils.mv(public_new, public_current)
+
+# if we came here, everything is ok => delete old public(volume/public_DATE--Time)
+FileUtils.rm_rf(public_old)
+
+puts "Precompiled assets copied"

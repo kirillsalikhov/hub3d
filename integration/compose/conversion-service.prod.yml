@@ -19,7 +19,7 @@ x-converter: &converter
     mode: replicated
 services:
   manager:
-    image: docker.webgears3d.com/converters/conversion-manager:5.5.1
+    image: docker.webgears3d.com/converters/conversion-manager:5.10.6
     restart: on-failure
     depends_on:
       - rabbitmq

@@ -1,0 +1,14 @@
+{
+  "name": "swagger-client",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "generate-client": "npx openapi-generator-cli generate -i ../swagger/v1/swagger.yaml -g typescript-axios -o ../app/frontend/util/api-client"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.7.0"
+  }
+}

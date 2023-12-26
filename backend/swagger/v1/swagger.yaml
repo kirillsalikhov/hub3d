@@ -1,0 +1,166 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/conversions":
+    get:
+      summary: List conversions
+      operationId: getConversions
+      description: List conversion tasks for user
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+              - id: bfb121ed-afc7-4340-9f9e-862af775f8dd
+                status: inProgress
+                progress: '0.0'
+                start_time: '2023-10-11T17:25:45.908Z'
+                end_time: 
+                conversion_job_id: c651fcd5-6951-421e-b956-6408bdc43566
+                created_at: '2023-10-11T17:25:45.908Z'
+                updated_at: '2023-10-11T17:25:45.908Z'
+                meta:
+                  dest_resource_id: 504a0890-8195-4341-982d-b657c5cce1fd
+                  dest_version_id: 75fc2f7f-4b36-4d79-83e5-960fc746a935
+              - id: b7a0d3df-d126-4916-a934-0451d1957880
+                status: inProgress
+                progress: '0.0'
+                start_time: '2023-10-11T17:25:45.914Z'
+                end_time: 
+                conversion_job_id: 8a5a8e30-c2fa-47e6-bf49-0f161c3b5a82
+                created_at: '2023-10-11T17:25:45.914Z'
+                updated_at: '2023-10-11T17:25:45.914Z'
+                meta:
+                  dest_resource_id: bc74f71c-46b6-467b-85e8-d9103f1d2954
+                  dest_version_id: 83c3a9cf-22b7-4f7e-87e4-69469f671ba1
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/conversion_task"
+  "/api/v1/conversions/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show conversion
+      operationId: getConversion
+      description: Get description of Conversion Task
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: add8af14-62cd-4555-8cb2-4271f39c6708
+                status: inProgress
+                progress: '0.0'
+                start_time: '2023-10-11T17:25:46.066Z'
+                end_time: 
+                conversion_job_id: 27454f5b-faa9-4063-b741-d7ffc8caf4b5
+                created_at: '2023-10-11T17:25:46.066Z'
+                updated_at: '2023-10-11T17:25:46.066Z'
+                meta:
+                  dest_resource_id: 5877e18f-3831-4702-a754-cbbc05da6d87
+                  dest_version_id: 4cb81f47-147b-4394-b640-7b2db55b30f1
+              schema:
+                "$ref": "#/components/schemas/conversion_task"
+  "/api/v1/conversions/{id}/logs":
+    parameters:
+    - name: id
+      in: path
+      description: Conversion Task id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: logs conversion
+      operationId: getConversionLogs
+      description: Get logs of Conversion Task (redirect to logs file)
+      responses:
+        '302':
+          description: successful
+  "/api/v1/op/convert-anonym":
+    post:
+      summary: convert_anonym op
+      operationId: convertAnonym
+      description: Start anonym conversion
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                id: 3088b719-80b5-48e9-bc8e-5e682c91cf6a
+                status: inProgress
+                progress: '0.0'
+                start_time: '2023-10-11T17:25:49.622Z'
+                end_time: 
+                conversion_job_id: 97fbee7e-646d-47b3-80e8-1e8d0843c372
+                created_at: '2023-10-11T17:25:49.622Z'
+                updated_at: '2023-10-11T17:25:49.662Z'
+                meta:
+                  dest_resource_id: beb6ccda-714a-4c51-85ee-5effe3a49e23
+                  dest_version_id: 24c83b31-5a73-4a78-b724-5c1f7edb7a7e
+              schema:
+                "$ref": "#/components/schemas/conversion_task"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input_file
+              properties:
+                input_file:
+                  type: string
+                  description: Active Storage signeID
+components:
+  schemas:
+    conversion_task:
+      type: object
+      properties:
+        status:
+          type: string
+          example: finished
+        progress:
+          type: string
+        start_time:
+          type: string
+          format: date_time
+          nullable: true
+        end_time:
+          type: string
+          format: date_time
+          nullable: true
+        conversion_job_id:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date_time
+        updated_at:
+          type: string
+          format: date_time
+        meta:
+          type: object
+          properties:
+            dest_resource_id:
+              type: string
+              nullable: true
+            dest_version_id:
+              type: string
+              nullable: true
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3050

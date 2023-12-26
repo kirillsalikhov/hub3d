@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '../components/Header';
-import { Progress } from '../components/Progress';
+import { Progress, progressTransitionDuration } from '../components/Progress';
 import { ConversionLogs } from '../components/ConversionLogs';
 import { useWebsocket } from '../util/useWebsocket';
+import Client from '../util/Client';
+import Layout from '../components/Layout';
 
 const STATUSES = {
     finished: 'finished',
@@ -11,15 +13,27 @@ const STATUSES = {
     canceled: 'canceled',
     canceling: 'canceling'
 }
-const resourceUrl = (resourceId) => `/resources/${resourceId}`;
+
+const STATUSES_NAMES = {
+    finished: 'Finished',
+    inProgress: 'Converting',
+    failed: 'Failed',
+    canceled: 'Canceled',
+    canceling: 'Canceling'
+}
+const resourceUrl = (resourceId) => `/resources/${ resourceId }`;
 export default function Resource({ conversionTask, resource }) {
-    const [ progress, setProgress ] = useState( Math.max(conversionTask.progress, .01) );
-    // TODO Kirill: Probably here should be conversionTask.status as default state
-    const [ status, setStatus ] = useState(STATUSES.inProgress);
+    const [ progress, setProgress ] = useState(Math.max(conversionTask.progress, .01));
+    const [ status, setStatus ] = useState(conversionTask.status);
     const [ logs, setLogs ] = useState(null);
     const { operation, record } = useWebsocket('TaskChannel');
 
     useEffect(() => {
+        if (!record || record.id !== conversionTask.id) {
+            // it's data from other conversionTask
+            return;
+        }
+
         if (record?.progress) {
             setProgress(record?.progress);
         }
@@ -32,54 +46,48 @@ export default function Resource({ conversionTask, resource }) {
         if (status === STATUSES.finished) {
             setTimeout(() => {
                 window.location.href = resourceUrl(conversionTask.meta.dest_resource_id)
-            }, 1000);
+            }, progressTransitionDuration);
         }
-    }, [status]);
-
-    //  TODO fix me, Kirill doesn't know how to hook
-    // --- trash start ---
-    useEffect(() => {
-        if (status !== STATUSES.failed) {
-            return;
-        }
-
-        const logsUrl = `/api/v1/conversions/${conversionTask.id}/logs`;
-
-        const fetchLogs = async () => {
-            const fetchData = await fetch(logsUrl)
-                .then((response) => {
-                    if (response.status === 200) {
-                        return response.json();
-                    } else {
-                        // I return 404 status when there is conversionTask but no logs
-                        // It could be so for some reason
-                        // TODO 1. there is still error in console, I don't know why(
-                        // TODO 2. We should use something indication that logs are loaded
-                        //  but there is no logs
+        if (status === STATUSES.failed) {
+            Client.getConversionLogs(conversionTask.id)
+                .then(({ data: logs }) => setLogs(logs))
+                .catch(({ status }) => {
+                    if (status === 404) {
                         return false;
                     }
                 });
-
-            setLogs(fetchData);
         }
-
-        fetchLogs();
-    }, [status])
-    // --- trash end ---
+    }, [ status ]);
 
     return (
-        <div className='min-h-full'>
-            <Header/>
-            <main>
-                <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                    <div className='py-1 flex justify-between'>
-                        <span>{ resource.name }</span>
-                        <span>{ status }</span>
+        <Layout>
+            <div className="flex h-full flex-col flex-auto">
+                <div className="flex flex-col flex-grow place-content-center">
+                    <div className="mx-auto w-full max-w-7xl px-6 pb-24 ">
+                        <div
+                            className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white/80 shadow-2xl shadow-indigo-500">
+                            <div className="p-6">
+                                <div className="flex max-w-7xl items-center justify-between gap-2 text-xl ">
+                                    <p className="text-blue-950 italic truncate">
+                                        <span className="font-bold">Converting</span>  { resource.name }...
+                                    </p>
+                                    <p className="text-gray-400">{ progress * 100 }%</p>
+                                </div>
+                                <Progress progress={ progress } />
+                            </div>
+                            <div className="px-6 py-4 text-center text-sm text-blue-950">
+                                <p className="w-full mx-auto max-w-md items-center justify-center">
+                                    You may <span className="font-bold">save this browser link</span> to check it later,
+                                    and close the window now. Or log in to get the link in your profile once ready
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <Progress progress={ progress }/>
                 </div>
-                { status === STATUSES.failed && <ConversionLogs logs={logs}/>}
-            </main>
-        </div>
+                <div className="mt-12 sm:mt-16">
+                    { status === STATUSES.failed && <ConversionLogs logs={ logs } /> }
+                </div>
+            </div>
+        </Layout>
     )
 }

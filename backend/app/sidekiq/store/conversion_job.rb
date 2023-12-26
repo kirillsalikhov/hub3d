@@ -35,7 +35,7 @@ class Store::ConversionJob
   private
 
   def check_status
-    status, progress = Conversion::Client
+    status, progress = Conversion::Client.new(@task.cs_server_url)
       .check_status(@task.conversion_job_id)
       .values_at(:status, :progress)
 
@@ -50,6 +50,7 @@ class Store::ConversionJob
       canceled
     else
       if is_timeout?
+        # TODO add info that timeout
         failed
       else
         self.class.perform_in(CHECK_INTERVAL, @task.id)

@@ -2,7 +2,7 @@
 
 usage="
 Script usage:
-  scripts/main.sh [--dev=DEV_LETTERS] {up|down|stop|other docker-compose cmd}
+  bin/main.sh [--dev=DEV_LETTERS] {up|down|stop|other docker-compose cmd}
 
 DEV_LETTERS:
   b - backend : backend
@@ -48,6 +48,10 @@ do
         f)
             echo "DEV frontend : frontend from another rails container"
             dev_compose+=" -f ../compose/dev/frontend.yml"
+        ;;
+        s)
+            echo "MOD https : extra settings for certs and configs"
+            dev_compose+=" -f ../compose/dev/https.yml"
         ;;
     esac
 done

@@ -1,67 +1,45 @@
-import React, { useCallback, useRef, useState } from 'react'
-import { useDropzone } from 'react-dropzone';
-import { Uploader } from './Uploader';
-import { UploadProgress } from './UploadProgress';
+import React from 'react'
+import { PlusIcon } from '@heroicons/react/20/solid';
+import { useDropzoneUpload } from './useDropzoneUpload';
+import { UploadProgress } from '../Uploader/UploadProgress';
 
-export const Dropzone = ({uploadsPath, filesUploaded}) => {
+export const Dropzone = ({ uploadFile, progress, file }) => {
 
-    const [file, setFile] = useState(null);
-    const [progress, setProgress] = useState(0);
-
-    const onDrop = useCallback(acceptedFiles => {
-        if (acceptedFiles.length === 0) {
-            return;
-        }
-        const file = acceptedFiles[0];
-        //do validation
-        const isValid = true;
-        //if valid
-        if (isValid) {
-            uploadFile(file)
-        } else {
-            //showErrors();
-        }
-    }, []);
-
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
-
-    const uploadFile = (file) => {
-        const uploader = new Uploader(file, uploadsPath)
-        setFile(uploader)
-
-        uploader.onProgress = ({loaded, total}) => {
-            setProgress(loaded/total);
-        }
-
-        uploader.create((error, blob) => {
-            if (error) {
-                //showErrors();
-                console.log(error);
-            } else {
-                filesUploaded(blob.signed_id)
-            }
-        })
-    }
-
-    if (file) {
-        return <UploadProgress file={file} progress={progress} />
-    }
+    const { rootProps, inputProps, isDragActive} = useDropzoneUpload({ uploadFile });
 
     return (
-        <div className={`${isDragActive ? 'shadow-md' : ''} mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10`} {...getRootProps()}>
-            <div className='text-center'>
-                <div className='mt-4 flex text-sm leading-6 text-gray-600'>
-                    <label
-                        htmlFor='file-upload'
-                        className='relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500'
-                    >
-                        <span>Upload a file</span>
-                        <input id='file-upload' name='file-upload' type='file' className='sr-only' {...getInputProps()}/>
-                    </label>
-                    <p className='pl-1'>or drag and drop</p>
-                </div>
-                <p className='text-xs leading-5 text-gray-600'>FBX up to 10MB</p>
+        <div className="bg-white sm:mx-auto sm:w-full sm:max-w-md sm:overflow-hidden sm:rounded-lg shadow-2xl shadow-indigo-500">
+            <div className="h-96 p-8">
+                {
+                    file ?
+                        <UploadProgress progress={progress} file={file} /> :
+                        <DropzoneContent rootProps={rootProps} inputProps={inputProps} isDragActive={isDragActive} />
+                }
             </div>
         </div>
     )
 }
+
+const DropzoneContent = ({rootProps, inputProps, isDragActive}) => (
+    <div className="col-span-full">
+        <form>
+            <div htmlFor="dropzone-file-upload" { ...rootProps }>
+                <input id="dropzone-file-upload" name="dropzone-file-upload" type="file"
+                       className="sr-only" { ...inputProps } />
+                <div className={ `${ isDragActive ? 'bg-gradient-to-tr border-none' : '' } group cursor-pointer relative flex rounded-lg h-80 bg-white hover:bg-gradient-to-tr from-blue-500 via-pink-300 via-70% to-purple-600 border-2 border-dashed border-gray-300 hover:border-none` }>
+                    <div className="flex w-full m-0.5 bg-white rounded-md text-center items-center justify-center">
+                        <div>
+                            <div className="m-auto w-14 h-14 rounded-full p-4 text-white bg-gradient-to-tr from-indigo-600/80 to-purple-700/80 shadow-md shadow-indigo-500/40">
+                                <PlusIcon className="w-6 h-6" />
+                            </div>
+                            <p className="leading-10 text-2xl font-black text-blue-950 group-hover:text-blue-800 pt-6">
+                                Upload IFC file
+                            </p>
+                            <p className="text-l leading-5 text-gray-400">drag & drop here or browse</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+)
