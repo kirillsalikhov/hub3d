@@ -1,17 +1,17 @@
 import React, { useMemo, useState } from 'react';
 import ActionCable from './ActionCable';
 
-export const useWebsocket = (channelName) => {
+export const useWebsocket = (subscriptionOptions) => {
     const [data, setData] = useState({});
 
     useMemo(() => {
         ActionCable.getConsumer().subscriptions.create(
-            channelName,
+            subscriptionOptions,
             {
                 received: (data) => setData(data)
             }
         )
-    }, [channelName]);
+    }, [subscriptionOptions]);
 
     return data;
 };
