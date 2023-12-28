@@ -28,4 +28,8 @@ RUN npm ci
 
 COPY . .
 
+# Precompile bootsnap code for faster boot times
+RUN rm -rf tmp/cache
+RUN bundle exec bootsnap precompile --gemfile app/ lib/
+
 RUN RAILS_ENV=production bundle exec rails assets:precompile
