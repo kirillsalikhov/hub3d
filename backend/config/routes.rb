@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     # TODO delete when not needed
     # Just helper method
     get "logout" => "devise/sessions#destroy"
+    # it's needed in rspec request tests
+    get "simulate_guest_user" => "users/sessions#simulate_guest_user"
   end
 
   root "pages#root"

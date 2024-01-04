@@ -1,11 +1,10 @@
 # TODO defenenetly move to other module
-# probably rename
+# probably rename to ConvertGuestOp
 class Conversion::ConvertAnonymOp
   include Interactor
 
   def call
     create_conversion
-    # create user
     # create space
     create_resource
     prepare_task
@@ -31,7 +30,7 @@ class Conversion::ConvertAnonymOp
 
   def create_resource
     # TODO set resource, versions types
-    @resource = Store::Resource.new(name: resource_name)
+    @resource = Store::Resource.new(name: resource_name, author: context.user)
     # TODO should be current, or smth like
     @version = @resource.versions.new
     @resource.save

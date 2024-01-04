@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_13_163243) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_29_155953) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_13_163243) do
     t.string "res_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "author_id"
+    t.index ["author_id"], name: "index_store_resources_on_author_id"
   end
 
   create_table "store_versions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -87,5 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_13_163243) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "store_resources", "users", column: "author_id"
   add_foreign_key "store_versions", "store_resources", column: "resource_id"
 end
