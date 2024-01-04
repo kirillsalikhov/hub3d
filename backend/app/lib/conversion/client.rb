@@ -3,7 +3,7 @@ require "rest_client"
 module Conversion
   SYNC_CHECK_INTERVAL = 1
 
-  class Conversion::Client
+  class Client
     def initialize(base_path)
       @base_path = base_path
     end
