@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_29_155953) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_04_132554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -64,6 +64,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_155953) do
     t.datetime "updated_at", null: false
     t.uuid "author_id"
     t.index ["author_id"], name: "index_store_resources_on_author_id"
+  end
+
+  create_table "store_share_options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "is_public", default: false, null: false
+    t.string "password"
+    t.uuid "resource_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource_id"], name: "index_store_share_options_on_resource_id"
   end
 
   create_table "store_versions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
