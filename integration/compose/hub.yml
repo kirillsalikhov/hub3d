@@ -19,6 +19,8 @@ x-base-backend: &base_backend
     MINIO_ROOT_PASSWORD: ${HUB__MINIO_ROOT_PASSWORD}
     CS_HUB_POOL: ${HUB_CS_POOL}
 
+    RAILS_MASTER_KEY: ${HUB__RAILS_MASTER_KEY}
+
   depends_on:
     postgres:
       condition: service_healthy
