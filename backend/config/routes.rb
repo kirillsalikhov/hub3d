@@ -19,7 +19,11 @@ Rails.application.routes.draw do
 
   root "pages#root"
 
-  get "/resources/:id", to: "pages#resource"
+  get "/resources/:id", to: "resource#show"
+  get "/resources/:id/auth-password", to: "resource#auth_password"
+  # TODO remove this page, when logic move to component
+  get "/resources/:id/edit-share-options", to: "resource#edit_share_options"
+
   get "/conversions/:id", to: "pages#conversion"
 
   namespace :api do
@@ -31,6 +35,10 @@ Rails.application.routes.draw do
           get :logs
         end
       end
+      # TODO patch => put ?
+      patch "resources/:id/share-options", to: "share_options#update" # patch
+      # TODO change get => post
+      get "resources/:id/share-options/auth-password", to: "share_options#auth_password" # post
     end
   end
 
