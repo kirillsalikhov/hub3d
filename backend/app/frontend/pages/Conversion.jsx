@@ -66,7 +66,7 @@ export default function Resource({ conversionTask, resource }) {
                                     <p className="text-blue-950 italic truncate">
                                         <span className="font-bold">Converting</span>  { resource.name }...
                                     </p>
-                                    <p className="text-gray-400">{ progress * 100 }%</p>
+                                    <p className="text-gray-400">{ +Number(progress * 100).toFixed(2) }%</p>
                                 </div>
                                 <Progress progress={ progress } />
                             </div>
