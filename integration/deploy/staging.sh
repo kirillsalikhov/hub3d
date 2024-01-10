@@ -33,7 +33,7 @@ ssh -tt $USER@$HOST << EOF
 cd $REMOTE_PATH
 bin/main.sh pull \
 && bin/main.sh down \
-&& bin/main.sh up -d
+&& bin/main.sh --dev=s up -d
 
 exit
 EOF
