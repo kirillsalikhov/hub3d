@@ -1,10 +1,10 @@
 class Store::ShareOptions < ApplicationRecord
   belongs_to :resource
 
+  # what user can do with link only
   enum link_access: {
-    private: 0,
-    public: 1,
-    password: 2
+    none: 0, # private
+    view: 1 # public
   }, _prefix: true, _scopes: false
 
   encrypts :link_password
