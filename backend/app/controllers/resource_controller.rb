@@ -24,7 +24,8 @@ class ResourceController < ApplicationController
   end
 
   def auth_password
-    unless @resource.share_options&.password?
+    # TODO probably return forbiden
+    unless @resource.share_options.link_with_password?
       render html: "No password, also do smth about it"
       return
     end
