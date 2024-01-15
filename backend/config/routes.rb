@@ -35,10 +35,9 @@ Rails.application.routes.draw do
           get :logs
         end
       end
-      # TODO patch => put ?
-      patch "resources/:id/share-options", to: "share_options#update" # patch
-      # TODO change get => post
-      get "resources/:id/share-options/auth-password", to: "share_options#auth_password" # post
+      # TODO try to make resource route, when show action is ready
+      patch "resources/:id/share-options", to: "share_options#update"
+      post "resources/:id/share-options/auth-password", to: "share_options#auth_password" # post
     end
   end
 
