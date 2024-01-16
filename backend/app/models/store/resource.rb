@@ -1,5 +1,7 @@
 class Store::Resource < ApplicationRecord
-  after_initialize :default_values,  if: :new_record?
+  resourcify
+
+  after_initialize :default_values, if: :new_record?
 
   # TODO dependent: :destroy to versions
   has_many :versions, class_name: "Store::Version"
