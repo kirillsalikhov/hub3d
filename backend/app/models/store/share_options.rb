@@ -20,6 +20,6 @@ class Store::ShareOptions < ApplicationRecord
   end
 
   def link_with_password?
-    link_access != :none && link_password?
+    !link_access_none? && link_password?
   end
 end

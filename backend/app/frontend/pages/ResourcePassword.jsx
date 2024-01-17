@@ -8,9 +8,15 @@ import {useState} from "react";
 import axios from "axios";
 
 const authPassword = async (resourceId, password) => {
-    const {data} = await axios.post(
-        `/api/v1/resources/${resourceId}/share-options/auth-password`, {link_password: password});
-    return data;
+    try {
+        // no data if match
+        await axios.post(
+            `/api/v1/resources/${resourceId}/share-options/auth-password`, {link_password: password});
+        return true;
+    } catch (e) { // SHOULD be check on forbidden !
+        // forbidden if not match
+        return false
+    }
 }
 
 export default function ResourcePassword({resourceId}) {
