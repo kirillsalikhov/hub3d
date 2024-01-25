@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../components/Header';
 import { Progress, progressTransitionDuration } from '../components/Progress';
 import { ConversionLogs } from '../components/ConversionLogs';
 import { useWebsocket } from '../util/useWebsocket';

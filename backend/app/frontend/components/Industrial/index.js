@@ -6,15 +6,12 @@ const [ parkingPreset ] = presets.splice(parkingIndex, 1);
 const rearrangedPresets = [ parkingPreset, ...presets ];
 
 window.viewer = {
-    load: async ({ resource, versionContents, domElement }) => {
+    load: async ({ resource, versionContents, domElement, shareComponent }) => {
         const config = {
             presets: rearrangedPresets,
             integration: {
                 enabled: true,
-                share: [
-                    { title: 'Copy link', value: location.href },
-                    { title: 'Copy public embed code', value: `<iframe src="${ location.origin + location.pathname }" width="800" height="600" />` }
-                ],
+                shareComponent,
                 // versionName: 'v' + version.version,
                 // versionId: version.id,
                 versions: [],

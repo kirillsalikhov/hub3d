@@ -7,6 +7,7 @@
     "@rails/activestorage": "^7.0.4-3",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
+    "fr-fonts": "^3.0.3",
     "postcss": "^8.4.27",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -16,7 +17,7 @@
     "vite-plugin-rails": "^0.1.0"
   },
   "dependencies": {
-    "@wg/industrial-app": "^8.0.8",
+    "@wg/industrial-app": "file:wg-industrial-app-8.0.17-alpha.5.tgz",
     "axios": "^0.27.2"
   }
 }
