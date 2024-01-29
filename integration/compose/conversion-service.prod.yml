@@ -19,7 +19,7 @@ x-converter: &converter
     mode: replicated
 services:
   manager:
-    image: docker.webgears3d.com/converters/conversion-manager:5.10.6
+    image: docker.webgears3d.com/converters/conversion-manager:5.11.1
     restart: on-failure
     depends_on:
       - rabbitmq
@@ -74,7 +74,7 @@ services:
     image: docker.webgears3d.com/converters/wg-edge-exporter:2.1.0-utils3.1.1
   gltfMerge:
     << : *converter
-    image: docker.webgears3d.com/converters/gltf_merge:2.1.1-utils3.1.1
+    image: docker.webgears3d.com/converters/gltf_merge:2.2.0-utils3.2.0
   gltf2glb:
     << : *converter
     image: docker.webgears3d.com/converters/gltf2glb:2.1.0-utils3.1.1
@@ -86,7 +86,7 @@ services:
     image: docker.webgears3d.com/converters/model2industrial:2.1.0-utils3.1.1
   gltf2wmd:
     << : *converter
-    image: docker.webgears3d.com/converters/gltf2wmd:2.2.5-utils3.1.1
+    image: docker.webgears3d.com/converters/gltf2wmd:2.4.0-utils3.1.1
   objects2wof:
     << : *converter
     image: docker.webgears3d.com/converters/objects2wof:2.1.0-utils3.1.1
@@ -101,7 +101,7 @@ services:
     image: docker.webgears3d.com/converters/dwfx2wbp:2.1.0-utils3.1.1
   optimizer:
     << : *converter
-    image: docker.webgears3d.com/converters/optimizer:3.0.2-utils3.1.1
+    image: docker.webgears3d.com/converters/optimizer:3.1.0-utils3.1.1
     environment:
       << : [*storage, *minio-config]
       MAX_CPUS_LIMIT: 30
@@ -112,16 +112,16 @@ services:
     image: docker.webgears3d.com/converters/gltf-exchange-converter:2.1.30-utils3.1.1
   post-fbx2gltf:
     <<: *converter
-    image: docker.webgears3d.com/converters/post-fbx2gltf:2.3.3-utils3.1.1
+    image: docker.webgears3d.com/converters/post-fbx2gltf:3.0.1-utils3.1.1
   unzip2folder:
     <<: *converter
-    image: docker.webgears3d.com/converters/unzip2folder:2.1.2-utils3.1.1
+    image: docker.webgears3d.com/converters/unzip2folder:3.1.0-utils3.2.0
   ifc_convert:
     <<: *converter
-    image: docker.webgears3d.com/converters/ifc_convert:1.0.1-utils3.1.1
+    image: docker.webgears3d.com/converters/ifc_convert:2.0.0-utils4.0.0
   post_ifc_convert:
     <<: *converter
-    image: docker.webgears3d.com/converters/post_ifc_convert:1.0.0-utils3.1.1
+    image: docker.webgears3d.com/converters/post_ifc_convert:2.1.0-utils4.0.0
 
 volumes:
   minio_data:
