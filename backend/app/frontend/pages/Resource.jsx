@@ -15,7 +15,7 @@ export default function Resource({ resource, version, files }) {
             resource,
             versionContents,
             domElement: viewerRef.current,
-            shareComponent: <Share />
+            ShareComponent: Share
         });
     }, []);
 

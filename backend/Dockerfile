@@ -23,7 +23,7 @@ WORKDIR /backend
 COPY Gemfile* ./
 RUN bundle install --jobs 8 --retry 3
 
-COPY package.json package-lock.json .npmrc wg-industrial-app-8.0.17-*.tgz ./
+COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 
 COPY . .

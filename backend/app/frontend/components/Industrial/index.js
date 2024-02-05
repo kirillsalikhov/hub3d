@@ -6,14 +6,14 @@ const [ parkingPreset ] = presets.splice(parkingIndex, 1);
 const rearrangedPresets = [ parkingPreset, ...presets ];
 
 window.viewer = {
-    load: async ({ resource, versionContents, domElement, shareComponent }) => {
+    load: async ({ resource, versionContents, domElement, ShareComponent }) => {
         const config = {
             presets: rearrangedPresets,
             integration: {
                 enabled: true,
-                shareComponent,
+                ShareComponent,
                 // versionName: 'v' + version.version,
-                // versionId: version.id,
+                versionId: 'some version id',
                 versions: [],
                 backLink: '/',
                 fileTitle: resource.name
