@@ -12,8 +12,6 @@ window.viewer = {
             integration: {
                 enabled: true,
                 ShareComponent,
-                // versionName: 'v' + version.version,
-                versionId: 'some version id',
                 versions: [],
                 backLink: '/',
                 fileTitle: resource.name
