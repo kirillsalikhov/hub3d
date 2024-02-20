@@ -1,6 +1,7 @@
 class ResourceController < ApplicationController
   before_action :set_resource
   def show
+    authorize(@resource)
     # TODO  Should be current, not first
     version = @resource.versions.with_attached_files.first
 
