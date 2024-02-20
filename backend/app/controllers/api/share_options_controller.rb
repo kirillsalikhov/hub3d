@@ -2,6 +2,7 @@ class Api::ShareOptionsController < Api::ApplicationController
   before_action :set_resource
 
   def update
+    # NOTE: if password change, old accessor_password_link are not revoked
     share_options.update!(share_options_params)
     head :ok
   end

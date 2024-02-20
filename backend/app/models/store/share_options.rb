@@ -19,6 +19,14 @@ class Store::ShareOptions < ApplicationRecord
     link_password == check_password
   end
 
+  def private?
+    link_access_none?
+  end
+
+  def public?
+    link_access_view? && link_password.blank?
+  end
+
   def link_with_password?
     !link_access_none? && link_password?
   end
