@@ -17,31 +17,31 @@ class ApplicationPolicy
   end
 
   def create?
-    false
+    manage?
   end
 
   def new?
-    create?
+    manage?
   end
 
   def update?
-    false
+    manage?
   end
 
   def edit?
-    update?
+    manage?
   end
 
   def destroy?
+    manage?
+  end
+
+  def manage?
     false
   end
 
-  def is_anon?
-    user.nil?
-  end
-
   def is_guest?
-    !is_anon? && user.guest
+    user&.guest
   end
 
   class Scope
