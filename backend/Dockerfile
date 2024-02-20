@@ -31,5 +31,6 @@ COPY . .
 # Precompile bootsnap code for faster boot times
 RUN rm -rf tmp/cache
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
-
-RUN RAILS_ENV=production bundle exec rails assets:precompile
+# TODO in rails 7.1 replace with SECRET_KEY_BASE_DUMMY=1
+# https://stackoverflow.com/questions/76157925/rails-7-validate-secret-key-base-missing-secret-key-base-for-production-e/76190212
+RUN RAILS_ENV=production  SECRET_KEY_BASE=DUMMY bundle exec rails assets:precompile
