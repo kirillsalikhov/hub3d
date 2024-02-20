@@ -4,8 +4,13 @@ class Api::ApplicationController < ActionController::API
   include AuthConcern
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
+  rescue_from Pundit::NotAuthorizedError, with: :deny_access
 
   def render_unprocessable_entity(e)
     render json: {errors: e.record.errors}, status: :unprocessable_entity
+  end
+
+  def deny_access(e)
+    head :forbidden
   end
 end
