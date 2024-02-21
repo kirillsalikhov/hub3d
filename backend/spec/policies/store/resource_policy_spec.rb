@@ -5,17 +5,12 @@ describe Store::ResourcePolicy do
   let(:anon) { nil }
   let(:another_user) { create(:user) }
 
-  def _resource(link_access = :none, password = "")
-    resource = create(:resource, author: author)
-    resource.share_options.link_access = link_access
-    resource.share_options.link_password = password
-    resource.save!
-    resource.share_options.save!
-    resource
-  end
+  let(:private_resource) { create(:resource, :private, author: author) }
+  let(:public_resource) { create(:resource, :public, author: author) }
+  let(:password_resource) { create(:resource, :password, author: author) }
 
   permissions :manage? do
-    let(:resource) { _resource }
+    let(:resource) { public_resource }
 
     it "deny if anon" do
       expect(policy).not_to permit(anon, resource)
@@ -31,7 +26,7 @@ describe Store::ResourcePolicy do
   end
 
   context "when resource is private" do
-    let(:resource) { _resource(:none) }
+    let(:resource) { private_resource }
 
     permissions :show? do
       it "deny if anon" do
@@ -49,7 +44,7 @@ describe Store::ResourcePolicy do
   end
 
   context "when resource is public" do
-    let(:resource) { _resource(:view) }
+    let(:resource) { public_resource }
 
     permissions :show? do
       it "allow if anon" do
@@ -63,7 +58,7 @@ describe Store::ResourcePolicy do
   end
 
   context "when resource has link_access_password" do
-    let(:resource) { _resource(:view, "pass8pass") }
+    let(:resource) { password_resource }
 
     permissions :show? do
       it "deny if anon" do
