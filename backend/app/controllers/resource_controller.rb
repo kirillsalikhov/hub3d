@@ -1,5 +1,6 @@
 class ResourceController < ApplicationController
   before_action :set_resource
+  before_action :redirect_if_password_link_and_no_access, only: :show
   def show
     authorize(@resource)
     # TODO  Should be current, not first
@@ -44,6 +45,15 @@ class ResourceController < ApplicationController
   end
 
   private
+
+  def redirect_if_password_link_and_no_access
+    if @resource.share_options.link_with_password?
+      policy = Pundit.policy!(pundit_user, @resource)
+      unless policy.show?
+        redirect_to action: "auth_password", id: @resource.id and return
+      end
+    end
+  end
 
   def set_resource
     # @type [Store::Resource]
