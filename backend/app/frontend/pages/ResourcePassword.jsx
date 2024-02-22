@@ -5,13 +5,12 @@
  */
 
 import {useState} from "react";
-import axios from "axios";
+import Client from "../util/Client";
 
 const authPassword = async (resourceId, password) => {
     try {
         // no data if match
-        await axios.post(
-            `/api/v1/resources/${resourceId}/share-options/auth-password`, {link_password: password});
+        await Client.resourceAuthPassword(resourceId, {link_password: password});
         return true;
     } catch (e) { // SHOULD be check on forbidden !
         // forbidden if not match

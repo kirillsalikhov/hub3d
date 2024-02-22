@@ -6,10 +6,10 @@
  */
 
 import {useState} from "react";
-import axios from "axios";
+import Client from "../util/Client";
 
 const updateShareOptions = async (resourceId, data) => {
-    const res = await axios.patch(`/api/v1/resources/${resourceId}/share-options`, data);
+    const res = await Client.updateShareOptions(resourceId, data);
     console.log(res);
 }
 
