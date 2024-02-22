@@ -15,29 +15,29 @@ paths:
           content:
             application/json:
               example:
-              - id: 6b6bff96-f3c0-4360-afcc-9dc0832d68ec
+              - id: 925bc808-8e38-4848-a674-dc067a9a9858
                 status: inProgress
                 progress: '0.0'
-                start_time: '2024-02-22T12:58:12.268Z'
+                start_time: '2024-02-22T13:25:39.593Z'
                 end_time: 
-                conversion_job_id: 9411c215-f087-4261-96ec-57317de9e77a
-                created_at: '2024-02-22T12:58:12.269Z'
-                updated_at: '2024-02-22T12:58:12.269Z'
+                conversion_job_id: bb7a4431-3153-4ed7-a6d2-17b018bf17ca
+                created_at: '2024-02-22T13:25:39.594Z'
+                updated_at: '2024-02-22T13:25:39.594Z'
                 meta:
-                  dest_resource_id: ad5641ad-2fba-4744-bed8-5545f4365780
-                  dest_version_id: b3e9e6b6-5d8c-4d2b-bc80-f8e40acc4d60
+                  dest_resource_id: 5c3cd848-8ba8-4e25-b34b-bee98effec0d
+                  dest_version_id: dc52869f-3d67-4adc-aa2a-2644408d4f28
                 cs_server: local
-              - id: 70ac9903-cb29-456e-800f-c877122594d5
+              - id: fced0b3e-9e70-47fa-9b18-d23eddd29a64
                 status: inProgress
                 progress: '0.0'
-                start_time: '2024-02-22T12:58:12.273Z'
+                start_time: '2024-02-22T13:25:39.597Z'
                 end_time: 
-                conversion_job_id: b874f7e9-2a69-4744-948b-70025b5f401d
-                created_at: '2024-02-22T12:58:12.273Z'
-                updated_at: '2024-02-22T12:58:12.273Z'
+                conversion_job_id: 0a7ed4ab-480c-4223-9d12-97f6ca48c54e
+                created_at: '2024-02-22T13:25:39.597Z'
+                updated_at: '2024-02-22T13:25:39.597Z'
                 meta:
-                  dest_resource_id: e2384dcb-c76c-4594-bdc7-5c4fb92db263
-                  dest_version_id: d39e5dcc-0dcc-4285-b844-889cd9c88002
+                  dest_resource_id: c3db7e15-27ea-49c2-a6d0-63921d6f7194
+                  dest_version_id: 4a7c5f42-50f7-4ffe-9f5a-0edf850fb946
                 cs_server: local
               schema:
                 type: array
@@ -61,17 +61,17 @@ paths:
           content:
             application/json:
               example:
-                id: a68d40b9-e68c-4d0b-a479-be59b343077d
+                id: 5b6908a4-7a16-4bcd-b308-314d4160f180
                 status: inProgress
                 progress: '0.0'
-                start_time: '2024-02-22T12:58:12.331Z'
+                start_time: '2024-02-22T13:25:39.623Z'
                 end_time: 
-                conversion_job_id: 251d07fb-8392-4803-975f-2eb73e8a6c84
-                created_at: '2024-02-22T12:58:12.331Z'
-                updated_at: '2024-02-22T12:58:12.331Z'
+                conversion_job_id: b3f51694-99a8-4b1e-822f-a822b874a031
+                created_at: '2024-02-22T13:25:39.623Z'
+                updated_at: '2024-02-22T13:25:39.623Z'
                 meta:
-                  dest_resource_id: 8673d4a6-e0ea-46cb-a3d8-6dc70919cdc0
-                  dest_version_id: ec4908f4-eaac-4a3f-86fb-08a3410413e7
+                  dest_resource_id: c4815b36-bc1f-4f12-bbd3-c1f51b16ae58
+                  dest_version_id: 50cd6df9-075c-4ec9-b115-37f4e16fe040
                 cs_server: local
               schema:
                 "$ref": "#/components/schemas/conversion_task"
@@ -102,17 +102,17 @@ paths:
           content:
             application/json:
               example:
-                id: db72b467-396d-4160-9c0f-d783f115287e
+                id: 923df51c-3192-4cee-96f6-547a4c5c41ba
                 status: inProgress
                 progress: '0.0'
-                start_time: '2024-02-22T12:58:13.992Z'
+                start_time: '2024-02-22T13:25:39.758Z'
                 end_time: 
-                conversion_job_id: ca1812b5-1c7f-4a17-bf88-92f1d3f4c9a5
-                created_at: '2024-02-22T12:58:13.992Z'
-                updated_at: '2024-02-22T12:58:14.005Z'
+                conversion_job_id: 5061ddc8-83d7-44bd-b832-0b781531de9b
+                created_at: '2024-02-22T13:25:39.758Z'
+                updated_at: '2024-02-22T13:25:39.769Z'
                 meta:
-                  dest_resource_id: ebd864cc-8275-4c63-995f-c1e7557fb8ce
-                  dest_version_id: d60904f0-9cea-4b5a-af8f-2781668183d8
+                  dest_resource_id: a81a4259-d1fd-4a0c-ab87-89cabeca85dd
+                  dest_version_id: 2f11b050-2e7c-43f5-8fae-69f4dcada229
                 cs_server: local
               schema:
                 "$ref": "#/components/schemas/conversion_task"
