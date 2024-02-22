@@ -5,8 +5,11 @@
     "@inertiajs/react": "^1.0.9",
     "@rails/actioncable": "^7.0.8",
     "@rails/activestorage": "^7.0.4-3",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
+    "fr-fonts": "^3.0.3",
     "postcss": "^8.4.27",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -16,7 +19,7 @@
     "vite-plugin-rails": "^0.1.0"
   },
   "dependencies": {
-    "@wg/industrial-app": "^8.0.8",
+    "@wg/industrial-app": "^8.0.19",
     "axios": "^0.27.2"
   }
 }

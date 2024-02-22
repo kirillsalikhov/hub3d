@@ -22,7 +22,7 @@ class Store::ConversionJob
         @task.save!
         # TODO use serializer!
         ActionCable.server.broadcast(
-          "tasks",
+          "task_#{@task.id}",
           {
             operation: :update,
             record: @task.as_json(except: [:on_success, :on_failure])

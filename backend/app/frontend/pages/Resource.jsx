@@ -1,5 +1,6 @@
-import '../components/Industrial';
 import { useEffect, useRef } from 'react';
+import '../components/Industrial';
+import { Share } from '../components/Share';
 
 export default function Resource({ resource, version, files }) {
     const viewerRef = useRef(null);
@@ -13,7 +14,8 @@ export default function Resource({ resource, version, files }) {
         window.viewer.load({
             resource,
             versionContents,
-            domElement: viewerRef.current
+            domElement: viewerRef.current,
+            ShareComponent: Share
         });
     }, []);
 

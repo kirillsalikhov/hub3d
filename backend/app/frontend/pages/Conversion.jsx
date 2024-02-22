@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../components/Header';
 import { Progress, progressTransitionDuration } from '../components/Progress';
 import { ConversionLogs } from '../components/ConversionLogs';
 import { useWebsocket } from '../util/useWebsocket';
@@ -26,14 +25,9 @@ export default function Resource({ conversionTask, resource }) {
     const [ progress, setProgress ] = useState(Math.max(conversionTask.progress, .01));
     const [ status, setStatus ] = useState(conversionTask.status);
     const [ logs, setLogs ] = useState(null);
-    const { operation, record } = useWebsocket('TaskChannel');
+    const { operation, record } = useWebsocket({ channel: 'TaskChannel', task: conversionTask.id });
 
     useEffect(() => {
-        if (!record || record.id !== conversionTask.id) {
-            // it's data from other conversionTask
-            return;
-        }
-
         if (record?.progress) {
             setProgress(record?.progress);
         }
@@ -71,7 +65,7 @@ export default function Resource({ conversionTask, resource }) {
                                     <p className="text-blue-950 italic truncate">
                                         <span className="font-bold">Converting</span>  { resource.name }...
                                     </p>
-                                    <p className="text-gray-400">{ progress * 100 }%</p>
+                                    <p className="text-gray-400">{ +Number(progress * 100).toFixed(2) }%</p>
                                 </div>
                                 <Progress progress={ progress } />
                             </div>
