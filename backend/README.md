@@ -1,24 +1,42 @@
-# README
+## Testing
+Backend:
+```
+// enter container
+integration/bin/main --dev=bf exec backend bash
+// run test inside container
+RAILS_ENV=test rspec
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Open API
 
-Things you may want to cover:
+### UI
+http://localhost:3050/api-docs/
 
-* Ruby version
+login: developer
 
-* System dependencies
+password: our dev password
 
-* Configuration
 
-* Database creation
+### Generate OpenAPI specs
 
-* Database initialization
+```
+// up container before
+// enter backend container
+integration/bin/main --dev=bf exec backend bash
+// generate specs
+SWAGGER_DRY_RUN=0 RAILS_ENV=test rake rswag:specs:swaggerize
+```
 
-* How to run the test suite
+### Generate client
 
-* Services (job queues, cache servers, search engines, etc.)
+Inside backend/swagger-client
 
-* Deployment instructions
+Once install dependencies for generator
+```
+npm ci
+```
 
-* ...
+To generate/update api client
+```
+npm run generate-client
+```
