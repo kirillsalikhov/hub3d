@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "Api::OpControllers" do
   describe "POST /convert_anonym" do
-
     subject(:request) { post api_op_convert_anonym_path, params: params }
 
     before { _stub_cs }
@@ -62,7 +61,6 @@ RSpec.describe "Api::OpControllers" do
     end
 
     context "when already guest user" do
-
       let!(:guest) do
         get simulate_guest_user_path
         guest_id = response.body

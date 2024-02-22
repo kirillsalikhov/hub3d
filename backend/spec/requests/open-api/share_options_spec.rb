@@ -61,7 +61,6 @@ RSpec.describe "api/share_options" do
 
         run_test!
       end
-
     end
   end
 

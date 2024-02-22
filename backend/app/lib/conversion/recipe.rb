@@ -1,5 +1,4 @@
 module Conversion::Recipe
-
   LIMITS = {
     "ifc" => 5_000_000,
     "fbx" => 20_000_000,

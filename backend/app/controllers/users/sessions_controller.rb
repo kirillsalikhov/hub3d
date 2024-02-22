@@ -33,5 +33,4 @@ class Users::SessionsController < Devise::SessionsController
     u = guest_user
     render json: u.id
   end
-
 end

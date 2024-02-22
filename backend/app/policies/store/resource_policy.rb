@@ -1,5 +1,4 @@
 class Store::ResourcePolicy < ApplicationPolicy
-
   # @return [Store::Resource]
   attr_reader :record
 

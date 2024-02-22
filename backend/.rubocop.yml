@@ -28,6 +28,9 @@ AllCops:
 RSpec/NestedGroups:
   Max: 4
 
+RSpec/MultipleExpectations:
+  Max: 3
+
 RSpec/MultipleMemoizedHelpers:
   Max: 8
 

@@ -13,7 +13,6 @@ module GuestConcern
   end
 
   def transfer_guest_to_user
-    puts '!!!! transfer_guest_to_user !!!!'
+    puts "!!!! transfer_guest_to_user !!!!"
   end
-
 end

@@ -23,7 +23,6 @@ gem "devise-guests", "~> 0.8.1"
 gem "rolify"
 gem "pundit", "~> 2.3"
 
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -55,5 +54,3 @@ group :development do
   gem "standard", "~> 1.28", require: false
   gem "standard-rails", require: false
 end
-
-

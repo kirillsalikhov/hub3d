@@ -75,5 +75,4 @@ describe Store::ResourcePolicy do
       end
     end
   end
-
 end
