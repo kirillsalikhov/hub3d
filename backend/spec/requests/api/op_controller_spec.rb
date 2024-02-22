@@ -2,9 +2,14 @@ require "rails_helper"
 
 RSpec.describe "Api::OpControllers" do
   describe "POST /convert_anonym" do
+
+    subject(:request) { post api_op_convert_anonym_path, params: params }
+
     before { _stub_cs }
 
     def json_body = JSON.parse(response.body)
+    def resource_id = json_body["meta"]["dest_resource_id"]
+    def _resource = Store::Resource.find(json_body["meta"]["dest_resource_id"])
 
     def _stub_cs
       _stub_cs_create
@@ -34,12 +39,14 @@ RSpec.describe "Api::OpControllers" do
     }
 
     context "when initially anon user" do
-
-      subject(:request) { post api_op_convert_anonym_path, params: params }
-
       it "returns http success" do
         request
         expect(response).to have_http_status(:success)
+      end
+
+      it "created resource is public" do
+        request
+        expect(_resource.share_options.link_access).to eq("view")
       end
 
       it "creates guest user" do
@@ -49,14 +56,12 @@ RSpec.describe "Api::OpControllers" do
 
       it "assigns guest user as resource author" do
         request
-        resource = Store::Resource.find(json_body["meta"]["dest_resource_id"])
         guest_user = User.find_by(email: session["guest_user_id"])
-        expect(resource.author_id).to eql(guest_user.id)
+        expect(_resource.author_id).to eql(guest_user.id)
       end
     end
 
     context "when already guest user" do
-      subject(:request) { post api_op_convert_anonym_path, params: params }
 
       let!(:guest) do
         get simulate_guest_user_path

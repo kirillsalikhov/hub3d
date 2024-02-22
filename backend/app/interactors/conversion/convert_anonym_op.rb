@@ -31,6 +31,7 @@ class Conversion::ConvertAnonymOp
   def create_resource
     # TODO set resource, versions types
     @resource = Store::Resource.new(name: resource_name, author: context.user)
+    @resource.share_options.link_access = :view
     # TODO should be current, or smth like
     @version = @resource.versions.new
     @resource.save
