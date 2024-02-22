@@ -5,7 +5,7 @@ class Api::ShareOptionsController < Api::ApplicationController
     authorize(share_options)
     # NOTE: if password change, old accessor_password_link are not revoked
     share_options.update!(share_options_params)
-    head :ok
+    head :no_content
   end
 
   def auth_password
@@ -15,7 +15,7 @@ class Api::ShareOptionsController < Api::ApplicationController
       # TODO move to interactor or share options
       user = current_or_guest_user
       user.add_role(:accessor_password_link, @resource)
-      head :ok
+      head :no_content
     else
       head :forbidden
     end

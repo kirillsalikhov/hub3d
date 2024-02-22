@@ -15,28 +15,30 @@ paths:
           content:
             application/json:
               example:
-              - id: bfb121ed-afc7-4340-9f9e-862af775f8dd
+              - id: 6b6bff96-f3c0-4360-afcc-9dc0832d68ec
                 status: inProgress
                 progress: '0.0'
-                start_time: '2023-10-11T17:25:45.908Z'
+                start_time: '2024-02-22T12:58:12.268Z'
                 end_time: 
-                conversion_job_id: c651fcd5-6951-421e-b956-6408bdc43566
-                created_at: '2023-10-11T17:25:45.908Z'
-                updated_at: '2023-10-11T17:25:45.908Z'
+                conversion_job_id: 9411c215-f087-4261-96ec-57317de9e77a
+                created_at: '2024-02-22T12:58:12.269Z'
+                updated_at: '2024-02-22T12:58:12.269Z'
                 meta:
-                  dest_resource_id: 504a0890-8195-4341-982d-b657c5cce1fd
-                  dest_version_id: 75fc2f7f-4b36-4d79-83e5-960fc746a935
-              - id: b7a0d3df-d126-4916-a934-0451d1957880
+                  dest_resource_id: ad5641ad-2fba-4744-bed8-5545f4365780
+                  dest_version_id: b3e9e6b6-5d8c-4d2b-bc80-f8e40acc4d60
+                cs_server: local
+              - id: 70ac9903-cb29-456e-800f-c877122594d5
                 status: inProgress
                 progress: '0.0'
-                start_time: '2023-10-11T17:25:45.914Z'
+                start_time: '2024-02-22T12:58:12.273Z'
                 end_time: 
-                conversion_job_id: 8a5a8e30-c2fa-47e6-bf49-0f161c3b5a82
-                created_at: '2023-10-11T17:25:45.914Z'
-                updated_at: '2023-10-11T17:25:45.914Z'
+                conversion_job_id: b874f7e9-2a69-4744-948b-70025b5f401d
+                created_at: '2024-02-22T12:58:12.273Z'
+                updated_at: '2024-02-22T12:58:12.273Z'
                 meta:
-                  dest_resource_id: bc74f71c-46b6-467b-85e8-d9103f1d2954
-                  dest_version_id: 83c3a9cf-22b7-4f7e-87e4-69469f671ba1
+                  dest_resource_id: e2384dcb-c76c-4594-bdc7-5c4fb92db263
+                  dest_version_id: d39e5dcc-0dcc-4285-b844-889cd9c88002
+                cs_server: local
               schema:
                 type: array
                 items:
@@ -59,17 +61,18 @@ paths:
           content:
             application/json:
               example:
-                id: add8af14-62cd-4555-8cb2-4271f39c6708
+                id: a68d40b9-e68c-4d0b-a479-be59b343077d
                 status: inProgress
                 progress: '0.0'
-                start_time: '2023-10-11T17:25:46.066Z'
+                start_time: '2024-02-22T12:58:12.331Z'
                 end_time: 
-                conversion_job_id: 27454f5b-faa9-4063-b741-d7ffc8caf4b5
-                created_at: '2023-10-11T17:25:46.066Z'
-                updated_at: '2023-10-11T17:25:46.066Z'
+                conversion_job_id: 251d07fb-8392-4803-975f-2eb73e8a6c84
+                created_at: '2024-02-22T12:58:12.331Z'
+                updated_at: '2024-02-22T12:58:12.331Z'
                 meta:
-                  dest_resource_id: 5877e18f-3831-4702-a754-cbbc05da6d87
-                  dest_version_id: 4cb81f47-147b-4394-b640-7b2db55b30f1
+                  dest_resource_id: 8673d4a6-e0ea-46cb-a3d8-6dc70919cdc0
+                  dest_version_id: ec4908f4-eaac-4a3f-86fb-08a3410413e7
+                cs_server: local
               schema:
                 "$ref": "#/components/schemas/conversion_task"
   "/api/v1/conversions/{id}/logs":
@@ -99,17 +102,18 @@ paths:
           content:
             application/json:
               example:
-                id: 3088b719-80b5-48e9-bc8e-5e682c91cf6a
+                id: db72b467-396d-4160-9c0f-d783f115287e
                 status: inProgress
                 progress: '0.0'
-                start_time: '2023-10-11T17:25:49.622Z'
+                start_time: '2024-02-22T12:58:13.992Z'
                 end_time: 
-                conversion_job_id: 97fbee7e-646d-47b3-80e8-1e8d0843c372
-                created_at: '2023-10-11T17:25:49.622Z'
-                updated_at: '2023-10-11T17:25:49.662Z'
+                conversion_job_id: ca1812b5-1c7f-4a17-bf88-92f1d3f4c9a5
+                created_at: '2024-02-22T12:58:13.992Z'
+                updated_at: '2024-02-22T12:58:14.005Z'
                 meta:
-                  dest_resource_id: beb6ccda-714a-4c51-85ee-5effe3a49e23
-                  dest_version_id: 24c83b31-5a73-4a78-b724-5c1f7edb7a7e
+                  dest_resource_id: ebd864cc-8275-4c63-995f-c1e7557fb8ce
+                  dest_version_id: d60904f0-9cea-4b5a-af8f-2781668183d8
+                cs_server: local
               schema:
                 "$ref": "#/components/schemas/conversion_task"
       requestBody:
@@ -123,6 +127,71 @@ paths:
                 input_file:
                   type: string
                   description: Active Storage signeID
+  "/api/v1/resources/{id}/share-options":
+    parameters:
+    - name: id
+      in: path
+      description: Resource id
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: update resource's share_options
+      operationId: updateShareOptions
+      parameters: []
+      responses:
+        '204':
+          description: successful
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              example:
+                errors:
+                  link_password:
+                  - is too short (minimum is 8 characters)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                link_access:
+                  type: string
+                  description: Resource view access by link, possible values :none,
+                    :view
+                  enum:
+                  - none
+                  - view
+                link_password:
+                  type: string
+                  format: password
+  "/api/v1/resources/{id}/share-options/auth-password":
+    parameters:
+    - name: id
+      in: path
+      description: Resource id
+      required: true
+      schema:
+        type: string
+    post:
+      summary: enter password for resource share_option
+      operationId: resourceAuthPassword
+      parameters: []
+      responses:
+        '204':
+          description: successful
+        '403':
+          description: forbidden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                link_password:
+                  type: string
+                  format: password
 components:
   schemas:
     conversion_task:
