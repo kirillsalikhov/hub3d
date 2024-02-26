@@ -40,7 +40,7 @@ RSpec.describe "api/op" do
 
           # !!! STUB
           # To not raise error, stub schedule ConversionJob
-          allow(Conversion::ConvertAnonymOp).to receive(:new)
+          allow(Conversion::ConvertAnonOp).to receive(:new)
             .and_wrap_original do |method, *args|
             method.call(*args).tap do |obj|
               allow(obj).to receive(:schedule_task)

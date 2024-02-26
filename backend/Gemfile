@@ -11,6 +11,7 @@ gem "vite_rails"
 gem "inertia_rails"
 
 gem "interactor-rails", "~> 2.0"
+gem "active_interaction", "~> 5.3"
 
 gem "pg", "~> 1.1"
 gem "redis", "~> 5.0"
@@ -54,3 +55,5 @@ group :development do
   gem "standard", "~> 1.28", require: false
   gem "standard-rails", require: false
 end
+
+
