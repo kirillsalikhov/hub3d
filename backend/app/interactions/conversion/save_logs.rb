@@ -1,8 +1,7 @@
-class Conversion::SaveLogs
-  include Interactor
+class Conversion::SaveLogs < ActiveInteraction::Base
+  object :task, class: "Store::ConversionTask"
 
-  def call
-    task = context.task
+  def execute
     job_id = task.conversion_job_id
     # TODO do smth when there is no logs on CS
     logs = Conversion::Client.new(task.cs_server_url)

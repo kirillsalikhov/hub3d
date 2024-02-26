@@ -86,6 +86,6 @@ class Store::ConversionJob
   end
 
   def save_logs
-    Conversion::SaveLogs.call(task: @task)
+    Conversion::SaveLogs.run!(task: @task)
   end
 end
