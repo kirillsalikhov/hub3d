@@ -13,17 +13,11 @@ class Conversion::ConvertAnonOp < ActiveInteraction::Base
   end
 
   def create_conversion
-    result = Conversion::CreateConversion.call(
+    @conversion_task = Conversion::CreateConversion.run!(
       input: input,
       recipe: get_recipe,
       on_success: nil # !!! TODO think about, because ConversionTask is saved
     )
-    if result.success?
-      @conversion_task = result.conversion_task
-    else
-      # TODO fail context => return cs error
-      put "!!! ERROR See TODO !!!"
-    end
   end
 
   def create_resource
