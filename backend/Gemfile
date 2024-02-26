@@ -54,5 +54,3 @@ group :development do
   gem "standard", "~> 1.28", require: false
   gem "standard-rails", require: false
 end
-
-

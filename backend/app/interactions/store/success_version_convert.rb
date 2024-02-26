@@ -27,5 +27,4 @@ class Store::SuccessVersionConvert < ActiveInteraction::Base
     version.files.attach(@files)
     version.save!
   end
-
 end

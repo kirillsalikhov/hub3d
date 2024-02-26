@@ -51,5 +51,4 @@ class Conversion::ConvertAnonOp < ActiveInteraction::Base
     filename, byte_size = input.values_at(:filename, :byte_size)
     Conversion::Recipe.from_input(filename.to_s, byte_size)
   end
-
 end
