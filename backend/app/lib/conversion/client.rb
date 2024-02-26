@@ -78,10 +78,7 @@ module Conversion
     def download_file(src)
       # TODO change for debugging, (thought it adds hash at the end )
       tempfile = Tempfile.new("change_for_debugging")
-      # TODO Likely RestClient loads file to memory
-      File.open(tempfile, "wb") do |output|
-        output.write RestClient.get(src)
-      end
+      File.binwrite(tempfile, RestClient.get(src))
 
       tempfile
     end
