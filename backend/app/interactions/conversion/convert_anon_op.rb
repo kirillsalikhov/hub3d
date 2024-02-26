@@ -26,7 +26,7 @@ class Conversion::ConvertAnonOp < ActiveInteraction::Base
     @resource.share_options.link_access = :view
     # TODO should be current, or smth like
     @version = @resource.versions.new
-    @resource.save
+    @resource.save!
   end
 
   def prepare_task
