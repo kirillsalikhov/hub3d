@@ -45,10 +45,6 @@ Rails.application.routes.draw do
     resources :resources do
       get "convert_new", on: :collection
       post "convert_create", on: :collection
-
-      # TODO remove
-      get "foobar", on: :collection
-      get "testjob", on: :collection
     end
   end
 

@@ -16,40 +16,6 @@ class Store::ResourcesController < ApplicationController
     # TODO stop here, request from form goes here
   end
 
-  def foobar
-    # input_signed_url = 'eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaWswWVRRd09HRXhOQzAzTmpCbExUUXpOell0WWpObU9TMDFNMlpsTkdVMFpHSXhNV1VHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--7938bd443b092da13e85d0da808fa86dba73bc4c'
-    input_signed_url = "eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaWsxT0RNME1XTmxNUzFqT1RNNExUUTVOVEF0T0dKbU1TMHdaV0kyWWpNNVptTXhNbUVHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6ImJsb2JfaWQifX0=--3afe1c08b50091a022ca1e80c3779fa25150243c"
-    blob = ActiveStorage::Blob.find_signed(input_signed_url)
-
-    resource = Store::Resource.new
-    resource.save
-    version = Store::Version.new
-    version.resource = resource
-    version.save
-
-    on_success = Store::SuccessVersionConvertOrg.new(version_id: version.id)
-    result = Conversion::CreateConversion.call(
-      input: blob,
-      recipe: "cad2wmd",
-      on_success: on_success
-    )
-
-    Store::ConversionJob.perform_async(result.conversion_task.id)
-
-    puts "--- conversion task ---"
-    pp "! result: ", result.failure?
-    # input
-    # recepie
-    # conversion_params
-
-    render html: "dummy output"
-  end
-
-  def testjob
-    Store::ConversionJob.perform_async("test-arg")
-    render html: "check job"
-  end
-
   # GET /store/resources
   def index
     @store_resources = Store::Resource.all
