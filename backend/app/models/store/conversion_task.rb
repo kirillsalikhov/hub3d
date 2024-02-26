@@ -18,7 +18,7 @@ class Store::ConversionTask < ApplicationRecord
   attribute :progress, default: 0
   attribute :meta, default: {}
 
-  serialize :on_success, ServiceObjectSerializer
+  serialize :on_success, InteractionSerializer
 
   def cs_server_url = Conversion.get_server(cs_server)[:base_url]
 

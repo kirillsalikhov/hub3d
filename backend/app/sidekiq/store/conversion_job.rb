@@ -61,8 +61,8 @@ class Store::ConversionJob
   def finished
     track_task_end(STATUSES[:finished])
 
-    @task.on_success.context.conversion_job_id = @task.conversion_job_id
-    @task.on_success.call
+    @task.on_success.conversion_job_id = @task.conversion_job_id
+    @task.on_success.run!
 
     save_logs
   end

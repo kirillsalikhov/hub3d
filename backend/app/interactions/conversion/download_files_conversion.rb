@@ -1,8 +1,9 @@
-class Conversion::DownloadFilesConversion
-  include Interactor
+class Conversion::DownloadFilesConversion < ActiveInteraction::Base
+  string :conversion_job_id
+  string :cs_server_url
 
-  def call
-    context.files = get_files_list.map do |cs_file|
+  def execute
+    get_files_list.map do |cs_file|
       # TODO check that originFilePath works
       ActiveStorage::Blob.create_and_upload!(
         io: download_tmp_file(cs_file["url"]),
@@ -14,15 +15,13 @@ class Conversion::DownloadFilesConversion
     end
   end
 
-  private
-
   def get_files_list
-    Conversion::Client.new(context.cs_server_url)
-      .get_files(context.conversion_job_id)
+    client.get_files(conversion_job_id)
   end
 
   def download_tmp_file(url)
-    Conversion::Client.new(context.cs_server_url)
-      .download_file(url)
+    client.download_file(url)
   end
+
+  def client = @client ||= Conversion::Client.new(cs_server_url)
 end

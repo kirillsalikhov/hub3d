@@ -37,7 +37,7 @@ class Conversion::ConvertAnonOp < ActiveInteraction::Base
 
   def prepare_task
     # TODO probably pass job id, instead of passing it in finish
-    @conversion_task.on_success = Store::SuccessVersionConvertOrg.new(
+    @conversion_task.on_success = Store::SuccessVersionConvert.new(
       version_id: @version.id,
       cs_server_url: @conversion_task.cs_server_url
     )
