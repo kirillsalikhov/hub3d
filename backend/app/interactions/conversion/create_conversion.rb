@@ -1,7 +1,7 @@
 class Conversion::CreateConversion < ActiveInteraction::Base
   object :input, class: "ActiveStorage::Blob"
   string :recipe
-  # TODO nil ? - may be force
+
   object :on_success,
     class: "ActiveInteraction::Base", default: nil
 

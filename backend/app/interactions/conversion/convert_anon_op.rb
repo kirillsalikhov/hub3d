@@ -15,8 +15,7 @@ class Conversion::ConvertAnonOp < ActiveInteraction::Base
   def create_conversion
     @conversion_task = Conversion::CreateConversion.run!(
       input: input,
-      recipe: get_recipe,
-      on_success: nil # !!! TODO think about, because ConversionTask is saved
+      recipe: get_recipe
     )
   end
 
@@ -30,7 +29,6 @@ class Conversion::ConvertAnonOp < ActiveInteraction::Base
   end
 
   def prepare_task
-    # TODO probably pass job id, instead of passing it in finish
     @conversion_task.on_success = Store::SuccessVersionConvert.new(
       version_id: @version.id,
       cs_server_url: @conversion_task.cs_server_url
