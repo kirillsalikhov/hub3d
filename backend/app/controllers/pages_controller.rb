@@ -14,15 +14,11 @@ class PagesController < ApplicationController
 
     if conversion_task.status == Store::ConversionTask::STATUSES[:finished]
       resource_id = conversion_task.meta.with_indifferent_access[:dest_resource_id]
-      redirect_to action: "resource", id: resource_id
-      return
+      redirect_to resource_path(resource_id) and return
     end
 
     render inertia: "Conversion", props: {
-      # TODO use serializer or a kind of instead of as_json
-      conversionTask: conversion_task.as_json(
-        except: [:on_success, :on_failure]
-      ),
+      conversionTask: Store::ConversionTaskBlueprint.render_as_hash(conversion_task),
       resource: resource.as_json(only: [:id, :name])
     }
   end

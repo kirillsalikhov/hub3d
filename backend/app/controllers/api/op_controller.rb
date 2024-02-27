@@ -4,7 +4,7 @@ class Api::OpController < Api::ApplicationController
     user = current_or_guest_user
     begin
       task, _resource = Conversion::ConvertAnonOp.run!(input: blob, user: user)
-      render json: task, except: [:on_success, :on_failure]
+      render json: Store::ConversionTaskBlueprint.render(task)
     # TODO make more centralized, or may be move them to Conversion::ConvertAnonOp
     # TODO this is works not only on ConversionError
     rescue Conversion::ConversionError => e

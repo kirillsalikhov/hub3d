@@ -7,7 +7,7 @@ class TaskChannel < ApplicationCable::Channel
     if conversion_task.present?
       transmit({
         operation: :update,
-        record: conversion_task.as_json(except: [:on_success, :on_failure])
+        record: Store::ConversionTaskBlueprint.render(conversion_task)
       })
     end
   end
