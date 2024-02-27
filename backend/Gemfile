@@ -9,6 +9,9 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 gem "sprockets-rails"
 gem "vite_rails"
 gem "inertia_rails"
+gem "oj"
+gem "blueprinter"
+
 
 gem "active_interaction", "~> 5.3"
 

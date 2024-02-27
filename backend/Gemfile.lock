@@ -90,6 +90,8 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.1.1)
     bcrypt (3.1.20)
+    bigdecimal (3.1.6)
+    blueprinter (1.0.2)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -167,6 +169,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
+    oj (3.16.3)
+      bigdecimal (>= 3.0)
     orm_adapter (0.5.0)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -341,6 +345,7 @@ PLATFORMS
 DEPENDENCIES
   active_interaction (~> 5.3)
   aws-sdk-s3
+  blueprinter
   bootsnap
   debug
   devise (~> 4.9)
@@ -348,6 +353,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   inertia_rails
+  oj
   pg (~> 1.1)
   puma (~> 5.0)
   pundit (~> 2.3)
