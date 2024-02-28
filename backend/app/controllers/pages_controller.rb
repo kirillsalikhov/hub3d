@@ -19,7 +19,7 @@ class PagesController < ApplicationController
 
     render inertia: "Conversion", props: {
       conversionTask: Store::ConversionTaskBlueprint.render_as_hash(conversion_task),
-      resource: resource.as_json(only: [:id, :name])
+      resource: Store::ResourceBlueprint.render_as_hash(resource)
     }
   end
 end

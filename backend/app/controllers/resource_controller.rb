@@ -6,22 +6,11 @@ class ResourceController < ApplicationController
     # TODO  Should be current, not first
     version = @resource.versions.with_attached_files.first
 
-    # TODO should be in helper or whatever
-    # should be refresh field, maybe checksum
-    # originFilePath can be empty for source files
-    files = version.files.map do |f|
-      {
-        signedUrl: f.url(expires_in: 1.hour),
-        originFilePath: f.blob.metadata[:origin_file_path],
-        filename: f.filename,
-        size: f.byte_size
-      }
-    end
-
     render inertia: "Resource", props: {
-      resource: @resource,
-      version: version,
-      files: files
+      resource: Store::ResourceBlueprint.render_as_hash(@resource, view: :normal),
+      version: Store::VersionBlueprint.render_as_hash(version),
+      # Note attachments is needed, version.files is not enough, it's proxy
+      files: Store::FileBlueprint.render_as_hash(version.files.attachments)
     }
   end
 
