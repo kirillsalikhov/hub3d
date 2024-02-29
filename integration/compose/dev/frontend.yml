@@ -11,6 +11,12 @@ services:
     command: ./bin/vite dev
     ports:
       - "3036:3036"
-    volumes:
-      - ../../backend:/backend
-      - /backend/node_modules
+    develop:
+      watch:
+        - path: ../../backend
+          action: sync
+          target: /backend
+          ignore:
+            - node_modules/
+        - path: ../../backend/package-lock.json
+          action: rebuild

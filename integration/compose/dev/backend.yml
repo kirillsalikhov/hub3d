@@ -2,19 +2,30 @@ version: "3.7"
 services:
   backend:
     image: docker.webgears3d.com/hub3d/backend__dev
-    build: ../../backend
     environment:
       RAILS_ENV: development
-    volumes:
-      - ../../backend:/backend
+    develop:
+      watch:
+        - path: ../../backend
+          action: sync
+          target: /backend
+          ignore:
+            - node_modules/
+        - path: ../../backend/Gemfile.lock
+          action: rebuild
+
 
   sidekiq:
     image: docker.webgears3d.com/hub3d/backend__dev
-    build: ../../backend
     environment:
       RAILS_ENV: development
-    volumes:
-      - ../../backend:/backend
+    develop:
+      watch:
+        - path: ../../backend
+          action: sync
+          target: /backend
+          ignore:
+            - node_modules/
 
   postgres:
     ports:

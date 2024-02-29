@@ -11,41 +11,22 @@ bin/main.sh up
 
 ## Dev
 
-backend in dev mode
+Use two consoles: one for docker compose up(main.sh), second for docker compose watch (dev.sh) with same --dev letters 
+
+backend and frontend in dev mode
 
 ```
-bin/main.sh --dev=b up
+bin/main.sh --dev=bf up
+bin/dev.sh --dev=bf
 ```
 http://localhost:3050
 
 frontend in dev mode
 ```
 bin/main.sh --dev=f up
+bin/dev.sh --dev=f
 ```
 http://localhost:3050 (yes, same port)
-
-### NOTE On npm install
-
-#### 1. node_modules inside Container (recommended)
-
-- Install package on host, it will update package-lock.json
-- (a) Run npm ci in container:
-    ```
-    integration/bin/main.sh --dev=bf exec frontend npm ci
-    ```
-- (b) Build frontend container dev image
-  ```
-  integration/bin/main.sh --dev=bf build frontend
-  ```
-  restart containers (down step is needed to force recreate)
-  ```
-  integration/bin/main.sh --dev=bf down
-  integration/bin/main.sh --dev=bf up  
-  ```
-
-#### 2. node_modules on Host
-- Comment line ```- /backend/node_modules``` in integration/compose/dev/frontend.yml
-- From time to time when doing ```npm ci``` also do ```sudo rm-rf node_modules```
 
 ## Deploy
 Optionally build and push new images
