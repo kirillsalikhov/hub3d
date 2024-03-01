@@ -39,7 +39,6 @@ COPY package.json package-lock.json .npmrc ./
 RUN --mount=type=cache,id=bld-npm-cache,target=/root/.npm \
     npm ci
 
-
 COPY . .
 
 # Precompile bootsnap code for faster boot times
@@ -48,5 +47,6 @@ RUN bundle exec bootsnap precompile --gemfile app/ lib/
 # TODO in rails 7.1 replace with SECRET_KEY_BASE_DUMMY=1
 # https://stackoverflow.com/questions/76157925/rails-7-validate-secret-key-base-missing-secret-key-base-for-production-e/76190212
 # NOTE --mount=type=cache is needed because there's npm ci inside assets:precompile (TODO remove it when HUB-3-D-T-57)
+# mount=type is copy paster from here https://github.com/fly-apps/dockerfile-rails/blob/main/lib/generators/templates/_npm_install.erb
 RUN --mount=type=cache,id=bld-npm-cache,target=/root/.npm  \
     RAILS_ENV=production  SECRET_KEY_BASE=DUMMY bundle exec rails assets:precompile
