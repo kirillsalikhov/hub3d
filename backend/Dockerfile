@@ -20,6 +20,8 @@ RUN mkdir -p /backend
 
 WORKDIR /backend
 
+ENV RAILS_LOG_TO_STDOUT true
+
 COPY Gemfile* ./
 
 # Speed up bundle install through cache

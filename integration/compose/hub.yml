@@ -6,8 +6,6 @@ x-base-backend: &base_backend
   environment:
     RAILS_ENV: production
     SERVER_NAME: ${SERVER_NAME:-localhost}
-    # TODO move to Dockerfile, we always need it
-    RAILS_LOG_TO_STDOUT: true
     # TODO Think of it, if it's needed in prod or sidekiq
     VITE_RUBY_HOST: ${VITE_HOST:-frontend}
 
