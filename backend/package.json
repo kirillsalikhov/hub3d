@@ -1,4 +1,7 @@
 {
+  "engines" : {
+    "node" : ">=20.0.0"
+  },
   "devDependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
