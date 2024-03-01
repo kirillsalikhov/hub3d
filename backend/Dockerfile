@@ -21,11 +21,24 @@ RUN mkdir -p /backend
 WORKDIR /backend
 
 COPY Gemfile* ./
-RUN bundle install --jobs 8 --retry 3
+
+# Speed up bundle install through cache
+# Mainly from this https://github.com/fly-apps/dockerfile-rails/blob/main/lib/generators/templates/Dockerfile.erb
+# also look https://release.com/blog/cache-bundle-install-with-buildkit
+RUN --mount=type=cache,id=bld-gem-cache,sharing=locked,target=/srv/vendor  \
+    bundle config set app_config .bundle && \
+    bundle config set path /srv/vendor && \
+    bundle install --jobs 8 --retry 3 && \
+    mkdir -p vendor && \
+    bundle config set path vendor && \
+    cp -ar /srv/vendor .
 
 #TODO change node to 20 HUB-3-D-T-76
 COPY package.json package-lock.json .npmrc ./
-RUN npm ci
+
+RUN --mount=type=cache,id=bld-npm-cache,target=/root/.npm \
+    npm ci
+
 
 COPY . .
 
@@ -34,4 +47,6 @@ RUN rm -rf tmp/cache
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 # TODO in rails 7.1 replace with SECRET_KEY_BASE_DUMMY=1
 # https://stackoverflow.com/questions/76157925/rails-7-validate-secret-key-base-missing-secret-key-base-for-production-e/76190212
-RUN RAILS_ENV=production  SECRET_KEY_BASE=DUMMY bundle exec rails assets:precompile
+# NOTE --mount=type=cache is needed because there's npm ci inside assets:precompile (TODO remove it when HUB-3-D-T-57)
+RUN --mount=type=cache,id=bld-npm-cache,target=/root/.npm  \
+    RAILS_ENV=production  SECRET_KEY_BASE=DUMMY bundle exec rails assets:precompile
