@@ -2,12 +2,9 @@ import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import { Link } from '@inertiajs/react'
+import { Logo } from '../Logo';
 
 const navigation = [
-    { name: 'Demos', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Tools', href: '#' },
-    { name: 'FAQ', href: '#' },
 ]
 
 export const Header = () => (
@@ -15,21 +12,14 @@ export const Header = () => (
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between p-6" aria-label="Global">
             <div className="flex flex-1 items-center">
                 <div className="flex w-full items-center justify-between md:w-auto">
-                    <Link href="/">
-                        <span className="sr-only">Your Company</span>
-                        <img
-                            className="h-8 w-auto sm:h-10"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                            alt=""
-                        />
-                    </Link>
-                    <div className="-mr-2 flex items-center md:hidden">
-                        <Popover.Button className="relative inline-flex p-2 rounded-full text-blue-950 hover:bg-gray-100/10 focus:outline-none ">
-                            <span className="absolute -inset-0.5" />
-                            <span className="sr-only">Open main menu</span>
-                            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                        </Popover.Button>
-                    </div>
+                    <Logo/>
+                    {/*<div className="-mr-2 flex items-center md:hidden">*/}
+                    {/*    <Popover.Button className="relative inline-flex p-2 rounded-full text-blue-950 hover:bg-gray-100/10 focus:outline-none ">*/}
+                    {/*        <span className="absolute -inset-0.5" />*/}
+                    {/*        <span className="sr-only">Open main menu</span>*/}
+                    {/*        <Bars3Icon className="h-6 w-6" aria-hidden="true" />*/}
+                    {/*    </Popover.Button>*/}
+                    {/*</div>*/}
                 </div>
                 <div className="hidden space-x-10 md:ml-10 md:flex">
                     {navigation.map((item) => (
@@ -39,14 +29,14 @@ export const Header = () => (
                     ))}
                 </div>
             </div>
-            <div className="hidden md:flex">
-                <a
-                    href="#"
-                    className="inline-flex items-center rounded-full border border-transparent bg-blue-950 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
-                >
-                    Log in
-                </a>
-            </div>
+            {/*<div className="hidden md:flex">*/}
+            {/*    <a*/}
+            {/*        href="#"*/}
+            {/*        className="inline-flex items-center rounded-full border border-transparent bg-blue-950 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"*/}
+            {/*    >*/}
+            {/*        Log in*/}
+            {/*    </a>*/}
+            {/*</div>*/}
         </nav>
 
         <Transition
