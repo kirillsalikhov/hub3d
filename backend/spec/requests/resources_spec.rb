@@ -14,6 +14,10 @@ RSpec.describe "ResourceController" do
   let(:public_resource) { create(:resource, :with_version, :public, author: author) }
   let(:password_resource) { create(:resource, :with_version, :password, author: author) }
 
+  def _simulate_password_entered(user, resource)
+    user.add_role(:accessor_password_link, resource)
+  end
+
   describe "GET /resources/:id" do
     it "can access public resource" do
       get resource_path(public_resource)
@@ -29,10 +33,6 @@ RSpec.describe "ResourceController" do
       subject(:request) { get resource_path(resource) }
 
       let(:resource) { password_resource }
-
-      def _simulate_password_entered(user, resource)
-        user.add_role(:accessor_password_link, resource)
-      end
 
       it "redirects to auth password page if no access" do
         request
@@ -56,6 +56,36 @@ RSpec.describe "ResourceController" do
         _simulate_password_entered(guest, resource)
         request
         expect(response).to have_http_status(:success)
+      end
+    end
+  end
+
+  describe "GET /resources/:id/auth-password" do
+    it "redirect to resource page if no password link" do
+      get resource_password_path(private_resource)
+      expect(response).to redirect_to(resource_path(private_resource))
+    end
+
+    context "when resource has password link" do
+      subject(:request) { get resource_password_path(resource) }
+
+      let(:resource) { password_resource }
+
+      it "can access auth password page if password link" do
+        request
+        expect(response).to have_http_status(:success)
+      end
+
+      it "redirects to resource if has access" do
+        sign_in author
+        request
+        expect(response).to redirect_to(resource_path(resource))
+      end
+
+      it "redirects to resource if entered password" do
+        _simulate_password_entered(guest, resource)
+        request
+        expect(response).to redirect_to(resource_path(resource))
       end
     end
   end

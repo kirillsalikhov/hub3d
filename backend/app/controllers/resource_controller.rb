@@ -15,10 +15,13 @@ class ResourceController < ApplicationController
   end
 
   def auth_password
-    # TODO probably return forbiden
     unless @resource.share_options.link_with_password?
-      render html: "No password, also do smth about it"
-      return
+      redirect_to action: "show", id: @resource.id and return
+    end
+
+    # if user already has access to resource(show)
+    if Pundit.policy!(pundit_user, @resource).show?
+      redirect_to action: "show", id: @resource.id and return
     end
 
     render inertia: "ResourcePassword", props: {
