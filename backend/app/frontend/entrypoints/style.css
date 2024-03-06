@@ -16,3 +16,81 @@ body.body-pages-resource {
     overflow: hidden;
     --font-size: 14px;
 }
+
+.input-main{
+    @apply
+    py-2
+    rounded-md shadow-inner
+    text-sm leading-6 sm:text-base sm:leading-8 text-gray-900 placeholder:text-gray-400 truncate
+    border-0 ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-blue-800 focus:outline-none
+}
+
+
+.input-group-main{
+    @apply
+    py-2
+    rounded-none rounded-l-md shadow-inner
+    text-sm leading-6 sm:text-base sm:leading-8 text-gray-900 placeholder:text-gray-400 truncate
+    border-0 ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-blue-800 focus:outline-none
+}
+
+.input-group-scnd{
+    @apply
+    py-2
+    rounded-none rounded-l-md shadow-inner
+    text-sm leading-6 sm:text-base sm:leading-8 text-gray-900 placeholder:text-gray-400 truncate
+    border-0 ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-gray-800 focus:outline-none
+}
+
+.button-main{
+    @apply
+    px-4 py-2
+    rounded-md bg-blue-800
+    justify-center
+    text-sm leading-6 sm:text-base sm:leading-8 font-semibold text-white
+    hover:bg-blue-700
+}
+
+
+.button-group-main{
+    @apply
+    -ml-px px-4 py-2
+    rounded-r-md bg-blue-800
+    text-sm leading-6 sm:text-base sm:leading-8 font-semibold text-white
+    ring-1 ring-inset ring-blue-800 hover:bg-blue-700
+}
+
+.button-group-scnd{
+    @apply
+    -ml-px px-4 py-2
+    rounded-r-md bg-gray-800
+    text-sm leading-6 sm:text-base sm:leading-8 font-semibold text-white
+    ring-1 ring-inset ring-gray-800 hover:bg-gray-700
+}
+
+.button-simple{
+    @apply
+    rounded-md bg-white shadow-sm
+    text-sm leading-6 font-semibold text-gray-900
+    ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent
+}
+
+.button-close{
+    @apply
+    px-3 py-3
+    items-center
+    rounded-tr-lg
+    text-sm font-semibold text-gray-400 hover:text-gray-500 hover:bg-gray-100
+    focus:outline-none
+}
+
+.checkbox{
+    @apply
+    h-4 w-4 rounded
+    border-gray-300 shadow-inner
+    text-blue-800 focus:ring-blue-800
+}
+.textlink{
+    @apply
+    font-semibold text-blue-700 hover:text-blue-600
+}

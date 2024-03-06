@@ -4,6 +4,7 @@ import { ConversionLogs } from '../components/ConversionLogs';
 import { useWebsocket } from '../util/useWebsocket';
 import Client from '../util/Client';
 import Layout from '../components/Layout';
+import { resourceUrl } from '../util/url';
 
 const STATUSES = {
     finished: 'finished',
@@ -20,7 +21,6 @@ const STATUSES_NAMES = {
     canceled: 'Canceled',
     canceling: 'Canceling'
 }
-const resourceUrl = (resourceId) => `/resources/${ resourceId }`;
 export default function Resource({ conversionTask, resource }) {
     const [ progress, setProgress ] = useState(Math.max(conversionTask.progress, .01));
     const [ status, setStatus ] = useState(conversionTask.status);
