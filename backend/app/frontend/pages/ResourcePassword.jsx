@@ -70,13 +70,11 @@ export default function ResourcePassword({resourceId}) {
                                 &nbsp;&nbsp;→&nbsp;&nbsp;
                             </button>
                         </div>
-                        <div className="flex absolute text-base text-red-600 leading-6 pt-2">
-                            { errors['password'] && (
-                                <div className="">
-                                    { errors['password'] }
-                                </div>
-                            ) }
-                        </div>
+                        { errors['password'] && (
+                            <div  className="flex absolute text-base text-red-600 leading-6 pt-2">
+                                { errors['password'] }
+                            </div>
+                        ) }
                     </div>
                 </Card>
                 <div className="flex text-center text-sm text-blue-950 p-8">

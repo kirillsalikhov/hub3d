@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { ShareButton } from './ShareButton';
 import SharePopup from './SharePopup';
 
-export const Share = () => {
+export const Share = ({resourceId, shareOptions}) => {
     const [showModal, setShowModal] = useState(false);
 
     const openPopup = useCallback(() => {
@@ -18,7 +18,7 @@ export const Share = () => {
         <>
             <ShareButton onClick={openPopup}/>
             {showModal && createPortal(
-                <SharePopup onClose={closePopup} />,
+                <SharePopup onClose={closePopup} resourceId={resourceId} shareOptions={shareOptions} />,
                 document.body
             )}
         </>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import '../components/Industrial';
 import { Share } from '../components/Share';
 
@@ -10,14 +10,20 @@ export default function Resource({ resource, version, files }) {
         versionContents[file.originFilePath] = { path: file.signedUrl }
     }
 
+    const ShareComponent = useMemo(() =>
+        () => Share({resourceId: resource['id'], shareOptions: resource['share_options']}
+    ), [resource['id'], resource['share_options']]);
+
     useEffect(() => {
-        window.viewer.load({
-            resource,
-            versionContents,
-            domElement: viewerRef.current,
-            ShareComponent: Share
-        });
-    }, []);
+        if (resource.id) {
+            window.viewer.load({
+                resource,
+                versionContents,
+                domElement: viewerRef.current,
+                ShareComponent
+            });
+        }
+    }, [resource.id]);
 
 
     return (
