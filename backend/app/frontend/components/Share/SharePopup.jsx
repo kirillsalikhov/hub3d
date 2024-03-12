@@ -19,6 +19,10 @@ export default function SharePopup({resourceId, shareOptions, onClose}) {
         const linkPassword = values['link_password'];
         try {
             await Client.updateShareOptions(resourceId, {link_password: linkPassword})
+            // TODO it's test usage, move or delete, pls
+            const res = await Client.getShareOptions(resourceId);
+            console.log(res.data, 'Client.getShareOptions');
+
             setShowPassword(false);
             setPasswordIsSet(true);
         } catch (err) {
@@ -29,6 +33,10 @@ export default function SharePopup({resourceId, shareOptions, onClose}) {
     const resetPassword = async () => {
         try {
             await Client.updateShareOptions(resourceId, {link_password: ''});
+            // TODO it's test usage, move or delete, pls
+            const res = await Client.getShareOptions(resourceId);
+            console.log(res.data, 'Client.getShareOptions');
+
             setValue('');
             setPasswordIsSet(false);
         } catch (err) {
