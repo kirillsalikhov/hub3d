@@ -35,9 +35,14 @@ Rails.application.routes.draw do
           get :logs
         end
       end
-      # TODO try to make resource route, when show action is ready
-      patch "resources/:id/share-options", to: "share_options#update"
-      post "resources/:id/share-options/auth-password", to: "share_options#auth_password" # post
+
+      resources :resources, only: [] do
+        member do
+          get "share-options", to: "share_options#show"
+          patch "share-options", to: "share_options#update"
+          post "share-options/auth-password", to: "share_options#auth_password"
+        end
+      end
     end
   end
 

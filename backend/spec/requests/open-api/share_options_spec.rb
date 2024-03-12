@@ -14,6 +14,24 @@ RSpec.describe "api/share_options" do
       sign_in author
     }
 
+    get("show resource's share_options") do
+      consumes "application/json"
+      produces "application/json"
+      operationId "getShareOptions"
+
+      response(200, "successful") do
+        after do |example|
+          example.metadata[:response][:content] = {
+            "application/json" => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+
+        run_test!
+      end
+    end
+
     patch("update resource's share_options") do
       consumes "application/json"
       produces "application/json"
