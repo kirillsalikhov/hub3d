@@ -18,6 +18,7 @@ password: our dev password
 
 
 ### Generate OpenAPI specs
+**Also see** [Main README.md](../README.md) 
 
 ```
 // up container before

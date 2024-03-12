@@ -28,6 +28,15 @@ bin/dev.sh --dev=f
 ```
 http://localhost:3050 (yes, same port)
 
+## Update Open Api
+
+```
+bin/main.sh --dev=bf
+
+# in other terminal
+bin/openapi.sh
+```
+
 ## Deploy
 Optionally build and push new images
 ```
