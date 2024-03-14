@@ -7,7 +7,7 @@ class ResourceController < ApplicationController
     version = @resource.versions.with_attached_files.first
 
     render inertia: "Resource", props: {
-      resource: Store::ResourceBlueprint.render_as_hash(@resource, view: :normal),
+      resource: Store::ResourceBlueprint.render_as_hash(@resource, view: :normal, user: pundit_user),
       version: Store::VersionBlueprint.render_as_hash(version),
       # Note attachments is needed, version.files is not enough, it's proxy
       files: Store::FileBlueprint.render_as_hash(version.files.attachments)
@@ -29,6 +29,7 @@ class ResourceController < ApplicationController
     }
   end
 
+  # TODO delete this page, it's for testing and is not needed
   def edit_share_options
     # TODO add current share_options
     render inertia: "EditShareOptions", props: {
