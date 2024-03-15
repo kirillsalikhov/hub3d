@@ -108,7 +108,7 @@ RSpec.describe "api/share_options" do
         end
       end
 
-      response(403, "forbidden") do
+      response(422, "forbidden") do
         let(:params) {
           {link_password: "wrongPassword"}
         }
