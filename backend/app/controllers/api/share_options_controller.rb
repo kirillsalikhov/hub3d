@@ -1,6 +1,11 @@
 class Api::ShareOptionsController < Api::ApplicationController
   before_action :set_resource
 
+  def show
+    authorize(share_options)
+    render json: Store::ShareOptionsBlueprint.render(share_options)
+  end
+
   def update
     authorize(share_options)
     # NOTE: if password change, old accessor_password_link are not revoked
