@@ -1,28 +1,30 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import Client from '../../util/Client';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { Switch } from '@headlessui/react';
 import { useField, useForm } from './useForm';
 import { LinkSection } from './LinkSection';
+import { useShareOptions } from './useShareOptions';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function SharePopup({resourceId, shareOptions, onClose}) {
-    const { has_link_password: hasLinkPassword = false } = shareOptions;
+export default function SharePopup({resourceId, onClose}) {
+    const { has_link_password: hasLinkPassword } = useShareOptions({resourceId});
     const [ passwordEnabled, setPasswordEnabled ] = useState(hasLinkPassword);
-    const [ showPassword, setShowPassword ] = useState(!hasLinkPassword);
-    const [ passwordIsSet, setPasswordIsSet ] = useState(hasLinkPassword);
+    const [ showPassword, setShowPassword ] = useState(false);
+    const [ passwordIsSet, setPasswordIsSet ] = useState(false);
+
+    useLayoutEffect(() => {
+        setPasswordEnabled(hasLinkPassword);
+        setPasswordIsSet(hasLinkPassword)
+    }, [hasLinkPassword]);
 
     const onSubmit = async (values) => {
         const linkPassword = values['link_password'];
         try {
             await Client.updateShareOptions(resourceId, {link_password: linkPassword})
-            // TODO it's test usage, move or delete, pls
-            const res = await Client.getShareOptions(resourceId);
-            console.log(res.data, 'Client.getShareOptions');
-
             setShowPassword(false);
             setPasswordIsSet(true);
         } catch (err) {

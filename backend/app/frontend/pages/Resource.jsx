@@ -20,7 +20,7 @@ export default function Resource({ resource, version, files }) {
                 resource,
                 versionContents,
                 domElement: viewerRef.current,
-                ShareComponent
+                ShareComponent: resource?.permissions?.manage ? ShareComponent : null
             });
         }
     }, [resource.id]);
