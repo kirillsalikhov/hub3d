@@ -10,7 +10,7 @@ module Conversion::Recipe
     limit = LIMITS.fetch(ext, LIMITS["unknown"])
     case ext
     when "ifc"
-      (byte_size < limit) ? "ifc2wmd" : "ifc2wmdOpt"
+      (byte_size < limit) ? "ifc2wmd_node" : "ifc2wmdOpt_node"
     when "fbx"
       (byte_size < limit) ? "fbx2wmd" : "fbx2wmdOpt"
     else
