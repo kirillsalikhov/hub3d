@@ -6,6 +6,12 @@ class Store::ResourcePolicy < ApplicationPolicy
     is_public? || is_author? || has_password_link_access?
   end
 
+  def share?
+    # TODO should be different, collaborator should share but not manage
+    # TODO may be this should be in ShareOptionsPolicy
+    manage?
+  end
+
   def manage?
     is_author?
   end
@@ -14,7 +20,7 @@ class Store::ResourcePolicy < ApplicationPolicy
 
   # TODO change to access in space
   def is_author?
-    user && user == record.author
+    user.present? && user.id == record.author_id
   end
 
   def is_public?
