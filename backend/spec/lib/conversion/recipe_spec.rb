@@ -16,12 +16,12 @@ RSpec.describe Conversion::Recipe do
 
     def _call(params) = described_class.from_input(*params)
 
-    it "return ifc2wmd for ifc file size < 5mb" do
-      expect(_call(ifc_small)).to eq("ifc2wmd")
+    it "return ifc2wmd_node for ifc file size < 5mb" do
+      expect(_call(ifc_small)).to eq("ifc2wmd_node")
     end
 
-    it "return ifc2wmdOpt for ifc file size > 5mb" do
-      expect(_call(ifc_big)).to eq("ifc2wmdOpt")
+    it "return ifc2wmdOpt_node for ifc file size > 5mb" do
+      expect(_call(ifc_big)).to eq("ifc2wmdOpt_node")
     end
 
     it "return fbx2wmd for fbx file size < 20mb" do

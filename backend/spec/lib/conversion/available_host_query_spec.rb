@@ -2,8 +2,8 @@ require "rails_helper"
 require Rails.root.join("app/lib/conversion/available_host_query")
 
 RSpec.describe Conversion::AvailableHostQuery do
-  let(:low_conversion) { ["ifc2wmdOpt", "file1.ifc", 10_000_000] }
-  let(:high_conversion) { ["ifc2wmdOpt", "file2.ifc", 100_000_000] }
+  let(:low_conversion) { ["ifc2wmdOpt_node", "file1.ifc", 10_000_000] }
+  let(:high_conversion) { ["ifc2wmdOpt_node", "file2.ifc", 100_000_000] }
 
   let(:three_servers) {
     [
@@ -71,11 +71,11 @@ RSpec.describe Conversion::AvailableHostQuery do
     end
 
     it "return :low for ifc No-opt < 50_000_000 bytes" do
-      expect(_method(["ifc2wmd", "f.ifc", 40_000_000])).to eq(:low)
+      expect(_method(["ifc2wmd_node", "f.ifc", 40_000_000])).to eq(:low)
     end
 
     it "return :high for ifc No-opt > 50_000_000 bytes" do
-      expect(_method(["ifc2wmd", "f.ifc", 60_000_000])).to eq(:high)
+      expect(_method(["ifc2wmd_node", "f.ifc", 60_000_000])).to eq(:high)
     end
   end
 
