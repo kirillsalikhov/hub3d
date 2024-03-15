@@ -29,14 +29,6 @@ class ResourceController < ApplicationController
     }
   end
 
-  # TODO delete this page, it's for testing and is not needed
-  def edit_share_options
-    # TODO add current share_options
-    render inertia: "EditShareOptions", props: {
-      resourceId: @resource.id
-    }
-  end
-
   private
 
   def redirect_if_password_link_and_no_access

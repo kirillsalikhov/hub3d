@@ -11,7 +11,9 @@ const authPassword = async (resourceId, password) => {
         return {};
     } catch (e) {
         const { response } = e;
-        if (response && response.status === 403) {
+        if (response && response.status === 422) {
+            // TODO change me
+            console.log(response.data, '!TODO change me!')
             return { errors: { password: 'Incorrect password' }};
         }
         return e;

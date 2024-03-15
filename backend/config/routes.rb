@@ -21,8 +21,6 @@ Rails.application.routes.draw do
 
   get "/resources/:id", to: "resource#show", as: "resource"
   get "/resources/:id/auth-password", to: "resource#auth_password", as: "resource_password"
-  # TODO remove this page, when logic move to component
-  get "/resources/:id/edit-share-options", to: "resource#edit_share_options"
 
   get "/conversions/:id", to: "pages#conversion"
 

@@ -22,7 +22,8 @@ class Api::ShareOptionsController < Api::ApplicationController
       user.add_role(:accessor_password_link, @resource)
       head :no_content
     else
-      head :forbidden
+      # NOTE, may be raise custom error ?
+      render json: {errors: {link_password: "Incorrect password"}}, status: :unprocessable_entity
     end
   end
 
