@@ -11,12 +11,10 @@ const authPassword = async (resourceId, password) => {
         return {};
     } catch (e) {
         const { response } = e;
-        if (response && response.status === 422) {
-            // TODO change me
-            console.log(response.data, '!TODO change me!')
-            return { errors: { password: 'Incorrect password' }};
+        if (response.data && response.status === 422) {
+            return response.data;
         }
-        return e;
+        throw e;
     }
 }
 
@@ -72,9 +70,9 @@ export default function ResourcePassword({resourceId}) {
                                 &nbsp;&nbsp;→&nbsp;&nbsp;
                             </button>
                         </div>
-                        { errors['password'] && (
+                        { errors['link_password'] && (
                             <div  className="flex absolute text-base text-red-600 leading-6 pt-2">
-                                { errors['password'] }
+                                { errors['link_password'] }
                             </div>
                         ) }
                     </div>
