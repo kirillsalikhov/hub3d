@@ -2,7 +2,7 @@ version: '3.7'
 
 x-base-backend: &base_backend
   build: ../../backend
-  image: docker.webgears3d.com/hub3d/backend:1.0.12
+  image: ${CI_REGISTRY:-docker.webgears3d.com/hub3d}/backend:${CI_BACKEND_TAG:-1.0.12}
   environment:
     RAILS_ENV: production
     SERVER_NAME: ${SERVER_NAME:-localhost}
