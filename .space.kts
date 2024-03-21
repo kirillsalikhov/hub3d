@@ -24,7 +24,8 @@ job("Rubocop Linter") {
 }
 
 job("Deploy Staging") {
-    startOn { gitPush { enabled = false } }
+    // Only manual run
+    startOn {}
 
     container("amazoncorretto:17-alpine") {
         kotlinScript { api ->
@@ -63,12 +64,92 @@ job("Deploy Staging") {
         }
     }
 
-    container(displayName = "Cleanup images","amazoncorretto:17-alpine") {
-        kotlinScript { api ->
-            api.space().projects.packages.repositories.cleanup.cleanupRepository(
-                    project = ProjectIdentifier.Key("HUB-3-D"),
-                    repository = PackageRepositoryIdentifier.Key("container-ci-hub3d-containers")
-            )
+    parallel {
+
+        container(displayName = "Cleanup images", "amazoncorretto:17-alpine") {
+            kotlinScript { api ->
+                api.space().projects.packages.repositories.cleanup.cleanupRepository(
+                        project = ProjectIdentifier.Key("HUB-3-D"),
+                        repository = PackageRepositoryIdentifier.Key("container-ci-hub3d-containers")
+                )
+            }
         }
+
+        container(displayName = "Notify", image = "gradle:7.1-jre11") {
+            kotlinScript { api ->
+                // --- get deployment
+                val projectId = api.projectId()
+                val deploymentTarget = "hub3d-staging"
+
+                val deployment = api.space().projects.automation.deployments.get(
+                        project = ProjectIdentifier.Id(projectId),
+                        targetIdentifier = TargetIdentifier.Key(deploymentTarget),
+                        deploymentIdentifier = DeploymentIdentifier.Version("ci-${api.executionNumber()}")
+                )
+
+                val deploymentUrl = "${api.spaceUrl()}/p/${api.projectKey()}/deployments/targets/${deploymentTarget}/deployment/${deployment.id}"
+
+                val deploymentTargetObj = api.space().projects.automation.deploymentTargets.get(
+                        project = ProjectIdentifier.Id(projectId),
+                        target = TargetIdentifier.Key(deploymentTarget)
+                )
+
+                val deploymentDescription = deploymentTargetObj.description
+
+                // --- get review channel
+
+                // That's awful but there is no run:review.id on code-review-opened for code review
+                var reviewId = api.parameters["run:review.id"]
+                        ?: api.parameters["run:trigger.code-review-opened.review.id"]
+
+                // --- if reviewId is not set, try to first that contain commit
+                if (reviewId.isNullOrBlank()) {
+                    val data = api.space().projects.codeReviews.getAllCodeReviews(
+                            project = ProjectIdentifier.Id(projectId)
+                    ) {
+                        review {
+                            commits()
+                            id()
+                        }
+                    }.data
+
+                    val reviewObj = data.firstOrNull {
+                        it.review.commits.any { commit -> commit.commitId == api.gitRevision() }
+                    }
+
+                    reviewId = reviewObj?.review?.id
+                }
+
+                if (reviewId.isNullOrBlank()) {
+                    println("Didn't find any reviewId, no notify")
+                    return@kotlinScript
+                }
+
+                reviewId = reviewId as String
+
+
+                val reviewData = api.space().projects.codeReviews.getCodeReview(
+                        project = ProjectIdentifier.Id(projectId),
+                        reviewId = ReviewIdentifier.Id(reviewId)
+                ) {
+                    feedChannelId()
+                }
+
+                val feedChannelId = when (reviewData) {
+                    is MergeRequestRecord -> reviewData.feedChannelId
+                    is CommitSetReviewRecord -> reviewData.feedChannelId
+                    else -> null
+                }
+
+                // --- post message to channel
+
+                if (!feedChannelId.isNullOrBlank()) {
+                    val channel = ChannelIdentifier.Id(feedChannelId)
+                    val content = ChatMessage.Text("$deploymentUrl \n $deploymentDescription")
+                    api.space().chats.messages.sendMessage(channel = channel, content = content)
+                }
+            }
+        }
+
     }
 }
