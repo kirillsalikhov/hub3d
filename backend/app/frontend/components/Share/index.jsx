@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ShareButton } from './ShareButton';
-import SharePopup from './SharePopup';
+import { SharePopup } from './SharePopup';
 
-export const Share = ({resourceId}) => {
+export const Share = ({resourceId, model}) => {
     const [showModal, setShowModal] = useState(false);
 
     const openPopup = useCallback(() => {
@@ -18,7 +18,12 @@ export const Share = ({resourceId}) => {
         <>
             <ShareButton onClick={openPopup}/>
             {showModal && createPortal(
-                <SharePopup onClose={closePopup} resourceId={resourceId} />,
+                <SharePopup
+                    onClose={closePopup}
+                    resourceId={resourceId}
+                    hasLinkPassword={model.hasLinkPassword}
+                    setHasLinkPassword={model.setHasLinkPassword}
+                />,
                 document.body
             )}
         </>

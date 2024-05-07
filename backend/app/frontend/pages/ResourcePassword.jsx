@@ -1,8 +1,10 @@
 import { useCallback, useMemo, useState } from "react";
+import { useParams } from 'react-router-dom';
 import Client from "../util/Client";
 import { LogoSign } from '../components/LogoSign';
 import { Card } from '../components/Card';
 import { resourceUrl } from '../util/url';
+import { useNavigate } from '../routes/useNavigate';
 
 const authPassword = async (resourceId, password) => {
     try {
@@ -11,16 +13,18 @@ const authPassword = async (resourceId, password) => {
         return {};
     } catch (e) {
         const { response } = e;
-        if (response.data && response.status === 422) {
+        if (response?.data && response.status === 422) {
             return response.data;
         }
         throw e;
     }
 }
 
-export default function ResourcePassword({resourceId}) {
+export default function ResourcePassword() {
+    const { resourceId } = useParams();
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const isValid = useMemo(() => {
         return password.length > 0
@@ -32,7 +36,7 @@ export default function ResourcePassword({resourceId}) {
         if (response['errors']) {
             setErrors(response['errors']);
         } else {
-            window.location.href = resourceUrl(resourceId);
+            navigate(resourceUrl(resourceId));
         }
     }, [password]);
 
@@ -42,7 +46,7 @@ export default function ResourcePassword({resourceId}) {
     }, []);
 
     return (
-        <div className="flex h-screen p-4 justify-center items-center bg-front">
+        <div className="flex flex-1 h-full p-4 justify-center items-center">
             <div className="w-full justify-center sm:my-8 sm:w-full sm:max-w-lg">
                 <LogoSign />
 

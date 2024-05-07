@@ -1,11 +1,10 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
-import { Link } from '@inertiajs/react'
+import { Link } from '../../routes/Link';
 import { Logo } from '../Logo';
 
-const navigation = [
-]
+const navigation = [];
 
 export const Header = () => (
     <Popover>
@@ -23,7 +22,7 @@ export const Header = () => (
                 </div>
                 <div className="hidden space-x-10 md:ml-10 md:flex">
                     {navigation.map((item) => (
-                        <Link key={item.name} href={item.href} className="font-medium text-blue-950 hover:text-blue-800">
+                        <Link key={item.name} to={item.to} className="font-medium text-blue-950 hover:text-blue-800">
                             {item.name}
                         </Link>
                     ))}

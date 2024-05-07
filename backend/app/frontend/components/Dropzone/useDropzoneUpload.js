@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { useUploader } from '../Uploader/useUploader';
+import { useDropzone } from 'react-dropzone-esm';
 
 export const useDropzoneUpload = ({ uploadFile }) => {
 
@@ -17,7 +16,7 @@ export const useDropzoneUpload = ({ uploadFile }) => {
         } else {
             //showErrors();
         }
-    }, []);
+    }, [uploadFile]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

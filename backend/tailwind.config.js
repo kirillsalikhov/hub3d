@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 module.exports = {
   content:  [
       './app/frontend/**/*.{js,ts,jsx,tsx}',
@@ -17,6 +19,9 @@ module.exports = {
         },
         backgroundColor: {
             'front': `hsla(218,98%,75%,1);`
+        },
+        fontFamily: {
+            sans: ['Inter var', ...defaultTheme.fontFamily.sans]
         }
     },
   },

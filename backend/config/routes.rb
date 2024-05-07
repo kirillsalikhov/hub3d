@@ -34,11 +34,17 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :resources, only: [] do
+      resources :resources, only: [:show] do
         member do
           get "share-options", to: "share_options#show"
           patch "share-options", to: "share_options#update"
           post "share-options/auth-password", to: "share_options#auth_password"
+        end
+      end
+
+      resources :versions, only: [:show] do
+        member do
+          get :files
         end
       end
     end

@@ -1,8 +1,21 @@
-import { useEffect, useMemo, useRef } from 'react';
-import '../components/Industrial';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import { Share } from '../components/Share';
+import { useModel } from '../models/ModelProvider';
+import { isBrowser } from '../util/isBrowser';
 
-export default function Resource({ resource, version, files }) {
+export const Resource = () => {
+    const { resource, files } = useLoaderData();
+    const { resourceViewModel } = useModel();
+    const [ isImported, setIsImported ] = useState(false);
+
+    useEffect(() => {
+        if (isBrowser()) {
+            import('../components/Industrial').then(() => setIsImported(true));
+        }
+    }, []);
+
     const viewerRef = useRef(null);
 
     const versionContents = {};
@@ -11,11 +24,13 @@ export default function Resource({ resource, version, files }) {
     }
 
     const ShareComponent = useMemo(() =>
-        () => Share({resourceId: resource['id'], shareOptions: resource['share_options']}
-    ), [resource['id'], resource['share_options']]);
+        observer(
+            () => Share({resourceId: resource['id'], model: resourceViewModel})
+        ), [resource['id'], resourceViewModel]
+    );
 
     useEffect(() => {
-        if (resource.id) {
+        if (isImported && resource.id) {
             window.viewer.load({
                 resource,
                 versionContents,
@@ -23,10 +38,16 @@ export default function Resource({ resource, version, files }) {
                 ShareComponent: resource?.permissions?.manage ? ShareComponent : null
             });
         }
-    }, [resource.id]);
+    }, [resource.id, isImported]);
+
+    useEffect(() => {
+        if (resource['share_options']) {
+            resourceViewModel.setHasLinkPassword(resource['share_options']?.['has_link_password']);
+        }
+    }, [resource['share_options']])
 
 
     return (
-        <div id='viewer' ref={viewerRef}/>
+        <div id='viewer' ref={viewerRef} />
     )
 }

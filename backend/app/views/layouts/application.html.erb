@@ -3,13 +3,13 @@
   <head>
     <title>Backend</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= Gon::Base.render_data %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application" %>
     <%= vite_client_tag %>
     <%= vite_react_refresh_tag %>
-    <%= vite_javascript_tag 'application' %>
+    <%= vite_javascript_tag 'client-render.tsx' %>
     <!--
       If using a TypeScript entrypoint file:
         vite_typescript_tag 'application'
@@ -21,8 +21,7 @@
     -->
 
   </head>
-
-  <body class="<%= body_classes.join(" ") %>">
-    <%= yield %>
+  <body>
+    <div id="app" data-page="<%= local_assigns[:page].to_json %>"></div>
   </body>
 </html>

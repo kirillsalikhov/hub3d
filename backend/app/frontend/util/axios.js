@@ -1,7 +1,22 @@
 import axios from 'axios';
 
+// TODO for Marina: copy pasted from Client
+const isBrowser = () => typeof window !== 'undefined'
+
 export const createAxios = () => {
     const axiosInstance = axios.create();
+
+    axiosInstance.interceptors.request.use(function (config) {
+         if (!isBrowser()) {
+             // passed from rails and set in createRequest
+             const cookie = global.ssrFetchRequest.headers.get('cookie');
+             if (cookie) {
+                 config.headers['Cookie'] = cookie;
+             }
+         }
+         return config;
+    });
+
     axiosInstance.interceptors.response.use(function (response) {
         return response;
     }, function (error) {

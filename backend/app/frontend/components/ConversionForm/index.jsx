@@ -4,17 +4,22 @@ import { Dropzone } from '../Dropzone';
 import { MobileUploadForm } from '../MobileUploadForm';
 import { progressTransitionDuration } from '../Progress';
 import { useUploader } from '../Uploader/useUploader';
+import { useNavigate } from '../../routes/useNavigate';
+import { isBrowser } from '../../util/isBrowser';
 
 const conversionUrl = (conversionId) => `/conversions/${conversionId}`;
-export const ConversionForm = ({ uploadsPath }) => {
+export const ConversionForm = () => {
+    const navigate = useNavigate();
     const submitForm = async (signedId) => {
         const { data: conversion } = await Client.convertAnonym({ 'input_file': signedId })
         setTimeout(() => {
-            window.location.href = conversionUrl(conversion.id);
+            if (isBrowser()) {
+                navigate(conversionUrl(conversion.id));
+            }
         }, progressTransitionDuration);
     }
 
-    const { uploadFile, file, progress } = useUploader({ uploadsPath, upload: submitForm })
+    const { uploadFile, file, progress } = useUploader({ upload: submitForm })
 
     return (
         <>

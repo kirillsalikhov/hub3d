@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { useUploader } from '../Uploader/useUploader';
 import { UploadProgress } from '../Uploader/UploadProgress';
 
 export const MobileUploadForm = ({ uploadFile, progress, file }) => {

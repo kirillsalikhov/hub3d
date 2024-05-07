@@ -37,7 +37,9 @@ services:
   # it's override in dev/frontend.yml
   frontend:
     <<: *base_backend
-    command: bundle exec bin/copy_assets
+    command: sh -c "bundle exec bin/copy_assets"
+    environment:
+      NODE_ENV: production
     volumes:
       - nginx_static:/backend/assets_volume
 
@@ -49,7 +51,7 @@ services:
     build: ../../nginx
     image: docker.webgears3d.com/hub3d/nginx:1.1.2
     environment:
-      NGINX_ENVSUBST_TEMPLATE_DIR: "/etc/nginx/templates/${HUB_NGINX_TEMPLATE}"
+      NGINX_ENVSUBST_TEMPLATE_DIR: /etc/nginx/templates/${HUB_NGINX_TEMPLATE}
       SERVER_NAME: ${SERVER_NAME:-localhost}
     depends_on:
       - backend

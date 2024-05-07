@@ -3,15 +3,7 @@ class ResourceController < ApplicationController
   before_action :redirect_if_password_link_and_no_access, only: :show
   def show
     authorize(@resource)
-    # TODO  Should be current, not first
-    version = @resource.versions.with_attached_files.first
-
-    render inertia: "Resource", props: {
-      resource: Store::ResourceBlueprint.render_as_hash(@resource, view: :normal, user: pundit_user),
-      version: Store::VersionBlueprint.render_as_hash(version),
-      # Note attachments is needed, version.files is not enough, it's proxy
-      files: Store::FileBlueprint.render_as_hash(version.files.attachments)
-    }
+    render_page
   end
 
   def auth_password

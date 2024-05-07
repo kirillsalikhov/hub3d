@@ -1,11 +1,11 @@
-import { Link } from '@inertiajs/react';
+import { Link } from '../../routes/Link';
 import sign from './sign.svg';
 import signColor from './sign-c.svg';
 
 export const LogoSign = () => {
     return (
         <div className="flex justify-center p-8">
-            <Link href="/">
+            <Link to="/">
                 <div className="group relative">
                     <img
                         className="h-8 w-auto group-hover:opacity-0"

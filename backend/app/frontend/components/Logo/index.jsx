@@ -1,10 +1,10 @@
-import { Link } from '@inertiajs/react';
+import { Link } from '../../routes/Link';
 import logo from './logo.svg';
 import logoColor from './logo-c.svg';
 
 export const Logo = () => {
     return (
-        <Link href="/">
+        <Link to="/">
             <div className="group relative">
                 <img
                     className="h-6 sm:h-8 w-auto group-hover:opacity-0"

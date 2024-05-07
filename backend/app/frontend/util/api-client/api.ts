@@ -291,6 +291,40 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary show resource
+         * @param {string} id Resource id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResource: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getResource', 'id', id)
+            const localVarPath = `/api/v1/resources/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
          * @param {*} [options] Override http request option.
@@ -300,6 +334,74 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getShareOptions', 'id', id)
             const localVarPath = `/api/v1/resources/{id}/share-options`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary show version
+         * @param {string} id Version id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVersion: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getVersion', 'id', id)
+            const localVarPath = `/api/v1/versions/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary files version
+         * @param {string} id Version id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVersionFiles: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getVersionFiles', 'id', id)
+            const localVarPath = `/api/v1/versions/{id}/files`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -454,6 +556,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary show resource
+         * @param {string} id Resource id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getResource(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getResource(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
          * @param {*} [options] Override http request option.
@@ -461,6 +574,28 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async getShareOptions(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getShareOptions(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary show version
+         * @param {string} id Version id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVersion(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVersion(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary files version
+         * @param {string} id Version id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVersionFiles(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVersionFiles(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -538,6 +673,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary show resource
+         * @param {string} id Resource id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResource(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getResource(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
          * @param {*} [options] Override http request option.
@@ -545,6 +690,26 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getShareOptions(id: string, options?: any): AxiosPromise<void> {
             return localVarFp.getShareOptions(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary show version
+         * @param {string} id Version id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVersion(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getVersion(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary files version
+         * @param {string} id Version id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVersionFiles(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getVersionFiles(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -627,6 +792,18 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary show resource
+     * @param {string} id Resource id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getResource(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getResource(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary show resource\'s share_options
      * @param {string} id Resource id
      * @param {*} [options] Override http request option.
@@ -635,6 +812,30 @@ export class DefaultApi extends BaseAPI {
      */
     public getShareOptions(id: string, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getShareOptions(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary show version
+     * @param {string} id Version id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getVersion(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVersion(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary files version
+     * @param {string} id Version id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getVersionFiles(id: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVersionFiles(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

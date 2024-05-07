@@ -6,9 +6,14 @@ services:
   frontend:
     # Yes, it should be same image as backend__dev
     image: docker.webgears3d.com/hub3d/backend__dev
+    build:
+      args:
+        RAILS_ENV: development
     environment:
       RAILS_ENV: development
-    command: ./bin/vite dev
+      NODE_ENV: development
+      VITE_RUBY_HOST: 0.0.0.0
+    command: foreman start -f Procfile.dev
     ports:
       - "3036:3036"
     develop:

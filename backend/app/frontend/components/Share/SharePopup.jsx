@@ -1,32 +1,28 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import Client from '../../util/Client';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { Switch } from '@headlessui/react';
 import { useField, useForm } from './useForm';
 import { LinkSection } from './LinkSection';
-import { useShareOptions } from './useShareOptions';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function SharePopup({resourceId, onClose}) {
-    const { has_link_password: hasLinkPassword } = useShareOptions({resourceId});
+export const SharePopup = ({resourceId, onClose, hasLinkPassword, setHasLinkPassword}) => {
     const [ passwordEnabled, setPasswordEnabled ] = useState(hasLinkPassword);
     const [ showPassword, setShowPassword ] = useState(false);
-    const [ passwordIsSet, setPasswordIsSet ] = useState(false);
 
     useLayoutEffect(() => {
         setPasswordEnabled(hasLinkPassword);
-        setPasswordIsSet(hasLinkPassword)
     }, [hasLinkPassword]);
 
     const onSubmit = async (values) => {
         const linkPassword = values['link_password'];
         try {
             await Client.updateShareOptions(resourceId, {link_password: linkPassword})
+            setHasLinkPassword(true);
             setShowPassword(false);
-            setPasswordIsSet(true);
         } catch (err) {
             throw err;
         }
@@ -35,12 +31,8 @@ export default function SharePopup({resourceId, onClose}) {
     const resetPassword = async () => {
         try {
             await Client.updateShareOptions(resourceId, {link_password: ''});
-            // TODO it's test usage, move or delete, pls
-            const res = await Client.getShareOptions(resourceId);
-            console.log(res.data, 'Client.getShareOptions');
-
+            setHasLinkPassword(false);
             setValue('');
-            setPasswordIsSet(false);
         } catch (err) {
             throw err;
         }
@@ -128,7 +120,7 @@ export default function SharePopup({resourceId, onClose}) {
                                 }
                             </Switch.Label>
                         </Switch.Group>
-                        { passwordEnabled && passwordIsSet && <div onClick={onChangePasswordClick} className='text-blue-800 underline hover:no-underline hover:cursor-pointer'>{ showPassword ? 'Cancel' : 'Change password' }</div> }
+                        { passwordEnabled && hasLinkPassword && <div onClick={onChangePasswordClick} className='text-blue-800 underline hover:no-underline hover:cursor-pointer'>{ showPassword ? 'Cancel' : 'Change password' }</div> }
                     </div>
 
                     <div className="mt-4">

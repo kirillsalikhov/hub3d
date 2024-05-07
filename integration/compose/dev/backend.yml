@@ -2,6 +2,9 @@ version: "3.7"
 services:
   backend:
     image: docker.webgears3d.com/hub3d/backend__dev
+    build:
+      args:
+        RAILS_ENV: development
     environment:
       RAILS_ENV: development
     develop:
@@ -17,6 +20,9 @@ services:
 
   sidekiq:
     image: docker.webgears3d.com/hub3d/backend__dev
+    build:
+      args:
+        RAILS_ENV: development
     environment:
       RAILS_ENV: development
     develop:

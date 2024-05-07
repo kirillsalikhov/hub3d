@@ -7,10 +7,12 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
-gem "vite_rails"
+gem "vite_rails", "~> 3.0.17"
 gem "inertia_rails"
 gem "oj"
 gem "blueprinter"
+
+gem "gon"
 
 gem "active_interaction", "~> 5.3"
 

@@ -1,10 +1,11 @@
 {
   "all": {
     "sourceCodeDir": "app/frontend",
-    "watchAdditionalPaths": []
+    "watchAdditionalPaths": [],
+    "ssrBuildEnabled": true
   },
   "development": {
-    "autoBuild": true,
+    "autoBuild": false,
     "publicOutputDir": "vite-dev",
     "port": 3036
   },
