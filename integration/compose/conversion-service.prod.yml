@@ -118,7 +118,7 @@ services:
     image: docker.webgears3d.com/converters/unzip2folder:3.1.0-utils3.2.0
   ifc_convert:
     <<: *converter
-    image: docker.webgears3d.com/converters/ifc_convert:2.0.0-utils4.0.0
+    image: docker.webgears3d.com/converters/ifc_convert:2.2.1-utils4.0.0
   post_ifc_convert:
     <<: *converter
     image: docker.webgears3d.com/converters/post_ifc_convert:2.1.0-utils4.0.0
