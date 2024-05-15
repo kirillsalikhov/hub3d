@@ -1,7 +1,10 @@
 class Store::ConversionJob
   include Sidekiq::Job
 
-  sidekiq_options retry: false
+  # https://github.com/sidekiq/sidekiq/wiki/Error-Handling#automatic-job-retry
+  # there are strange network problems between Conversion::Client and CS
+  # 8 => 8 retries during 1h 22m 56s
+  sidekiq_options retry: 8
 
   CHECK_INTERVAL = 1.second
   CHECK_TIMEOUT = 4.days
