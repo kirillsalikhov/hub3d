@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.14",
+    "formik": "^2.4.6",
     "fr-fonts": "^3.0.3",
     "mobx": "^6.12.0",
     "mobx-react-lite": "^4.0.6",
@@ -24,7 +25,8 @@
     "tailwindcss": "^3.3.3",
     "vite": "^5.2.8",
     "vite-plugin-conditional-import": "^0.1.7",
-    "vite-plugin-rails": "^0.5.0"
+    "vite-plugin-rails": "^0.5.0",
+    "yup": "^1.4.0"
   },
   "dependencies": {
     "@wg/industrial-app": "^8.0.19",

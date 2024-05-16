@@ -4,5 +4,7 @@
 # sensitive information. See the ActiveSupport::ParameterFilter documentation for supported
 # notations and behaviors.
 Rails.application.config.filter_parameters += [
-  :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp, :ssn
+  :passw, :secret, :token, :crypt, :salt, :certificate, :otp, :ssn,
+  # just not to have [FILTERED] for space_key, old was just :_key, that used to match all having _key
+  /^(?!space_key)\w*_key/
 ]

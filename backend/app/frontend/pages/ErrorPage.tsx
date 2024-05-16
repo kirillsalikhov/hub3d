@@ -1,4 +1,3 @@
-import React from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 import Layout from '../components/Layout';
 
@@ -7,7 +6,7 @@ const ErrorPage = () => {
 
     let message = 'Something went wrong';
 
-    if (error.message && error.message.includes('Failed to fetch')) {
+    if (error['message'] && error['message'].includes('Failed to fetch')) {
         message = 'No internet connection';
     }
 
@@ -31,7 +30,7 @@ const ErrorPage = () => {
 
     return (
         <Layout>
-            <div>{error.status}</div>
+            <div>{error['status']}</div>
             <div>{message}</div>
         </Layout>
     )

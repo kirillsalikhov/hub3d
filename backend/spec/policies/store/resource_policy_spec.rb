@@ -1,13 +1,23 @@
 describe Store::ResourcePolicy do
   subject(:policy) { described_class }
 
-  let(:author) { create(:user) }
+  let(:owner) { create(:user, :with_space) }
+  let(:space) { owner.default_space }
+
+  let(:member) {
+    u = create(:user)
+    space.memberships
+      .build(user: u, roles: [:collaborator])
+      .save!
+    u
+  }
+
   let(:anon) { nil }
   let(:another_user) { create(:user) }
 
-  let(:private_resource) { create(:resource, :private, author: author) }
-  let(:public_resource) { create(:resource, :public, author: author) }
-  let(:password_resource) { create(:resource, :password, author: author) }
+  let(:private_resource) { create(:resource, :private, author: owner, space: space) }
+  let(:public_resource) { create(:resource, :public, author: owner, space: space) }
+  let(:password_resource) { create(:resource, :password, author: owner, space: space) }
 
   permissions :manage? do
     let(:resource) { public_resource }
@@ -20,8 +30,9 @@ describe Store::ResourcePolicy do
       expect(policy).not_to permit(another_user, resource)
     end
 
-    it "allow if author" do
-      expect(policy).to permit(author, resource)
+    it "allow if member" do
+      expect(policy).to permit(owner, resource)
+      expect(policy).to permit(member, resource)
     end
   end
 
@@ -37,8 +48,9 @@ describe Store::ResourcePolicy do
         expect(policy).not_to permit(another_user, resource)
       end
 
-      it "allows if author" do
-        expect(policy).to permit(author, resource)
+      it "allows if member" do
+        expect(policy).to permit(owner, resource)
+        expect(policy).to permit(member, resource)
       end
     end
   end

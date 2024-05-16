@@ -41,3 +41,18 @@ To generate/update api client
 ```
 npm run generate-client
 ```
+
+## Working with credentials
+
+There's no master.key file and should not be 
+
+Master key is passed through env, look inside .env file HUB__RAILS_MASTER_KEY or in docker compose files
+
+### Edit credentials
+```
+RAILS_MASTER_KEY=FILL_ME EDITOR="code --wait" rails credentials:edit
+```
+### View credentials
+```
+RAILS_MASTER_KEY=FILL_ME EDITOR="code --wait" rails credentials:show
+```

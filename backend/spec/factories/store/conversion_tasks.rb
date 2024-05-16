@@ -13,6 +13,8 @@ FactoryBot.define do
       }
     }
 
+    space
+
     trait :with_logs do
       after(:build) do |task|
         task.logs.attach(fixture_io("logs/success_logs.json"))

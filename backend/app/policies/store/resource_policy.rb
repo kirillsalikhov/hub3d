@@ -3,7 +3,7 @@ class Store::ResourcePolicy < ApplicationPolicy
   attr_reader :record
 
   def show?
-    is_public? || is_author? || has_password_link_access?
+    is_public? || is_member? || has_password_link_access?
   end
 
   def share?
@@ -13,14 +13,21 @@ class Store::ResourcePolicy < ApplicationPolicy
   end
 
   def manage?
-    is_author?
+    is_member?
   end
 
   protected
 
-  # TODO change to access in space
-  def is_author?
-    user.present? && user.id == record.author_id
+  def is_member?
+    membership&.is_member?
+  end
+
+  # @return [Membership]
+  def membership
+    return nil unless user
+    # TODO investigate
+    # might be issues if no membership
+    @membership ||= record.get_space.membership(user.id)
   end
 
   def is_public?

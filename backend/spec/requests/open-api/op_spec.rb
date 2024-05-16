@@ -50,9 +50,7 @@ RSpec.describe "api/op" do
 
         after do |example|
           example.metadata[:response][:content] = {
-            "application/json" => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
+            "application/json" => {example: json_body}
           }
         end
 

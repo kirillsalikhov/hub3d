@@ -16,7 +16,7 @@ const root = createRoot(domNode, {
         console.error(
             'Caught error',
             error,
-            error.cause,
+            error['cause'],
             errorInfo.componentStack
         );
     }

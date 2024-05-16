@@ -6,7 +6,7 @@ export interface IPageData {
 export class Model {
     resourceViewModel: ResourceViewModel;
     private _pageData: IPageData;
-    constructor(initialPageData) {
+    constructor(initialPageData: IPageData) {
         this.resourceViewModel = new ResourceViewModel();
         this._pageData = initialPageData;
         makeObservable<Model, '_pageData'>(this, {
@@ -16,7 +16,7 @@ export class Model {
         })
     }
 
-    setPageData(data) {
+    setPageData(data: IPageData) {
         this._pageData = data;
     }
 

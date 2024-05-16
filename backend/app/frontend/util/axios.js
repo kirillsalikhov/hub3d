@@ -1,7 +1,6 @@
 import axios from 'axios';
-
-// TODO for Marina: copy pasted from Client
-const isBrowser = () => typeof window !== 'undefined'
+import { spaceKeyFromUrl } from "~/util/url";
+import { isBrowser } from './isBrowser';
 
 export const createAxios = () => {
     const axiosInstance = axios.create();
@@ -37,5 +36,20 @@ export const createAxios = () => {
         }
         return Promise.reject(error);
     });
+
+    // TODO for Marina, not sure if it's write level for Api logic
+    axiosInstance.interceptors.request.use(function (config) {
+        // if header space-id is not set, try to get it from browser url
+        // Note try to use space-id or space-key not both
+        if (!config.headers["space-id"]) {
+            // TODO probably use window.location.pathname or something global.ssrFetchRequest
+            const spaceKey = spaceKeyFromUrl(window.location.pathname);
+            if (spaceKey) {
+                config.headers["space-key"] = spaceKey;
+            }
+        }
+        return config;
+    });
+
     return axiosInstance;
 }

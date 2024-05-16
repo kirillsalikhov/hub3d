@@ -15,19 +15,12 @@ const STATUSES = {
     canceling: 'canceling'
 }
 
-const STATUSES_NAMES = {
-    finished: 'Finished',
-    inProgress: 'Converting',
-    failed: 'Failed',
-    canceled: 'Canceled',
-    canceling: 'Canceling'
-}
 export default function Conversion() {
     const { conversionTask, resourceName } = useLoaderData();
     const [ progress, setProgress ] = useState(Math.max(conversionTask.progress, .01));
     const [ status, setStatus ] = useState(conversionTask.status);
     const [ logs, setLogs ] = useState(null);
-    const { operation, record } = useWebsocket({ channel: 'TaskChannel', task: conversionTask.id });
+    const { record } = useWebsocket({ channel: 'TaskChannel', task: conversionTask.id });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,7 +35,7 @@ export default function Conversion() {
     useEffect(() => {
         if (status === STATUSES.finished) {
             setTimeout(() => {
-                navigate(resourceUrl(conversionTask.meta.dest_resource_id));
+                navigate(resourceUrl(conversionTask.space_key, conversionTask.meta.dest_resource_id));
             }, progressTransitionDuration);
         }
         if (status === STATUSES.failed) {

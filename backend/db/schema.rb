@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_23_093152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -43,6 +43,27 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "space_id", null: false
+    t.string "roles", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["space_id"], name: "index_memberships_on_space_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -51,6 +72,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "spaces", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "space_key"
+    t.index ["space_key"], name: "index_spaces_on_space_key", unique: true
   end
 
   create_table "store_conversion_tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -65,6 +94,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
     t.datetime "updated_at", null: false
     t.json "meta"
     t.string "cs_server"
+    t.uuid "space_id", null: false
+    t.index ["space_id"], name: "index_store_conversion_tasks_on_space_id"
   end
 
   create_table "store_resources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -73,7 +104,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "author_id"
+    t.uuid "space_id", null: false
     t.index ["author_id"], name: "index_store_resources_on_author_id"
+    t.index ["space_id"], name: "index_store_resources_on_space_id"
   end
 
   create_table "store_share_options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -82,7 +115,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
     t.uuid "resource_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "space_id", null: false
     t.index ["resource_id"], name: "index_store_share_options_on_resource_id"
+    t.index ["space_id"], name: "index_store_share_options_on_space_id"
   end
 
   create_table "store_versions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -101,7 +136,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "guest", default: false
+    t.boolean "guest", default: false, null: false
+    t.string "uid"
+    t.string "provider"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -116,6 +153,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_100532) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "memberships", "spaces"
+  add_foreign_key "memberships", "users"
+  add_foreign_key "store_conversion_tasks", "spaces"
+  add_foreign_key "store_resources", "spaces"
   add_foreign_key "store_resources", "users", column: "author_id"
+  add_foreign_key "store_share_options", "spaces"
+  add_foreign_key "store_versions", "spaces"
   add_foreign_key "store_versions", "store_resources", column: "resource_id"
 end

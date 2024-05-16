@@ -1,17 +1,22 @@
 require "swagger_helper"
 
 RSpec.describe "api/share_options" do
+  # TODO change author
+  let(:owner) { create(:user, :with_space) }
+  let(:space) { owner.default_space }
+  let("space-key") { space.space_key }  # rubocop:disable RSpec/VariableName, RSpec/VariableDefinition
+
   path "/api/v1/resources/{id}/share-options" do
     parameter name: "id", in: :path, type: :string, description: "Resource id"
+    parameter name: "space-key", in: :header, type: :string
 
-    let(:author) { create(:user) }
-    let(:resource) { create(:resource, author: author) }
+    let(:resource) { create(:resource, author: owner, space: space) }
     let(:share_options) { resource.share_options }
 
     let(:id) { resource.id }
 
     before {
-      sign_in author
+      sign_in owner
     }
 
     get("show resource's share_options") do
@@ -22,13 +27,13 @@ RSpec.describe "api/share_options" do
       response(200, "successful") do
         after do |example|
           example.metadata[:response][:content] = {
-            "application/json" => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
+            "application/json" => {example: json_body}
           }
         end
 
-        run_test!
+        run_test! do
+          expect(json_body[:space_key]).to eql(space.space_key)
+        end
       end
     end
 
@@ -37,7 +42,7 @@ RSpec.describe "api/share_options" do
       produces "application/json"
       operationId "updateShareOptions"
 
-      parameter name: :params, in: :body,
+      parameter name: :params, in: :body, required: true,
         schema: {
           type: :object,
           properties: {
@@ -71,9 +76,7 @@ RSpec.describe "api/share_options" do
 
         after do |example|
           example.metadata[:response][:content] = {
-            "application/json" => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
+            "application/json" => {example: json_body}
           }
         end
 
@@ -84,10 +87,10 @@ RSpec.describe "api/share_options" do
 
   path "/api/v1/resources/{id}/share-options/auth-password" do
     parameter name: "id", in: :path, type: :string, description: "Resource id"
+    parameter name: "space-key", in: :header, type: :string
 
-    let(:author) { create(:user) }
     let(:another_user) { create(:user) }
-    let(:resource) { create(:resource, :password, author: author) }
+    let(:resource) { create(:resource, :password, author: owner, space: space) }
     let(:share_options) { resource.share_options }
 
     let(:id) { resource.id }
@@ -101,7 +104,7 @@ RSpec.describe "api/share_options" do
       produces "application/json"
       operationId "resourceAuthPassword"
 
-      parameter name: :params, in: :body,
+      parameter name: :params, in: :body, required: true,
         schema: {
           type: :object,
           properties: {

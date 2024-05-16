@@ -5,6 +5,11 @@ info:
   version: v1
 paths:
   "/api/v1/conversions":
+    parameters:
+    - name: space-key
+      in: header
+      schema:
+        type: string
     get:
       summary: List conversions
       operationId: getConversions
@@ -15,28 +20,45 @@ paths:
           content:
             application/json:
               example:
-              - id: 6428c1f8-d79d-4d03-a648-ee178d0836f1
+              - id: d92873d4-c144-4932-aa86-6c686b31c96b
+                space_id: dcc78a26-296e-41a0-9da5-1b7a7db9caf1
+                space_key: KckjnXi1
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-03-22 11:27:19 UTC
+                start_time: 2024-05-15 15:59:45 UTC
                 end_time: 
-                conversion_job_id: 58a277c9-bd17-4769-9e5c-e8fe14b757ec
-                created_at: 2024-03-22 11:27:19 UTC
-                updated_at: 2024-03-22 11:27:19 UTC
+                conversion_job_id: 3743f5fc-66c5-4893-a800-ad1f1c4420af
+                created_at: 2024-05-15 15:59:45 UTC
+                updated_at: 2024-05-15 15:59:45 UTC
                 meta:
-                  dest_resource_id: 7e4f026d-15be-4330-9209-ff31fd964077
-                  dest_version_id: d9e6769b-a6b8-4d82-addd-256b63635187
-              - id: 39730e2c-21bf-4eec-83c0-eaaeeca260b2
+                  dest_resource_id: fade9b3d-5227-453e-8e89-c33bcd034a9c
+                  dest_version_id: dd65f17c-3629-4ed2-a1f6-356324cf2a2e
+              - id: cc25804c-6bdf-4ee5-b4e2-61476c355f5a
+                space_id: dcc78a26-296e-41a0-9da5-1b7a7db9caf1
+                space_key: KckjnXi1
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-03-22 11:27:19 UTC
+                start_time: 2024-05-15 15:59:45 UTC
                 end_time: 
-                conversion_job_id: d0259f02-7350-4ebc-a7de-d9662492492d
-                created_at: 2024-03-22 11:27:19 UTC
-                updated_at: 2024-03-22 11:27:19 UTC
+                conversion_job_id: f647b5d9-8bf2-48a9-86c7-5b78f66250ce
+                created_at: 2024-05-15 15:59:45 UTC
+                updated_at: 2024-05-15 15:59:45 UTC
                 meta:
-                  dest_resource_id: 9c3fbe37-580d-4c5f-8c5c-7712cc95e120
-                  dest_version_id: 524b0fdf-38a3-41d9-a1bc-5e4324f2103b
+                  dest_resource_id: 8d2cb614-149f-43ad-a46c-e0a650e31843
+                  dest_version_id: 5fcb25f5-f7a0-4c75-abc6-db877a5d7410
+              - id: cbb2f9c9-314d-44a4-ad49-f7e0b1c39af6
+                space_id: dcc78a26-296e-41a0-9da5-1b7a7db9caf1
+                space_key: KckjnXi1
+                status: inProgress
+                progress: '0.0'
+                start_time: 2024-05-15 15:59:45 UTC
+                end_time: 
+                conversion_job_id: 8996ac7c-8869-4a55-a7c1-6b64d864a470
+                created_at: 2024-05-15 15:59:45 UTC
+                updated_at: 2024-05-15 15:59:45 UTC
+                meta:
+                  dest_resource_id: 82a9b6a3-1f6d-4661-8cfa-a2566f085332
+                  dest_version_id: 64ae17ac-ece1-4a73-8e88-7864b6aa77c1
               schema:
                 type: array
                 items:
@@ -49,6 +71,10 @@ paths:
       required: true
       schema:
         type: string
+    - name: space-key
+      in: header
+      schema:
+        type: string
     get:
       summary: show conversion
       operationId: getConversion
@@ -59,17 +85,19 @@ paths:
           content:
             application/json:
               example:
-                id: cd45b2eb-4fd2-4a1e-bae4-f7530948847e
+                id: c59c98be-75b8-4ec8-8052-77f5ad65f3b7
+                space_id: acf1f7ce-e466-4b1b-b2e5-4e06f9d729be
+                space_key: ACqlHHUz
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-03-22 11:27:19 UTC
+                start_time: 2024-05-15 15:59:45 UTC
                 end_time: 
-                conversion_job_id: 13f0ca05-d15e-4fac-ac66-03097c8edf68
-                created_at: 2024-03-22 11:27:19 UTC
-                updated_at: 2024-03-22 11:27:19 UTC
+                conversion_job_id: f4cd8b3a-6718-4c13-9dc0-92030a8403aa
+                created_at: 2024-05-15 15:59:45 UTC
+                updated_at: 2024-05-15 15:59:45 UTC
                 meta:
-                  dest_resource_id: 74331127-c7ab-47fd-b977-ae75748e3124
-                  dest_version_id: 641053bb-3c48-4b58-ba69-554318dd2181
+                  dest_resource_id: a9e39724-cf5e-4252-8adf-ea9b7859a0a0
+                  dest_version_id: a81a5391-c7f9-4f8e-bb82-7f6856f9d038
               schema:
                 "$ref": "#/components/schemas/conversion_task"
   "/api/v1/conversions/{id}/logs":
@@ -78,6 +106,10 @@ paths:
       in: path
       description: Conversion Task id
       required: true
+      schema:
+        type: string
+    - name: space-key
+      in: header
       schema:
         type: string
     get:
@@ -99,17 +131,19 @@ paths:
           content:
             application/json:
               example:
-                id: d8641515-a071-4775-bd24-a45d21783286
+                id: 29a9160f-deed-4c61-9c52-277f882aa214
+                space_id: 2d56f9c0-00f7-4c85-b3e6-cf8a4cae6603
+                space_key: MgeWlqOV
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-03-22 11:27:19 UTC
+                start_time: 2024-05-15 15:59:45 UTC
                 end_time: 
-                conversion_job_id: f33694a6-75ae-444d-8915-198cc53adfe1
-                created_at: 2024-03-22 11:27:19 UTC
-                updated_at: 2024-03-22 11:27:19 UTC
+                conversion_job_id: 68c15fe0-f690-4fb0-bae3-2894e9e08b31
+                created_at: 2024-05-15 15:59:45 UTC
+                updated_at: 2024-05-15 15:59:45 UTC
                 meta:
-                  dest_resource_id: 1fe66de7-8e5b-4a58-a97e-222e69a680b4
-                  dest_version_id: f5fe2024-281c-487c-84f1-06cff6d75e32
+                  dest_resource_id: 32f5df42-06f8-4b2f-b1fe-a2940c3e61f7
+                  dest_version_id: 6f8e3e5c-1714-4521-a5f1-8f88389b611e
               schema:
                 "$ref": "#/components/schemas/conversion_task"
       requestBody:
@@ -123,12 +157,68 @@ paths:
                 input_file:
                   type: string
                   description: Active Storage signeID
+  "/users":
+    post:
+      summary: create registration
+      operationId: signUp
+      description: Sign up new user
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                user:
+                  id: 713861cd-89c0-4f3f-b60f-5078e0e79821
+                  email: valid@email.com
+                  created_at: '2024-05-15T15:59:46.014Z'
+                  updated_at: '2024-05-15T15:59:46.014Z'
+                  guest: false
+                  uid: 
+                  provider: 
+                redirect_url: "/"
+        '422':
+          description: user already exist
+          content:
+            application/json:
+              example:
+                errors:
+                  password_confirmation:
+                  - doesn't match Password
+                  password:
+                  - is too short (minimum is 6 characters)
+                  email:
+                  - has already been taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - password
+              - password_confirmation
+              properties:
+                email:
+                  type: string
+                  description: User's email
+                password:
+                  type: string
+                  description: User's password
+                password_confirmation:
+                  type: string
+                  description: password confirmation, should match password
   "/api/v1/resources/{id}":
     parameters:
     - name: id
       in: path
       description: Resource id
       required: true
+      schema:
+        type: string
+    - name: space-key
+      in: header
       schema:
         type: string
     get:
@@ -140,23 +230,73 @@ paths:
           content:
             application/json:
               example:
-                id: 0f61d831-0668-4a78-9f74-5ea658d4b09d
-                name: saepe.ifc
-                created_at: 2024-03-22 11:27:19 UTC
-                updated_at: 2024-03-22 11:27:19 UTC
+                id: 666208a8-f317-4223-96b6-ea353cd0c29c
+                space_id: d55f24e6-ad71-497d-b6ac-bf60732bd297
+                space_key: M3ztYTk9
+                name: optio.ifc
+                created_at: 2024-05-15 15:59:46 UTC
+                updated_at: 2024-05-15 15:59:46 UTC
                 current_id: 
                 permissions:
                   manage: true
                   share: true
                 share_options:
                   link_access: none
+                  space_id: d55f24e6-ad71-497d-b6ac-bf60732bd297
+                  space_key: M3ztYTk9
                   has_link_password: false
+  "/users/sign_in":
+    post:
+      summary: create session
+      operationId: signIn
+      description: Sign in user
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+                user:
+                  id: 1d73f20b-3c1e-425b-8fb3-1fe7b104d27b
+                  email: eldora@bernier.example
+                  created_at: '2024-05-15T15:59:46.155Z'
+                  updated_at: '2024-05-15T15:59:46.155Z'
+                  guest: false
+                  uid: 
+                  provider: 
+                redirect_url: "/"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                errors: not authenticated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  type: string
+                  description: User's email
+                password:
+                  type: string
+                  description: User's password
   "/api/v1/resources/{id}/share-options":
     parameters:
     - name: id
       in: path
       description: Resource id
       required: true
+      schema:
+        type: string
+    - name: space-key
+      in: header
       schema:
         type: string
     get:
@@ -169,6 +309,8 @@ paths:
             application/json:
               example:
                 link_access: none
+                space_id: bee7a0ed-e378-40b6-84a1-d246566a772f
+                space_key: U5yTpoiZ
                 has_link_password: false
     patch:
       summary: update resource's share_options
@@ -201,12 +343,17 @@ paths:
                 link_password:
                   type: string
                   format: password
+        required: true
   "/api/v1/resources/{id}/share-options/auth-password":
     parameters:
     - name: id
       in: path
       description: Resource id
       required: true
+      schema:
+        type: string
+    - name: space-key
+      in: header
       schema:
         type: string
     post:
@@ -227,12 +374,17 @@ paths:
                 link_password:
                   type: string
                   format: password
+        required: true
   "/api/v1/versions/{id}":
     parameters:
     - name: id
       in: path
       description: Version id
       required: true
+      schema:
+        type: string
+    - name: space-key
+      in: header
       schema:
         type: string
     get:
@@ -244,16 +396,22 @@ paths:
           content:
             application/json:
               example:
-                id: adec9d58-4160-4b73-8ea8-cc4da08d00d7
-                resource_id: d2657d55-b03a-4544-9f0a-ab7e20a041ec
-                created_at: 2024-03-22 11:27:19 UTC
-                updated_at: 2024-03-22 11:27:19 UTC
+                id: f3f18c97-627e-44a3-9964-d39cea301f50
+                space_id: 46678e28-0cab-4767-bf1e-b5b6c3134a77
+                space_key: eLp0Hna0
+                resource_id: 333c4839-8677-46a2-b06c-cd507b1d5b8a
+                created_at: 2024-05-15 15:59:46 UTC
+                updated_at: 2024-05-15 15:59:46 UTC
   "/api/v1/versions/{id}/files":
     parameters:
     - name: id
       in: path
       description: Version id
       required: true
+      schema:
+        type: string
+    - name: space-key
+      in: header
       schema:
         type: string
     get:

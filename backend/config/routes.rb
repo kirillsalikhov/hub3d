@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   devise_for :users,
     controllers: {
       sessions: "users/sessions",
-      registrations: "users/registrations"
+      registrations: "users/registrations",
+      omniauth_callbacks: "users/omniauth_callbacks"
     }
   devise_scope :user do
     # TODO delete when not needed
@@ -16,13 +17,6 @@ Rails.application.routes.draw do
     # it's needed in rspec request tests
     get "simulate_guest_user" => "users/sessions#simulate_guest_user"
   end
-
-  root "pages#root"
-
-  get "/resources/:id", to: "resource#show", as: "resource"
-  get "/resources/:id/auth-password", to: "resource#auth_password", as: "resource_password"
-
-  get "/conversions/:id", to: "pages#conversion"
 
   namespace :api do
     scope :v1 do
@@ -55,6 +49,14 @@ Rails.application.routes.draw do
       get "convert_new", on: :collection
       post "convert_create", on: :collection
     end
+  end
+
+  root "pages#root"
+  scope "/s/:space_key/" do
+    get "resources/:id", to: "resource#show", as: "resource"
+    get "resources/:id/auth-password", to: "resource#auth_password", as: "resource_password"
+
+    get "conversions/:id", to: "pages#conversion"
   end
 
   mount ActionCable.server => "/cable"

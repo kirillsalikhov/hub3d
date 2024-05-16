@@ -2,6 +2,13 @@
 
 class Store::ResourceBlueprint < Blueprinter::Base
   identifier :id
+
+  field :space_id
+  # TODO move somewhere, repetition
+  field :space_key do |o|
+    o.get_space.space_key
+  end
+
   fields :name, :created_at, :updated_at
 
   # TODO ! should be fields in resource table

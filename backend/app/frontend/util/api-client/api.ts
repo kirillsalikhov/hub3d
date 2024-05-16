@@ -126,6 +126,50 @@ export interface ResourceAuthPasswordRequest {
 /**
  * 
  * @export
+ * @interface SignInRequest
+ */
+export interface SignInRequest {
+    /**
+     * User\'s email
+     * @type {string}
+     * @memberof SignInRequest
+     */
+    'email': string;
+    /**
+     * User\'s password
+     * @type {string}
+     * @memberof SignInRequest
+     */
+    'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface SignUpRequest
+ */
+export interface SignUpRequest {
+    /**
+     * User\'s email
+     * @type {string}
+     * @memberof SignUpRequest
+     */
+    'email': string;
+    /**
+     * User\'s password
+     * @type {string}
+     * @memberof SignUpRequest
+     */
+    'password': string;
+    /**
+     * password confirmation, should match password
+     * @type {string}
+     * @memberof SignUpRequest
+     */
+    'password_confirmation': string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateShareOptionsRequest
  */
 export interface UpdateShareOptionsRequest {
@@ -195,10 +239,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * Get description of Conversion Task
          * @summary show conversion
          * @param {string} id id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConversion: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getConversion: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getConversion', 'id', id)
             const localVarPath = `/api/v1/conversions/{id}`
@@ -213,6 +258,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
 
 
     
@@ -229,10 +278,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * Get logs of Conversion Task (redirect to logs file)
          * @summary logs conversion
          * @param {string} id Conversion Task id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConversionLogs: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getConversionLogs: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getConversionLogs', 'id', id)
             const localVarPath = `/api/v1/conversions/{id}/logs`
@@ -248,6 +298,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -262,10 +316,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * List conversion tasks for user
          * @summary List conversions
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConversions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getConversions: async (spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/conversions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -277,6 +332,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
 
 
     
@@ -293,10 +352,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary show resource
          * @param {string} id Resource id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResource: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getResource: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getResource', 'id', id)
             const localVarPath = `/api/v1/resources/{id}`
@@ -311,6 +371,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
 
 
     
@@ -327,10 +391,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getShareOptions: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getShareOptions: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getShareOptions', 'id', id)
             const localVarPath = `/api/v1/resources/{id}/share-options`
@@ -345,6 +410,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
 
 
     
@@ -361,10 +430,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary show version
          * @param {string} id Version id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVersion: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getVersion: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getVersion', 'id', id)
             const localVarPath = `/api/v1/versions/{id}`
@@ -379,6 +449,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
 
 
     
@@ -395,10 +469,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary files version
          * @param {string} id Version id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVersionFiles: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getVersionFiles: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getVersionFiles', 'id', id)
             const localVarPath = `/api/v1/versions/{id}/files`
@@ -413,6 +488,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
 
 
     
@@ -429,15 +508,56 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary enter password for resource share_option
          * @param {string} id Resource id
-         * @param {ResourceAuthPasswordRequest} [resourceAuthPasswordRequest] 
+         * @param {ResourceAuthPasswordRequest} resourceAuthPasswordRequest 
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resourceAuthPassword: async (id: string, resourceAuthPasswordRequest?: ResourceAuthPasswordRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        resourceAuthPassword: async (id: string, resourceAuthPasswordRequest: ResourceAuthPasswordRequest, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('resourceAuthPassword', 'id', id)
+            // verify required parameter 'resourceAuthPasswordRequest' is not null or undefined
+            assertParamExists('resourceAuthPassword', 'resourceAuthPasswordRequest', resourceAuthPasswordRequest)
             const localVarPath = `/api/v1/resources/{id}/share-options/auth-password`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resourceAuthPasswordRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Sign in user
+         * @summary create session
+         * @param {SignInRequest} [signInRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        signIn: async (signInRequest?: SignInRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users/sign_in`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -456,7 +576,41 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(resourceAuthPasswordRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(signInRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Sign up new user
+         * @summary create registration
+         * @param {SignUpRequest} [signUpRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        signUp: async (signUpRequest?: SignUpRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(signUpRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -467,13 +621,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary update resource\'s share_options
          * @param {string} id Resource id
-         * @param {UpdateShareOptionsRequest} [updateShareOptionsRequest] 
+         * @param {UpdateShareOptionsRequest} updateShareOptionsRequest 
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateShareOptions: async (id: string, updateShareOptionsRequest?: UpdateShareOptionsRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateShareOptions: async (id: string, updateShareOptionsRequest: UpdateShareOptionsRequest, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateShareOptions', 'id', id)
+            // verify required parameter 'updateShareOptionsRequest' is not null or undefined
+            assertParamExists('updateShareOptions', 'updateShareOptionsRequest', updateShareOptionsRequest)
             const localVarPath = `/api/v1/resources/{id}/share-options`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -486,6 +643,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
 
 
     
@@ -526,100 +687,131 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * Get description of Conversion Task
          * @summary show conversion
          * @param {string} id id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getConversion(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConversionTask>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getConversion(id, options);
+        async getConversion(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConversionTask>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getConversion(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Get logs of Conversion Task (redirect to logs file)
          * @summary logs conversion
          * @param {string} id Conversion Task id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getConversionLogs(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getConversionLogs(id, options);
+        async getConversionLogs(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getConversionLogs(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * List conversion tasks for user
          * @summary List conversions
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getConversions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConversionTask>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getConversions(options);
+        async getConversions(spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ConversionTask>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getConversions(spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary show resource
          * @param {string} id Resource id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getResource(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getResource(id, options);
+        async getResource(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getResource(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getShareOptions(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getShareOptions(id, options);
+        async getShareOptions(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getShareOptions(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary show version
          * @param {string} id Version id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVersion(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVersion(id, options);
+        async getVersion(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVersion(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary files version
          * @param {string} id Version id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVersionFiles(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVersionFiles(id, options);
+        async getVersionFiles(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVersionFiles(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary enter password for resource share_option
          * @param {string} id Resource id
-         * @param {ResourceAuthPasswordRequest} [resourceAuthPasswordRequest] 
+         * @param {ResourceAuthPasswordRequest} resourceAuthPasswordRequest 
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resourceAuthPassword(id: string, resourceAuthPasswordRequest?: ResourceAuthPasswordRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resourceAuthPassword(id, resourceAuthPasswordRequest, options);
+        async resourceAuthPassword(id: string, resourceAuthPasswordRequest: ResourceAuthPasswordRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resourceAuthPassword(id, resourceAuthPasswordRequest, spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Sign in user
+         * @summary create session
+         * @param {SignInRequest} [signInRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async signIn(signInRequest?: SignInRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.signIn(signInRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Sign up new user
+         * @summary create registration
+         * @param {SignUpRequest} [signUpRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async signUp(signUpRequest?: SignUpRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.signUp(signUpRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary update resource\'s share_options
          * @param {string} id Resource id
-         * @param {UpdateShareOptionsRequest} [updateShareOptionsRequest] 
+         * @param {UpdateShareOptionsRequest} updateShareOptionsRequest 
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateShareOptions(id: string, updateShareOptionsRequest?: UpdateShareOptionsRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateShareOptions(id, updateShareOptionsRequest, options);
+        async updateShareOptions(id: string, updateShareOptionsRequest: UpdateShareOptionsRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateShareOptions(id, updateShareOptionsRequest, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -646,92 +838,121 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * Get description of Conversion Task
          * @summary show conversion
          * @param {string} id id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConversion(id: string, options?: any): AxiosPromise<ConversionTask> {
-            return localVarFp.getConversion(id, options).then((request) => request(axios, basePath));
+        getConversion(id: string, spaceKey?: string, options?: any): AxiosPromise<ConversionTask> {
+            return localVarFp.getConversion(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Get logs of Conversion Task (redirect to logs file)
          * @summary logs conversion
          * @param {string} id Conversion Task id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConversionLogs(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.getConversionLogs(id, options).then((request) => request(axios, basePath));
+        getConversionLogs(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getConversionLogs(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * List conversion tasks for user
          * @summary List conversions
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConversions(options?: any): AxiosPromise<Array<ConversionTask>> {
-            return localVarFp.getConversions(options).then((request) => request(axios, basePath));
+        getConversions(spaceKey?: string, options?: any): AxiosPromise<Array<ConversionTask>> {
+            return localVarFp.getConversions(spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary show resource
          * @param {string} id Resource id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResource(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.getResource(id, options).then((request) => request(axios, basePath));
+        getResource(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getResource(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getShareOptions(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.getShareOptions(id, options).then((request) => request(axios, basePath));
+        getShareOptions(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getShareOptions(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary show version
          * @param {string} id Version id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVersion(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.getVersion(id, options).then((request) => request(axios, basePath));
+        getVersion(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getVersion(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary files version
          * @param {string} id Version id
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVersionFiles(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.getVersionFiles(id, options).then((request) => request(axios, basePath));
+        getVersionFiles(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getVersionFiles(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary enter password for resource share_option
          * @param {string} id Resource id
-         * @param {ResourceAuthPasswordRequest} [resourceAuthPasswordRequest] 
+         * @param {ResourceAuthPasswordRequest} resourceAuthPasswordRequest 
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resourceAuthPassword(id: string, resourceAuthPasswordRequest?: ResourceAuthPasswordRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.resourceAuthPassword(id, resourceAuthPasswordRequest, options).then((request) => request(axios, basePath));
+        resourceAuthPassword(id: string, resourceAuthPasswordRequest: ResourceAuthPasswordRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.resourceAuthPassword(id, resourceAuthPasswordRequest, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sign in user
+         * @summary create session
+         * @param {SignInRequest} [signInRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        signIn(signInRequest?: SignInRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.signIn(signInRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sign up new user
+         * @summary create registration
+         * @param {SignUpRequest} [signUpRequest] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        signUp(signUpRequest?: SignUpRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.signUp(signUpRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary update resource\'s share_options
          * @param {string} id Resource id
-         * @param {UpdateShareOptionsRequest} [updateShareOptionsRequest] 
+         * @param {UpdateShareOptionsRequest} updateShareOptionsRequest 
+         * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateShareOptions(id: string, updateShareOptionsRequest?: UpdateShareOptionsRequest, options?: any): AxiosPromise<void> {
-            return localVarFp.updateShareOptions(id, updateShareOptionsRequest, options).then((request) => request(axios, basePath));
+        updateShareOptions(id: string, updateShareOptionsRequest: UpdateShareOptionsRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.updateShareOptions(id, updateShareOptionsRequest, spaceKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -759,109 +980,142 @@ export class DefaultApi extends BaseAPI {
      * Get description of Conversion Task
      * @summary show conversion
      * @param {string} id id
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getConversion(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getConversion(id, options).then((request) => request(this.axios, this.basePath));
+    public getConversion(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getConversion(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Get logs of Conversion Task (redirect to logs file)
      * @summary logs conversion
      * @param {string} id Conversion Task id
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getConversionLogs(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getConversionLogs(id, options).then((request) => request(this.axios, this.basePath));
+    public getConversionLogs(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getConversionLogs(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * List conversion tasks for user
      * @summary List conversions
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getConversions(options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getConversions(options).then((request) => request(this.axios, this.basePath));
+    public getConversions(spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getConversions(spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary show resource
      * @param {string} id Resource id
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getResource(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getResource(id, options).then((request) => request(this.axios, this.basePath));
+    public getResource(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getResource(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary show resource\'s share_options
      * @param {string} id Resource id
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getShareOptions(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getShareOptions(id, options).then((request) => request(this.axios, this.basePath));
+    public getShareOptions(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getShareOptions(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary show version
      * @param {string} id Version id
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getVersion(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getVersion(id, options).then((request) => request(this.axios, this.basePath));
+    public getVersion(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVersion(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary files version
      * @param {string} id Version id
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public getVersionFiles(id: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).getVersionFiles(id, options).then((request) => request(this.axios, this.basePath));
+    public getVersionFiles(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getVersionFiles(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary enter password for resource share_option
      * @param {string} id Resource id
-     * @param {ResourceAuthPasswordRequest} [resourceAuthPasswordRequest] 
+     * @param {ResourceAuthPasswordRequest} resourceAuthPasswordRequest 
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public resourceAuthPassword(id: string, resourceAuthPasswordRequest?: ResourceAuthPasswordRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).resourceAuthPassword(id, resourceAuthPasswordRequest, options).then((request) => request(this.axios, this.basePath));
+    public resourceAuthPassword(id: string, resourceAuthPasswordRequest: ResourceAuthPasswordRequest, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).resourceAuthPassword(id, resourceAuthPasswordRequest, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Sign in user
+     * @summary create session
+     * @param {SignInRequest} [signInRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public signIn(signInRequest?: SignInRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).signIn(signInRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Sign up new user
+     * @summary create registration
+     * @param {SignUpRequest} [signUpRequest] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public signUp(signUpRequest?: SignUpRequest, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).signUp(signUpRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary update resource\'s share_options
      * @param {string} id Resource id
-     * @param {UpdateShareOptionsRequest} [updateShareOptionsRequest] 
+     * @param {UpdateShareOptionsRequest} updateShareOptionsRequest 
+     * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public updateShareOptions(id: string, updateShareOptionsRequest?: UpdateShareOptionsRequest, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).updateShareOptions(id, updateShareOptionsRequest, options).then((request) => request(this.axios, this.basePath));
+    public updateShareOptions(id: string, updateShareOptionsRequest: UpdateShareOptionsRequest, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).updateShareOptions(id, updateShareOptionsRequest, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

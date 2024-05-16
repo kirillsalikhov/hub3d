@@ -18,7 +18,7 @@ hydrateRoot(domNode, <App><RouterProvider router={router} /></App>, {
         console.error(
             'Caught error',
             error,
-            error.cause,
+            error['cause'],
             errorInfo.componentStack
         );
     }

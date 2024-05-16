@@ -1,19 +1,37 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  after_action :current_or_guest_user, only: :create
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
+  skip_forgery_protection only: :create
+  wrap_parameters :user
+  respond_to :json
+
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    render_page
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    build_resource(sign_up_params)
+    resource.save
+    if resource.persisted?
+      sign_up(resource_name, resource)
+
+      # it's here because it should be called only in success
+      # TODO rewrite it when guest refactor
+      after_login_or_signup
+
+      # TODO use blueprinter
+      render json: {user: resource, redirect_url: after_sign_in_path_for(resource)}
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      render json: {errors: resource.errors}, status: :unprocessable_entity
+    end
+  end
 
   # GET /resource/edit
   # def edit

@@ -2,12 +2,20 @@ import React, { useCallback, useLayoutEffect, useState } from 'react';
 import Client from '../../util/Client';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { Switch } from '@headlessui/react';
-import { useField, useForm } from './useForm';
 import { LinkSection } from './LinkSection';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import { TextField } from '../../forms/TextField';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+
+const validationSchema = Yup.object().shape({
+    link_password: Yup.string().required('Password length must be of minimum 8 characters')
+        .min(8, 'Password length must be of minimum 8 characters')
+        .max(128, 'Password length must be of maximum 128 characters'),
+});
 
 export const SharePopup = ({resourceId, onClose, hasLinkPassword, setHasLinkPassword}) => {
     const [ passwordEnabled, setPasswordEnabled ] = useState(hasLinkPassword);
@@ -17,34 +25,30 @@ export const SharePopup = ({resourceId, onClose, hasLinkPassword, setHasLinkPass
         setPasswordEnabled(hasLinkPassword);
     }, [hasLinkPassword]);
 
-    const onSubmit = async (values) => {
+    const handleSubmit = useCallback(async (values, bag) => {
         const linkPassword = values['link_password'];
         try {
-            await Client.updateShareOptions(resourceId, {link_password: linkPassword})
+            await Client.updateShareOptions(resourceId, {link_password: linkPassword});
             setHasLinkPassword(true);
             setShowPassword(false);
-        } catch (err) {
-            throw err;
+        } catch (error) {
+            if (error?.['response']?.['data']?.['errors']) {
+                bag.setErrors(error['response']['data']['errors']);
+                bag.setStatus('error');
+            } else {
+                throw error;
+            }
         }
-    }
+    }, []);
 
     const resetPassword = async () => {
         try {
             await Client.updateShareOptions(resourceId, {link_password: ''});
             setHasLinkPassword(false);
-            setValue('');
         } catch (err) {
             throw err;
         }
     }
-
-    const validate = (values) => {
-        const linkPassword = values['link_password'];
-        return (linkPassword.length > 0);
-    }
-
-    const form = useForm({ initialValues: {link_password: ''}, onSubmit, validate });
-    const { error, setValue, ...field } = useField(form, {name: 'link_password', type: 'password'})
 
     const onChangePasswordClick = useCallback(() => {
         setShowPassword(old => !old);
@@ -86,14 +90,7 @@ export const SharePopup = ({resourceId, onClose, hasLinkPassword, setHasLinkPass
                 </div>
 
                 <div className="p-4 w-full">
-
-
-                    {/* Link section */}
-
                     <LinkSection />
-
-                    {/* Password section */}
-
                     <div className='flex mt-4 pt-4 border-t items-center justify-between'>
                         <Switch.Group as="div" className="flex items-center justify-between">
                             <Switch
@@ -125,26 +122,36 @@ export const SharePopup = ({resourceId, onClose, hasLinkPassword, setHasLinkPass
 
                     <div className="mt-4">
                         { passwordEnabled && showPassword &&
-                            <div>
-                                <div className="flex">
-                                    <input
-                                        id="password"
-                                        placeholder='Create password'
-                                        {...field}
-                                        className="flex-grow rounded-none rounded-l-md border-0 shadow-inner pl-4 py-2 text-sm leading-6 text-gray-900 truncate ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-gray-800 focus:outline-none"
-                                    />
-                                    <button
-                                        onClick={form.submitHandler}
-                                        type="button"
-                                        disabled={!form.isValid || form.submitting}
-                                        className="flex-none -ml-px items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm leading-6 bg-gray-800 text-white ring-1 ring-inset ring-gray-800 hover:bg-gray-700">
-                                        Set password
-                                    </button>
-                                </div>
-                                { error && <div className="flex text-base text-red-600 leading-6 pt-2">
-                                    { error}
-                                </div> }
-                            </div>
+                            <Formik
+                                initialValues={{ link_password: '' }}
+                                validateOnBlur={ false }
+                                validateOnChange={ false }
+                                validationSchema={ validationSchema }
+                                onSubmit={ handleSubmit }
+                            >
+                                { ({ isSubmitting, errors }) => {
+                                    return <Form>
+                                        <div className="flex">
+                                            <TextField
+                                                name='link_password'
+                                                type='password'
+                                                placeholder='Create password'
+                                                showError={false}
+                                                className="flex-grow rounded-none rounded-l-md border-0 shadow-inner pl-4 py-2 text-sm leading-6 text-gray-900 truncate ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-gray-800 focus:outline-none"
+                                            />
+                                            <button
+                                                type='submit'
+                                                disabled={ isSubmitting }
+                                                className="flex-none -ml-px items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm leading-6 bg-gray-800 text-white ring-1 ring-inset ring-gray-800 hover:bg-gray-700">
+                                                Set password
+                                            </button>
+                                        </div>
+                                        { errors['link_password'] && <div className="flex text-base text-red-600 leading-6 pt-2">
+                                            <ErrorMessage name={ 'link_password' } />
+                                        </div> }
+                                    </Form>
+                                } }
+                            </Formik>
                         }
                     </div>
                 </div>

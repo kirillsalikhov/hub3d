@@ -1,4 +1,6 @@
 class Store::ShareOptions < ApplicationRecord
+  include SpaceConcern
+
   belongs_to :resource
 
   # TODO add validation to link_access after rails 7.1

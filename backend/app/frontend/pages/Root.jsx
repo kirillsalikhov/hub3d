@@ -1,6 +1,4 @@
-import { usePageData } from '../util/usePageData';
 import { ConversionForm } from '../components/ConversionForm';
-import { isBrowser } from '../util/isBrowser';
 
 const MainText = () => (
     <div>

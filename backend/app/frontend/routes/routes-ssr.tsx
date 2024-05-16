@@ -11,7 +11,10 @@ export const routes = [
             {
                 path: '/',
                 element: <Root />,
-                handle: { page: 'root' }
+                handle: {
+                    fileName: 'root.html',
+                    className: 'root'
+                }
             }
         ]
     }

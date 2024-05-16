@@ -6,15 +6,15 @@ import { progressTransitionDuration } from '../Progress';
 import { useUploader } from '../Uploader/useUploader';
 import { useNavigate } from '../../routes/useNavigate';
 import { isBrowser } from '../../util/isBrowser';
+import { conversionUrl } from '../../util/url';
 
-const conversionUrl = (conversionId) => `/conversions/${conversionId}`;
 export const ConversionForm = () => {
     const navigate = useNavigate();
     const submitForm = async (signedId) => {
         const { data: conversion } = await Client.convertAnonym({ 'input_file': signedId })
         setTimeout(() => {
             if (isBrowser()) {
-                navigate(conversionUrl(conversion.id));
+                navigate(conversionUrl(conversion.space_key, conversion.id));
             }
         }, progressTransitionDuration);
     }

@@ -2,6 +2,10 @@ FactoryBot.define do
   factory :resource, class: "Store::Resource" do
     name { Faker::File.file_name(dir: "", ext: "ifc", directory_separator: "") }
 
+    space
+
+    share_options { association(:share_options, resource: instance) }
+
     trait :with_version do
       after :create do |resource|
         create_list(:version, 1, resource: resource)
@@ -27,8 +31,10 @@ FactoryBot.define do
   end
 
   factory :version, class: "Store::Version" do
+    space { resource.space }
   end
 
   factory :share_options, class: "Store::ShareOptions" do
+    space { resource.space }
   end
 end

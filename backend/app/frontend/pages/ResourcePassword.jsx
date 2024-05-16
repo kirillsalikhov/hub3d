@@ -1,15 +1,17 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from 'react-router-dom';
-import Client from "../util/Client";
 import { LogoSign } from '../components/LogoSign';
 import { Card } from '../components/Card';
 import { resourceUrl } from '../util/url';
 import { useNavigate } from '../routes/useNavigate';
+import Client from "../util/Client";
+import { ErrorMessage, Form, Formik } from 'formik';
+import { TextField } from '../forms/TextField';
 
 const authPassword = async (resourceId, password) => {
     try {
         // no data if match
-        await Client.resourceAuthPassword(resourceId, {link_password: password});
+        await Client.resourceAuthPassword(resourceId, { link_password: password });
         return {};
     } catch (e) {
         const { response } = e;
@@ -20,65 +22,75 @@ const authPassword = async (resourceId, password) => {
     }
 }
 
+const initialValues = {
+    link_password: ''
+}
+
 export default function ResourcePassword() {
-    const { resourceId } = useParams();
-    const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState({});
+    const { spaceKey, resourceId } = useParams();
     const navigate = useNavigate();
 
-    const isValid = useMemo(() => {
-        return password.length > 0
-    }, [password])
-
-    const handleSubmit = useCallback(async (e) => {
-        e.preventDefault();
+    const handleSubmit = useCallback(async (values, bag) => {
+        const password = values['link_password'];
         const response = await authPassword(resourceId, password);
         if (response['errors']) {
-            setErrors(response['errors']);
+            bag.setErrors(response['errors']);
         } else {
-            navigate(resourceUrl(resourceId));
+            navigate(resourceUrl(spaceKey, resourceId));
         }
-    }, [password]);
+    }, [ spaceKey, resourceId ]);
 
-    const handleChange = useCallback((e) => {
-        setPassword(e.target.value);
-        setErrors({});
+    const validate = useCallback((values) => {
+        const errors = {};
+        const password = values['link_password'];
+        if (password.length <= 0) {
+            errors['link_password'] = '';
+        }
+        return errors;
     }, []);
 
     return (
         <div className="flex flex-1 h-full p-4 justify-center items-center">
             <div className="w-full justify-center sm:my-8 sm:w-full sm:max-w-lg">
                 <LogoSign />
-
                 <Card>
                     <div className="text-2xl pb-8 font-semibold text-gray-900 text-center">
                         Enter the password to&nbsp;open this link
                     </div>
-
                     <div className="pb-8 w-full">
-                        <div className="flex">
-                            <input
-                                id="password"
-                                required={true}
-                                name="password"
-                                type="password"
-                                placeholder='Password'
-                                className="flex-grow input-group-scnd"
-                                onChange={ handleChange }
-                            />
-                            <button
-                                onClick={ handleSubmit }
-                                type="button"
-                                disabled={!isValid}
-                                className="flex-none button-group-scnd">
-                                &nbsp;&nbsp;→&nbsp;&nbsp;
-                            </button>
-                        </div>
-                        { errors['link_password'] && (
-                            <div  className="flex absolute text-base text-red-600 leading-6 pt-2">
-                                { errors['link_password'] }
-                            </div>
-                        ) }
+                        <Formik
+                            initialValues={ initialValues }
+                            validateOnBlur={ false }
+                            validateOnChange={ true }
+                            initialErrors={ { link_password: '' } }
+                            validate={ validate }
+                            onSubmit={ handleSubmit }
+                        >
+                            { ({ isSubmitting, isValid, errors }) => (
+                                <Form>
+                                    <div className="flex">
+                                        <TextField
+                                            className="flex-grow input-group-scnd"
+                                            name='link_password'
+                                            type='password'
+                                            placeholder='Password'
+                                            showError={false}
+                                        />
+                                        <button
+                                            type='submit'
+                                            disabled={ isSubmitting || !isValid }
+                                            className="flex-none button-group-scnd">
+                                            &nbsp;&nbsp;→&nbsp;&nbsp;
+                                        </button>
+                                    </div>
+                                    { errors['link_password'] && (
+                                        <div className="flex absolute text-base text-red-600 leading-6 pt-2">
+                                            <ErrorMessage name={'link_password'} />
+                                        </div>
+                                    ) }
+                                </Form>
+                            ) }
+                        </Formik>
                     </div>
                 </Card>
                 <div className="flex text-center text-sm text-blue-950 p-8">

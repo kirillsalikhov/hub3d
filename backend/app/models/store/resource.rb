@@ -1,4 +1,6 @@
 class Store::Resource < ApplicationRecord
+  include SpaceConcern
+
   resourcify
 
   after_initialize :default_values, if: :new_record?

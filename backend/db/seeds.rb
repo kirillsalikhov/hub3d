@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# TODO remove this file contents
+
 def _resource_files(path)
   Dir.glob("#{path}/**/*")
     .reject { |f| File.directory?(f) }
@@ -44,4 +46,4 @@ def create_resources
   end
 end
 
-create_resources
+# create_resources

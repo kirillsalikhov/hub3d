@@ -11,8 +11,9 @@ gem "vite_rails", "~> 3.0.17"
 gem "inertia_rails"
 gem "oj"
 gem "blueprinter"
-
 gem "gon"
+
+gem "friendly_id", "~> 5.5"
 
 gem "active_interaction", "~> 5.3"
 
@@ -24,8 +25,12 @@ gem "rest-client"
 
 gem "devise", "~> 4.9"
 gem "devise-guests", "~> 0.8.1"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "omniauth-google-oauth2"
+
 gem "rolify"
 gem "pundit", "~> 2.3"
+gem "acts_as_tenant"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"

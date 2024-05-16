@@ -1,5 +1,7 @@
 class TaskChannel < ApplicationCable::Channel
   def subscribed
+    # TODO check tenant ?
+
     # TODO change to per "tasks_user"
     # TODO But there's also case when it's neede to track others conversions ?
     stream_from "task_#{params[:task]}"

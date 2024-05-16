@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  include Tenantable
+  before_action :set_tenant_from_path
+
   include GuestConcern
   include Pundit::Authorization
   include AuthConcern

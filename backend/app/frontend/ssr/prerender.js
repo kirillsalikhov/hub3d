@@ -30,8 +30,8 @@ async function routesToPaths(routes) {
         prefix = prefix.replace(/\/$/g, '')
         for (const route of routes) {
             const path = getRoutePath(prefix, route.path);
-            if (route.handle?.page)
-                pathToEntry.push({ fileName: `${route.handle?.page}.html`, requestUrl: path });
+            if (route.handle?.fileName)
+                pathToEntry.push({ fileName: route.handle?.fileName, requestUrl: path });
             if (Array.isArray(route.children))
                 getPaths(route.children, path)
         }

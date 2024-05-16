@@ -6,9 +6,8 @@ RSpec.describe "Api::OpControllers" do
 
     before { _stub_cs }
 
-    def json_body = JSON.parse(response.body)
-    def resource_id = json_body["meta"]["dest_resource_id"]
-    def _resource = Store::Resource.find(json_body["meta"]["dest_resource_id"])
+    def resource_id = json_body[:meta][:dest_resource_id]
+    def _resource = Store::Resource.find(resource_id)
 
     def _stub_cs
       _stub_cs_create
