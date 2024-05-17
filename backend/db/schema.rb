@@ -125,7 +125,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_23_093152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "resource_id"
+    t.uuid "space_id", null: false
     t.index ["resource_id"], name: "index_store_versions_on_resource_id"
+    t.index ["space_id"], name: "index_store_versions_on_space_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
