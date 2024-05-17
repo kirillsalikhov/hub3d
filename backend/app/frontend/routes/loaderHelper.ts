@@ -33,6 +33,15 @@ export const getResourcePageData = async (resourceId) => {
     }
 }
 
+export const getDashboardPageData = async () => {
+    try {
+        const resourcesResponse = await Client.getResources();
+        return {resources: resourcesResponse.data};
+    } catch (err) {
+        handleLoaderError(err);
+    }
+}
+
 const handleLoaderError = (err) => {
     const { response } = err;
     if (response) {

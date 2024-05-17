@@ -5,7 +5,8 @@ import { SignIn } from '../pages/SignIn.jsx';
 import { SignUp } from '../pages/SignUp.jsx';
 import { Resource } from '../pages/Resource.jsx';
 import ResourcePassword from '../pages/ResourcePassword.jsx';
-import { getConversionPageData, getResourcePageData } from './loaderHelper';
+import { Dashboard } from '../pages/Dashboard.jsx';
+import {getConversionPageData, getDashboardPageData, getResourcePageData} from './loaderHelper';
 
 export const routes = [
     {
@@ -15,6 +16,12 @@ export const routes = [
             {
                 path: '/s/:spaceKey',
                 children: [
+                    {
+                        path: '',
+                        element: <Dashboard />,
+                        loader: () => getDashboardPageData(),
+                        handle: { className: 'space-dashboard' }
+                    },
                     {
                         path: 'conversions/:conversionId',
                         element: <Conversion />,
