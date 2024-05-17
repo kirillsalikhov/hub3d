@@ -44,13 +44,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :store do
-    resources :resources do
-      get "convert_new", on: :collection
-      post "convert_create", on: :collection
-    end
-  end
-
   root "pages#root"
   scope "/s/:space_key/" do
     get "resources/:id", to: "resource#show", as: "resource"
