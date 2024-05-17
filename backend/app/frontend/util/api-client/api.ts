@@ -389,6 +389,41 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary list resources
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResources: async (spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v1/resources/`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
          * @param {string} [spaceKey] 
@@ -732,6 +767,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary list resources
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getResources(spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getResources(spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary show resource\'s share_options
          * @param {string} id Resource id
          * @param {string} [spaceKey] 
@@ -876,6 +922,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getResource(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
             return localVarFp.getResource(id, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary list resources
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResources(spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getResources(spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1025,6 +1081,18 @@ export class DefaultApi extends BaseAPI {
      */
     public getResource(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getResource(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary list resources
+     * @param {string} [spaceKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getResources(spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getResources(spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -20,45 +20,45 @@ paths:
           content:
             application/json:
               example:
-              - id: d92873d4-c144-4932-aa86-6c686b31c96b
-                space_id: dcc78a26-296e-41a0-9da5-1b7a7db9caf1
-                space_key: KckjnXi1
+              - id: 325980e1-8668-4a08-ad4c-016e0caf2c6e
+                space_id: 686f2adf-afa7-47ac-b870-2473c7917f4e
+                space_key: c2tCJIR7
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-05-15 15:59:45 UTC
+                start_time: 2024-05-17 15:16:15 UTC
                 end_time: 
-                conversion_job_id: 3743f5fc-66c5-4893-a800-ad1f1c4420af
-                created_at: 2024-05-15 15:59:45 UTC
-                updated_at: 2024-05-15 15:59:45 UTC
+                conversion_job_id: 7251dd4a-8ea4-42b7-99a5-d2a39d4da4a8
+                created_at: 2024-05-17 15:16:15 UTC
+                updated_at: 2024-05-17 15:16:15 UTC
                 meta:
-                  dest_resource_id: fade9b3d-5227-453e-8e89-c33bcd034a9c
-                  dest_version_id: dd65f17c-3629-4ed2-a1f6-356324cf2a2e
-              - id: cc25804c-6bdf-4ee5-b4e2-61476c355f5a
-                space_id: dcc78a26-296e-41a0-9da5-1b7a7db9caf1
-                space_key: KckjnXi1
+                  dest_resource_id: f0f4fb90-9444-4ad4-adc8-cc86902d5e15
+                  dest_version_id: 29dae1ef-5bc8-4328-aa97-a2298391e70a
+              - id: c31dbaf6-d556-4fde-ace2-d18f381d2657
+                space_id: 686f2adf-afa7-47ac-b870-2473c7917f4e
+                space_key: c2tCJIR7
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-05-15 15:59:45 UTC
+                start_time: 2024-05-17 15:16:15 UTC
                 end_time: 
-                conversion_job_id: f647b5d9-8bf2-48a9-86c7-5b78f66250ce
-                created_at: 2024-05-15 15:59:45 UTC
-                updated_at: 2024-05-15 15:59:45 UTC
+                conversion_job_id: 9f7cd105-8fcd-45ec-a56e-d35baeee2d6c
+                created_at: 2024-05-17 15:16:15 UTC
+                updated_at: 2024-05-17 15:16:15 UTC
                 meta:
-                  dest_resource_id: 8d2cb614-149f-43ad-a46c-e0a650e31843
-                  dest_version_id: 5fcb25f5-f7a0-4c75-abc6-db877a5d7410
-              - id: cbb2f9c9-314d-44a4-ad49-f7e0b1c39af6
-                space_id: dcc78a26-296e-41a0-9da5-1b7a7db9caf1
-                space_key: KckjnXi1
+                  dest_resource_id: 73d34f83-f9bc-4e44-b7c9-342684ed2efb
+                  dest_version_id: 9bb3d4fc-27e9-41c0-b895-42663b641747
+              - id: caec0605-34a5-4937-a0bc-4bbf61d17f9b
+                space_id: 686f2adf-afa7-47ac-b870-2473c7917f4e
+                space_key: c2tCJIR7
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-05-15 15:59:45 UTC
+                start_time: 2024-05-17 15:16:15 UTC
                 end_time: 
-                conversion_job_id: 8996ac7c-8869-4a55-a7c1-6b64d864a470
-                created_at: 2024-05-15 15:59:45 UTC
-                updated_at: 2024-05-15 15:59:45 UTC
+                conversion_job_id: b3827e55-c43c-4aac-a0b7-6c61e346cbc5
+                created_at: 2024-05-17 15:16:15 UTC
+                updated_at: 2024-05-17 15:16:15 UTC
                 meta:
-                  dest_resource_id: 82a9b6a3-1f6d-4661-8cfa-a2566f085332
-                  dest_version_id: 64ae17ac-ece1-4a73-8e88-7864b6aa77c1
+                  dest_resource_id: a3fe3dfd-27d8-4366-a770-905fa63daa44
+                  dest_version_id: 80cc924e-d0e0-41dd-8f23-9930312a78b6
               schema:
                 type: array
                 items:
@@ -85,19 +85,19 @@ paths:
           content:
             application/json:
               example:
-                id: c59c98be-75b8-4ec8-8052-77f5ad65f3b7
-                space_id: acf1f7ce-e466-4b1b-b2e5-4e06f9d729be
-                space_key: ACqlHHUz
+                id: 788430e4-7b41-46a9-8476-d40dd938dcc2
+                space_id: cdf71234-a0b4-4575-838b-214c663001e0
+                space_key: fo1Ac33u
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-05-15 15:59:45 UTC
+                start_time: 2024-05-17 15:16:15 UTC
                 end_time: 
-                conversion_job_id: f4cd8b3a-6718-4c13-9dc0-92030a8403aa
-                created_at: 2024-05-15 15:59:45 UTC
-                updated_at: 2024-05-15 15:59:45 UTC
+                conversion_job_id: ed224433-2f36-4fed-85dd-8b6b52bec4d8
+                created_at: 2024-05-17 15:16:15 UTC
+                updated_at: 2024-05-17 15:16:15 UTC
                 meta:
-                  dest_resource_id: a9e39724-cf5e-4252-8adf-ea9b7859a0a0
-                  dest_version_id: a81a5391-c7f9-4f8e-bb82-7f6856f9d038
+                  dest_resource_id: fb985128-8ade-44e1-9aed-f3ba953cbb2a
+                  dest_version_id: f432619e-c247-4c96-ba4a-ab2f260a082b
               schema:
                 "$ref": "#/components/schemas/conversion_task"
   "/api/v1/conversions/{id}/logs":
@@ -131,19 +131,19 @@ paths:
           content:
             application/json:
               example:
-                id: 29a9160f-deed-4c61-9c52-277f882aa214
-                space_id: 2d56f9c0-00f7-4c85-b3e6-cf8a4cae6603
-                space_key: MgeWlqOV
+                id: 23aad397-5a9a-486a-a747-082a2cce32c2
+                space_id: 7b0b194d-2405-4f4e-817e-131593fdc082
+                space_key: KKSwxXkj
                 status: inProgress
                 progress: '0.0'
-                start_time: 2024-05-15 15:59:45 UTC
+                start_time: 2024-05-17 15:16:15 UTC
                 end_time: 
-                conversion_job_id: 68c15fe0-f690-4fb0-bae3-2894e9e08b31
-                created_at: 2024-05-15 15:59:45 UTC
-                updated_at: 2024-05-15 15:59:45 UTC
+                conversion_job_id: 5203a3db-504d-4d10-a4d1-54aa61607a45
+                created_at: 2024-05-17 15:16:15 UTC
+                updated_at: 2024-05-17 15:16:15 UTC
                 meta:
-                  dest_resource_id: 32f5df42-06f8-4b2f-b1fe-a2940c3e61f7
-                  dest_version_id: 6f8e3e5c-1714-4521-a5f1-8f88389b611e
+                  dest_resource_id: 3dad384d-b342-4ed3-92ac-8478e2f73e1d
+                  dest_version_id: 7cea597e-2bf8-4b86-bc8f-3aafa862dbfd
               schema:
                 "$ref": "#/components/schemas/conversion_task"
       requestBody:
@@ -170,10 +170,10 @@ paths:
             application/json:
               example:
                 user:
-                  id: 713861cd-89c0-4f3f-b60f-5078e0e79821
+                  id: 0bbc235a-f3eb-42a9-a221-07f5d6833359
                   email: valid@email.com
-                  created_at: '2024-05-15T15:59:46.014Z'
-                  updated_at: '2024-05-15T15:59:46.014Z'
+                  created_at: '2024-05-17T15:16:15.934Z'
+                  updated_at: '2024-05-17T15:16:15.934Z'
                   guest: false
                   uid: 
                   provider: 
@@ -209,6 +209,42 @@ paths:
                 password_confirmation:
                   type: string
                   description: password confirmation, should match password
+  "/api/v1/resources/":
+    parameters:
+    - name: space-key
+      in: header
+      schema:
+        type: string
+    get:
+      summary: list resources
+      operationId: getResources
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              example:
+              - id: 748b89bf-e3e3-4c9d-b31b-bbe2b3b86147
+                space_id: 46045237-bc90-42e3-a324-6636b1c18af0
+                space_key: BpLDbAVL
+                name: tenetur.ifc
+                created_at: 2024-05-17 15:16:16 UTC
+                updated_at: 2024-05-17 15:16:16 UTC
+                current_id: 
+              - id: 506bd0f8-8181-4a9a-aec8-70c573e96ebc
+                space_id: 46045237-bc90-42e3-a324-6636b1c18af0
+                space_key: BpLDbAVL
+                name: corporis.ifc
+                created_at: 2024-05-17 15:16:16 UTC
+                updated_at: 2024-05-17 15:16:16 UTC
+                current_id: 
+              - id: 74ddb500-0e91-4f9c-9f0c-1803e6771a80
+                space_id: 46045237-bc90-42e3-a324-6636b1c18af0
+                space_key: BpLDbAVL
+                name: velit.ifc
+                created_at: 2024-05-17 15:16:16 UTC
+                updated_at: 2024-05-17 15:16:16 UTC
+                current_id: 
   "/api/v1/resources/{id}":
     parameters:
     - name: id
@@ -230,20 +266,20 @@ paths:
           content:
             application/json:
               example:
-                id: 666208a8-f317-4223-96b6-ea353cd0c29c
-                space_id: d55f24e6-ad71-497d-b6ac-bf60732bd297
-                space_key: M3ztYTk9
-                name: optio.ifc
-                created_at: 2024-05-15 15:59:46 UTC
-                updated_at: 2024-05-15 15:59:46 UTC
+                id: 1467e853-436b-4ca6-afd9-dd403f342fc2
+                space_id: 86322611-eefe-4c3f-bfdb-8e1cfa124a44
+                space_key: kBjnrIlv
+                name: ad.ifc
+                created_at: 2024-05-17 15:16:16 UTC
+                updated_at: 2024-05-17 15:16:16 UTC
                 current_id: 
                 permissions:
                   manage: true
                   share: true
                 share_options:
                   link_access: none
-                  space_id: d55f24e6-ad71-497d-b6ac-bf60732bd297
-                  space_key: M3ztYTk9
+                  space_id: 86322611-eefe-4c3f-bfdb-8e1cfa124a44
+                  space_key: kBjnrIlv
                   has_link_password: false
   "/users/sign_in":
     post:
@@ -258,10 +294,10 @@ paths:
             application/json:
               example:
                 user:
-                  id: 1d73f20b-3c1e-425b-8fb3-1fe7b104d27b
-                  email: eldora@bernier.example
-                  created_at: '2024-05-15T15:59:46.155Z'
-                  updated_at: '2024-05-15T15:59:46.155Z'
+                  id: aa6d10f2-e828-4d80-9943-8c6d33e70079
+                  email: lon@oberbrunner.example
+                  created_at: '2024-05-17T15:16:16.073Z'
+                  updated_at: '2024-05-17T15:16:16.073Z'
                   guest: false
                   uid: 
                   provider: 
@@ -309,8 +345,8 @@ paths:
             application/json:
               example:
                 link_access: none
-                space_id: bee7a0ed-e378-40b6-84a1-d246566a772f
-                space_key: U5yTpoiZ
+                space_id: 901d5f6e-7803-4a88-9ebe-f673595f8532
+                space_key: HHIYqwLH
                 has_link_password: false
     patch:
       summary: update resource's share_options
@@ -396,12 +432,12 @@ paths:
           content:
             application/json:
               example:
-                id: f3f18c97-627e-44a3-9964-d39cea301f50
-                space_id: 46678e28-0cab-4767-bf1e-b5b6c3134a77
-                space_key: eLp0Hna0
-                resource_id: 333c4839-8677-46a2-b06c-cd507b1d5b8a
-                created_at: 2024-05-15 15:59:46 UTC
-                updated_at: 2024-05-15 15:59:46 UTC
+                id: 05710e76-add4-4b54-b5b0-f99ec070daeb
+                space_id: 1e68521f-a1aa-409f-b6fd-335a11c2dbce
+                space_key: lByootqS
+                resource_id: 6d230711-f5c1-46d2-8034-523b5059e008
+                created_at: 2024-05-17 15:16:16 UTC
+                updated_at: 2024-05-17 15:16:16 UTC
   "/api/v1/versions/{id}/files":
     parameters:
     - name: id

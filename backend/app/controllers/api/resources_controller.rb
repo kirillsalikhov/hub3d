@@ -1,5 +1,11 @@
 class Api::ResourcesController < Api::ApplicationController
-  before_action :set_resource
+  before_action :set_resource, only: [:show]
+
+  def index
+    # TODO authorize
+    resources = Store::Resource.all
+    render json: Store::ResourceBlueprint.render(resources)
+  end
 
   def show
     authorize(@resource)

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :resources, only: [:show] do
+      resources :resources, only: [:index, :show] do
         member do
           get "share-options", to: "share_options#show"
           patch "share-options", to: "share_options#update"
@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
   root "pages#root"
   scope "/s/:space_key/" do
+    root "dashboard#index", as: "space_dashboard"
     get "resources/:id", to: "resource#show", as: "resource"
     get "resources/:id/auth-password", to: "resource#auth_password", as: "resource_password"
 
