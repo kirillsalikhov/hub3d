@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     render html: body.html_safe, layout: "application-ssr", locals: {page: locals}
   end
 
-  def render_page
-    render html: "", layout: "application"
+  def render_page(locals = nil)
+    render html: "", layout: "application", locals: {page: locals}
   end
 end
