@@ -28,7 +28,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :resources, only: [:index, :show] do
+      resources :resources, only: [:index, :show, :destroy] do
+        collection do
+          post "convert_create", to: "resources#convert_create"
+        end
         member do
           get "share-options", to: "share_options#show"
           patch "share-options", to: "share_options#update"
