@@ -33,6 +33,8 @@ Rails.application.routes.draw do
           post "convert_create", to: "resources#convert_create"
         end
         member do
+          post "convert_update", to: "resources#convert_update"
+
           get "share-options", to: "share_options#show"
           patch "share-options", to: "share_options#update"
           post "share-options/auth-password", to: "share_options#auth_password"

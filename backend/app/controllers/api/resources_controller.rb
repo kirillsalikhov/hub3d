@@ -1,5 +1,5 @@
 class Api::ResourcesController < Api::ApplicationController
-  before_action :set_resource, only: [:show, :destroy]
+  before_action :set_resource, only: [:show, :destroy, :convert_update]
 
   def index
     # TODO authorize
@@ -30,7 +30,13 @@ class Api::ResourcesController < Api::ApplicationController
   end
 
   def convert_update
-
+    blob = ActiveStorage::Blob.find_signed(params[:input_file])
+    task, version = Resource::ConvertUpdate.run!(input: blob, resource: @resource)
+    # TODO catch conversion error, or move it appliaction controller
+    render json: {
+      version: Store::VersionBlueprint.render_as_hash(version),
+      task: Store::ConversionTaskBlueprint.render_as_hash(task)
+    }
   end
 
   private
