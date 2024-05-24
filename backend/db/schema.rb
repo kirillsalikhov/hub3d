@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_23_093152) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_24_092652) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -105,7 +105,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_23_093152) do
     t.datetime "updated_at", null: false
     t.uuid "author_id"
     t.uuid "space_id", null: false
+    t.uuid "current_id"
     t.index ["author_id"], name: "index_store_resources_on_author_id"
+    t.index ["current_id"], name: "index_store_resources_on_current_id"
     t.index ["space_id"], name: "index_store_resources_on_space_id"
   end
 
@@ -126,6 +128,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_23_093152) do
     t.datetime "updated_at", null: false
     t.uuid "resource_id"
     t.uuid "space_id", null: false
+    t.uuid "from_version_id"
+    t.index ["from_version_id"], name: "index_store_versions_on_from_version_id"
     t.index ["resource_id"], name: "index_store_versions_on_resource_id"
     t.index ["space_id"], name: "index_store_versions_on_space_id"
   end
@@ -159,8 +163,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_23_093152) do
   add_foreign_key "memberships", "users"
   add_foreign_key "store_conversion_tasks", "spaces"
   add_foreign_key "store_resources", "spaces"
+  add_foreign_key "store_resources", "store_versions", column: "current_id"
   add_foreign_key "store_resources", "users", column: "author_id"
   add_foreign_key "store_share_options", "spaces"
   add_foreign_key "store_versions", "spaces"
   add_foreign_key "store_versions", "store_resources", column: "resource_id"
+  add_foreign_key "store_versions", "store_versions", column: "from_version_id"
 end

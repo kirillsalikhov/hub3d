@@ -19,8 +19,10 @@ class Resource::ConvertUpdate < ActiveInteraction::Base
   end
 
   def create_version
-    # todo add author to version, and in other places too
+    # TODO add author to version, and in other places too
     @version = resource.versions.new
+    # TODO if extract this somewhere make changeable
+    @version.from_version = resource.current
     @version.save!
   end
 

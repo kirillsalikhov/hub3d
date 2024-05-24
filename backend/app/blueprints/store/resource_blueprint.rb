@@ -9,13 +9,7 @@ class Store::ResourceBlueprint < Blueprinter::Base
     o.get_space.space_key
   end
 
-  fields :name, :created_at, :updated_at
-
-  # TODO ! should be fields in resource table
-  field :current_id do |resource|
-    # TODO remove extra request
-    resource.versions.first&.id
-  end
+  fields :name, :current_id, :created_at, :updated_at
 
   view :_permissions do
     field :permissions do |resource, options|

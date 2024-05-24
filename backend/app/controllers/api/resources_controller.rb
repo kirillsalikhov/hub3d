@@ -42,9 +42,10 @@ class Api::ResourcesController < Api::ApplicationController
   private
 
   def set_resource
+    # TODO move to scope ?
     # @type [Store::Resource]
     @resource = Store::Resource
-      .includes(:share_options)
+      .includes(:share_options, :current)
       .find(params[:id])
   end
 end
