@@ -52,7 +52,7 @@ export const VersionList = ({resource}) => {
 
     const setCurrentHandler = useCallback(async (versionId) => {
         const data = await setCurrent(resource.id, versionId);
-        // TODO don't do this way !!!
+        // NOTE don't do this way !!!
         resource.current_id = data.current_id;
         forceUpdate();
     }, [resource.id]);
