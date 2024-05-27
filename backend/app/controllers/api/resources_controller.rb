@@ -1,9 +1,9 @@
 class Api::ResourcesController < Api::ApplicationController
-  before_action :set_resource, only: [:show, :destroy, :convert_update]
+  before_action :set_resource, only: [:show, :destroy, :convert_update, :set_current]
 
   def index
     # TODO authorize
-    resources = Store::Resource.all
+    resources = Store::Resource.order(created_at: :desc)
     render json: Store::ResourceBlueprint.render(resources)
   end
 
@@ -16,6 +16,12 @@ class Api::ResourcesController < Api::ApplicationController
     # TODO authorize
     Resource::Destroy.run!(resource: @resource)
     head :no_content
+  end
+
+  def set_current
+    # TODO authorize
+    resource = Resource::SetCurrent.run!(resource: @resource, version: params[:current_id])
+    render json: Store::ResourceBlueprint.render(resource, view: :normal, user: pundit_user)
   end
 
   def convert_create

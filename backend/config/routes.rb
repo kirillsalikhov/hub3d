@@ -35,6 +35,7 @@ Rails.application.routes.draw do
         member do
           get "versions", to: "versions#index"
           post "convert_update", to: "resources#convert_update"
+          patch "set_current", to: "resources#set_current"
 
           get "share-options", to: "share_options#show"
           patch "share-options", to: "share_options#update"
