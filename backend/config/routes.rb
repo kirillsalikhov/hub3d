@@ -33,6 +33,7 @@ Rails.application.routes.draw do
           post "convert_create", to: "resources#convert_create"
         end
         member do
+          get "versions", to: "versions#index"
           post "convert_update", to: "resources#convert_update"
 
           get "share-options", to: "share_options#show"

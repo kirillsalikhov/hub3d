@@ -1,5 +1,11 @@
 class Api::VersionsController < Api::ApplicationController
-  before_action :set_version, except: [:files]
+  before_action :set_version, only: [:show]
+
+  def index
+    # TODO authorize
+    @resource = Store::Resource.find(params[:id])
+    render json: Store::VersionBlueprint.render(@resource.versions)
+  end
 
   def show
     # TODO authorize HUB-3-D-T-92
