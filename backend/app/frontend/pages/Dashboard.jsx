@@ -25,7 +25,7 @@ export const Dashboard = () => {
 
     const onResourceCreate = useCallback(resource => {
         // NOTE !!! don't do this way
-        resources.push(resource);
+        resources.unshift(resource);
         setShowForm(false);
         forceUpdate();
     }, []);

@@ -24,6 +24,7 @@ class Resource::ConvertCreate < ActiveInteraction::Base
     @resource.share_options.link_access = :none
     # TODO should be current, or smth like
     @version = @resource.versions.new
+    @version.status = :pending
     @resource.current = @version
     @resource.save!
   end

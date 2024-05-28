@@ -21,4 +21,12 @@ class Store::Version < ApplicationRecord
     inverse_of: :current
 
   has_many_attached :files
+
+  enum status: {
+    pending: 0,
+    in_progress: 1,
+    ready: 2,
+    failed: 3,
+    canceled: 4
+  }
 end

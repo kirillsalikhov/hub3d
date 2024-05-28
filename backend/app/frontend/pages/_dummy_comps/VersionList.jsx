@@ -13,10 +13,27 @@ const setCurrent = async (resourceId, versionId) => {
     const {data} = await axiosInstance.patch(`/api/v1/resources/${resourceId}/set_current`, {current_id: versionId});
     return data;
 }
+
+const statusColor = (() => {
+    const _c = (color) => `bg-${color}-100`;
+    const _statusIdx = {
+        'pending': _c('gray'),
+        'in_progress': _c('blue'),
+        'ready': _c('green'),
+        'failed': _c('red'),
+        'canceled': _c('pink')
+    }
+
+    return (status) => _statusIdx[status];
+})();
+
 const VersionItem = ({version, isCurrent, setCurrentAction}) => {
     return (
         <div className="px-2 py-1 mt-2 flex gap-2 justify-between rounded bg-slate-300">
-            <div>{new Date(version.created_at).toLocaleString()}</div>
+            <div className="flex gap-2">
+                <div>{new Date(version.created_at).toLocaleString()}</div>
+                <div className={`px-2 rounded ${statusColor(version.status)}`}>{version.status}</div>
+            </div>
             <div>
                 {isCurrent ?
                     <div className="px-2 bg-slate-400 rounded">is Current</div>:

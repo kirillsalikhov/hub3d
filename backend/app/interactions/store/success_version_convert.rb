@@ -21,9 +21,7 @@ class Store::SuccessVersionConvert < ActiveInteraction::Base
   end
 
   def success_version_convert
-    # TODO add status
-    # version.status = 'ready'
-
+    version.status = :ready
     version.files.attach(@files)
     version.save!
   end

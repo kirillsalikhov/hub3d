@@ -19,6 +19,7 @@ class Store::ConversionJob
     rescue Exception => e
       # TODO use logger
       print "Conversion Error: #{e.message}\n\tat #{e.backtrace.join("\n\tat ")}"
+      # TODO check error and retry counts, cs status and only then fail task
       failed
     ensure
       if @task.changed?
@@ -56,6 +57,7 @@ class Store::ConversionJob
         # TODO add info that timeout
         failed
       else
+        _version_status(:in_progress)
         self.class.perform_in(CHECK_INTERVAL, @task.id)
       end
     end
@@ -63,29 +65,39 @@ class Store::ConversionJob
 
   def finished
     track_task_end(STATUSES[:finished])
-
     @task.on_success.conversion_job_id = @task.conversion_job_id
     @task.on_success.run!
-
     save_logs
   end
 
   def canceled
     track_task_end(STATUSES[:canceled])
+    _version_status(:canceled)
   end
 
   def failed
     track_task_end(STATUSES[:failed])
     save_logs
+    _version_status(:failed)
   end
 
   def is_timeout?
     Time.now - @task.start_time > CHECK_TIMEOUT
   end
 
+  # TODO move to ConversionTask
   def track_task_end(status)
     @task.status = status
     @task.end_time = Time.now
+  end
+
+  # TODO should not be here
+  # abstraction leak: conversionJob should not know about version
+  def _version_status(status)
+    return unless @task.meta.key?("dest_version_id")
+    version = Store::Version.find(@task.meta["dest_version_id"])
+    version.status = status
+    version.save! if version.changed?
   end
 
   def save_logs

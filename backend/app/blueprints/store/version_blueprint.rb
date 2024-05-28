@@ -9,5 +9,5 @@ class Store::VersionBlueprint < Blueprinter::Base
     o.get_space.space_key
   end
 
-  fields :resource_id, :created_at, :updated_at
+  fields :resource_id, :status, :created_at, :updated_at
 end
