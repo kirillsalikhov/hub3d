@@ -15,7 +15,7 @@ class Version::Create < ActiveInteraction::Base
       status: status,
       from_version: from_version
     )
-    @version.files.attach(files)
+    @version.files.attach(files) if files
     @version.save!
     @version
   end
