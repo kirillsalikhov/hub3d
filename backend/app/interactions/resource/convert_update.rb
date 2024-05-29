@@ -20,11 +20,12 @@ class Resource::ConvertUpdate < ActiveInteraction::Base
 
   def create_version
     # TODO add author to version, and in other places too
-    @version = resource.versions.new
-    @version.status = :pending
-    # TODO if extract this somewhere make changeable
-    @version.from_version = resource.current
-    @version.save!
+    @version = Version::CreateWithSource.run!(
+      resource: resource,
+      status: :pending,
+      from_version: resource.current,
+      source_files: [input]
+    )
   end
 
   def prepare_task

@@ -4,6 +4,7 @@ class Resource::ConvertCreate < ActiveInteraction::Base
 
   def execute
     create_conversion
+    # TODO add transaction
     create_resource
     prepare_task
     schedule_task
@@ -22,11 +23,19 @@ class Resource::ConvertCreate < ActiveInteraction::Base
     @resource = Store::Resource.new(name: resource_name, author: user)
     # TODO difference with Conversion::ConvertAnonOp
     @resource.share_options.link_access = :none
-    # TODO should be current, or smth like
-    @version = @resource.versions.new
-    @version.status = :pending
+
+    create_version
+
     @resource.current = @version
     @resource.save!
+  end
+
+  def create_version
+    @version = Version::CreateWithSource.run!(
+      resource: @resource,
+      status: :pending,
+      source_files: [input]
+    )
   end
 
   def prepare_task

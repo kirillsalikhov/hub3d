@@ -1,6 +1,14 @@
 class Store::Version < ApplicationRecord
   include SpaceConcern
 
+  enum status: {
+    pending: 0,
+    in_progress: 1,
+    ready: 2,
+    failed: 3,
+    canceled: 4
+  }
+
   belongs_to :resource, optional: true, class_name: "Store::Resource"
 
   belongs_to :from_version,
@@ -22,11 +30,7 @@ class Store::Version < ApplicationRecord
 
   has_many_attached :files
 
-  enum status: {
-    pending: 0,
-    in_progress: 1,
-    ready: 2,
-    failed: 3,
-    canceled: 4
-  }
+  has_many :refs, class_name: "Store::Ref", foreign_key: "src_version_id"
+  has_many :refs_from, class_name: "Store::Ref", foreign_key: "dest_version_id"
+
 end
