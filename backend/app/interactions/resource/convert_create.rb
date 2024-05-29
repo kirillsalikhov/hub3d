@@ -5,9 +5,10 @@ class Resource::ConvertCreate < ActiveInteraction::Base
 
   def execute
     create_conversion
-    # TODO add transaction
-    create_resource
-    prepare_task
+    ActiveRecord::Base.transaction do
+      create_resource
+      prepare_task
+    end
     schedule_task
 
     [@conversion_task, @resource]

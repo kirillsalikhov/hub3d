@@ -8,11 +8,11 @@ class Version::CreateWithSource < ActiveInteraction::Base
   end
 
   def execute
-    # TODO transaction
-    create_main_version
-    create_source_version
-    create_ref
-
+    ActiveRecord::Base.transaction do
+      create_main_version
+      create_source_version
+      create_ref
+    end
     @main_version
   end
 

@@ -4,8 +4,10 @@ class Resource::ConvertUpdate < ActiveInteraction::Base
 
   def execute
     create_conversion
-    create_version
-    prepare_task
+    ActiveRecord::Base.transaction do
+      create_version
+      prepare_task
+    end
     schedule_task
 
     [@conversion_task, @version]
