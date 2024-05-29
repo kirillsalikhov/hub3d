@@ -1,5 +1,6 @@
 class Resource::ConvertCreate < ActiveInteraction::Base
   object :input, class: "ActiveStorage::Blob"
+  symbol :link_access, default: :none
   record :user
 
   def execute
@@ -21,8 +22,7 @@ class Resource::ConvertCreate < ActiveInteraction::Base
 
   def create_resource
     @resource = Store::Resource.new(name: resource_name, author: user)
-    # TODO difference with Conversion::ConvertAnonOp
-    @resource.share_options.link_access = :none
+    @resource.share_options.link_access = link_access
 
     create_version
 

@@ -7,7 +7,7 @@ class Api::OpController < Api::ApplicationController
     ensure_active_space(user)
 
     begin
-      task, _resource = Conversion::ConvertAnonOp.run!(input: blob, user: user)
+      task, _resource = Resource::ConvertCreate.run!(input: blob, user: user, link_access: :view)
       render json: Store::ConversionTaskBlueprint.render(task)
     # TODO make more centralized, or may be move them to Conversion::ConvertAnonOp
     # TODO this is works not only on ConversionError
