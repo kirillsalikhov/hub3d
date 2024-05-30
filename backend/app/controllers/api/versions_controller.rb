@@ -4,6 +4,12 @@ class Api::VersionsController < Api::ApplicationController
   def index
     # TODO authorize
     @resource = Store::Resource.find(params[:id])
+    render json: Store::VersionBlueprint.render(@resource.asset_items)
+  end
+
+  def versions
+    # TODO authorize
+    @resource = Store::Resource.find(params[:id])
     render json: Store::VersionBlueprint.render(@resource.versions)
   end
 

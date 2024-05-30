@@ -22,6 +22,7 @@ class Version::CreateWithSource < ActiveInteraction::Base
     @main_version = Version::Create.run!(
       resource: @resource,
       status: status,
+      is_version: true,
       from_version: from_version
     )
   end
@@ -30,6 +31,7 @@ class Version::CreateWithSource < ActiveInteraction::Base
     @source_version = Version::Create.run!(
       resource: @resource,
       status: :ready,
+      is_version: false,
       files: source_files
     )
   end

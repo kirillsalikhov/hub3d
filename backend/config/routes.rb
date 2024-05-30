@@ -33,7 +33,8 @@ Rails.application.routes.draw do
           post "convert_create", to: "resources#convert_create"
         end
         member do
-          get "versions", to: "versions#index"
+          get "asset-items", to: "versions#index"
+          get "versions", to: "versions#versions"
           post "convert_update", to: "resources#convert_update"
           patch "set_current", to: "resources#set_current"
 
