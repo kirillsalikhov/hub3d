@@ -44,7 +44,7 @@ class Resource::ConvertCreate < ActiveInteraction::Base
   end
 
   def prepare_task
-    @conversion_task.on_success = Store::SuccessVersionConvert.new(
+    @conversion_task.on_success = Version::SuccessConvert.new(
       version_id: @version.id,
       cs_server_url: @conversion_task.cs_server_url
     )

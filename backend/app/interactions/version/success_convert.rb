@@ -1,4 +1,4 @@
-class Store::SuccessVersionConvert < ActiveInteraction::Base
+class Version::SuccessConvert < ActiveInteraction::Base
   include SerializableInteraction
 
   string :version_id
