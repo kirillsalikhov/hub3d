@@ -1,5 +1,5 @@
 class Api::VersionsController < Api::ApplicationController
-  before_action :set_version, only: [:show]
+  before_action :set_version, only: [:show, :refs]
 
   def index
     # TODO authorize
@@ -16,6 +16,11 @@ class Api::VersionsController < Api::ApplicationController
   def show
     # TODO authorize HUB-3-D-T-92
     render json: Store::VersionBlueprint.render(@version)
+  end
+
+  def refs
+    # TODO authorize
+    render json: Store::RefBlueprint.render(@version.refs)
   end
 
   def files

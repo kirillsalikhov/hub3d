@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       resources :versions, only: [:show] do
         member do
           get :files
+          get :refs
         end
       end
     end
