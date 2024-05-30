@@ -5,6 +5,10 @@ class Resource::ConvertCreate < ActiveInteraction::Base
 
   def execute
     create_conversion
+    # TODO add catch with rethrow on transaction rollback
+    # cancel @conversion_task, probably cancel conversion on ConversionService
+    # do not span transaction to create_conversion as it's long rpc
+    # also do that in convert_update and similar places with sort of a helper/module/concern
     ActiveRecord::Base.transaction do
       create_resource
       prepare_task
