@@ -24,8 +24,8 @@ class Store::Version < ApplicationRecord
   has_many_attached :files
 
   # TODO add dependent destroy ?
-  has_many :refs, class_name: "Store::Ref", foreign_key: "src_version_id"
-  has_many :refs_from, class_name: "Store::Ref", foreign_key: "dest_version_id"
+  has_many :refs, class_name: "Store::Ref", foreign_key: "src_version_id", dependent: :destroy
+  has_many :refs_from, class_name: "Store::Ref", foreign_key: "dest_version_id", dependent: :nullify
 
   def is_version = versioned_resource_id.present?
 end
