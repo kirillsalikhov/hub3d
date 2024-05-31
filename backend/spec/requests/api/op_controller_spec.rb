@@ -4,33 +4,10 @@ RSpec.describe "Api::OpControllers" do
   describe "POST /convert_anonym" do
     subject(:request) { post api_op_convert_anonym_path, params: params }
 
-    before { _stub_cs }
+    before { stub_cs }
 
     def resource_id = json_body[:meta][:dest_resource_id]
     def _resource = Store::Resource.find(resource_id)
-
-    def _stub_cs
-      _stub_cs_create
-      _stub_schedule_cs_task
-    end
-
-    def _stub_cs_create
-      fake_client = instance_double(Conversion::Client)
-      allow(fake_client).to receive(:create_job)
-        .and_return(SecureRandom.uuid)
-
-      allow(Conversion::Client).to receive(:new)
-        .and_return(fake_client)
-    end
-
-    def _stub_schedule_cs_task
-      allow(Resource::ConvertCreate).to receive(:new)
-        .and_wrap_original do |method, *args|
-        method.call(*args).tap do |obj|
-          allow(obj).to receive(:schedule_task)
-        end
-      end
-    end
 
     let(:params) {
       {input_file: fixture_blob("input_models/small.ifc").signed_id}

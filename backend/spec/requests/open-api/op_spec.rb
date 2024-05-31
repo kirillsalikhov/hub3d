@@ -29,24 +29,7 @@ RSpec.describe "api/op" do
           {input_file: fixture_blob("input_models/small-model.stp").signed_id}
         }
 
-        before do
-          # !!! STUB CS createJob, random uuid returned
-          fake_client = instance_double(Conversion::Client)
-          allow(fake_client).to receive(:create_job)
-            .and_return(SecureRandom.uuid)
-
-          allow(Conversion::Client).to receive(:new)
-            .and_return(fake_client)
-
-          # !!! STUB
-          # To not raise error, stub schedule ConversionJob
-          allow(Resource::ConvertCreate).to receive(:new)
-            .and_wrap_original do |method, *args|
-            method.call(*args).tap do |obj|
-              allow(obj).to receive(:schedule_task)
-            end
-          end
-        end
+        before { stub_cs }
 
         after do |example|
           example.metadata[:response][:content] = {
