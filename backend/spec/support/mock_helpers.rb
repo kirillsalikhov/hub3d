@@ -3,7 +3,7 @@ module MockHelpers
   # STUB CS create and conversion task
   def stub_cs
     stub_cs_client_create
-    stub_schedule_cs_task
+    stub_conversion_job
   end
 
   # STUB Conversion::Client.createJob, random uuid returned
@@ -17,6 +17,7 @@ module MockHelpers
   end
 
   # Prevent schedule_task Store::ConversionTask
+  # @deprecated
   def stub_schedule_cs_task
     allow(Resource::ConvertCreate).to receive(:new)
       .and_wrap_original do |method, *args|
@@ -24,6 +25,11 @@ module MockHelpers
         allow(obj).to receive(:schedule_task)
       end
     end
+  end
+
+  # Prevent sidekiq throw errors as it called with fake object
+  def stub_conversion_job
+    allow(Store::ConversionJob).to receive(:perform_async)
   end
 
 end
