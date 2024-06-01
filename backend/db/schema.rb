@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_28_140915) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_30_132524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -140,9 +140,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_28_140915) do
     t.uuid "space_id", null: false
     t.uuid "from_version_id"
     t.integer "status", default: 0
+    t.uuid "versioned_resource_id"
     t.index ["from_version_id"], name: "index_store_versions_on_from_version_id"
     t.index ["resource_id"], name: "index_store_versions_on_resource_id"
     t.index ["space_id"], name: "index_store_versions_on_space_id"
+    t.index ["versioned_resource_id"], name: "index_store_versions_on_versioned_resource_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
