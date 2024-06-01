@@ -15,9 +15,16 @@ FactoryBot.define do
     end
 
     trait :with_versions do
-      after :create do |resource|
-        create_list(:version, 3, resource: resource)
-        resource.current = resource.versions.reload.first
+      transient do
+        versions_num { 3 }
+      end
+
+      after :create do |resource, evaluator|
+        prev_version = nil
+        evaluator.versions_num.times do
+          prev_version = create(:version_with_source, resource: resource, from_version: prev_version)
+        end
+        resource.current = prev_version
         resource.save!
       end
     end
@@ -44,6 +51,16 @@ FactoryBot.define do
     space { resource.space }
     status { :ready }
     versioned_resource { resource }
+
+    factory :version_with_source do
+      after :create do |version|
+        dest_version = create(:version, resource: version.resource, versioned_resource: nil)
+        Store::ConvertedFromRef.create!(
+          src_version: version,
+          dest_version: dest_version
+        )
+      end
+    end
   end
 
   factory :share_options, class: "Store::ShareOptions" do
