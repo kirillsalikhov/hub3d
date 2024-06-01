@@ -8,7 +8,17 @@ FactoryBot.define do
 
     trait :with_version do
       after :create do |resource|
-        create_list(:version, 1, resource: resource)
+        versions = create_list(:version, 1, resource: resource)
+        resource.current = versions[0]
+        resource.save!
+      end
+    end
+
+    trait :with_versions do
+      after :create do |resource|
+        create_list(:version, 3, resource: resource)
+        resource.current = resource.versions.reload.first
+        resource.save!
       end
     end
 
@@ -32,6 +42,8 @@ FactoryBot.define do
 
   factory :version, class: "Store::Version" do
     space { resource.space }
+    status { :ready }
+    versioned_resource { resource }
   end
 
   factory :share_options, class: "Store::ShareOptions" do
