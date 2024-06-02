@@ -126,6 +126,19 @@ export interface ResourceAuthPasswordRequest {
 /**
  * 
  * @export
+ * @interface SetResourceCurrentRequest
+ */
+export interface SetResourceCurrentRequest {
+    /**
+     * New Resource current id, if on one of resource versions
+     * @type {string}
+     * @memberof SetResourceCurrentRequest
+     */
+    'current_id': string;
+}
+/**
+ * 
+ * @export
  * @interface SignInRequest
  */
 export interface SignInRequest {
@@ -229,6 +242,131 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(convertAnonymRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create new Resource through conversion, Resource.current version is not ready
+         * @summary convert_create resource
+         * @param {ConvertAnonymRequest} convertAnonymRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        convertCreateResource: async (convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'convertAnonymRequest' is not null or undefined
+            assertParamExists('convertCreateResource', 'convertAnonymRequest', convertAnonymRequest)
+            const localVarPath = `/api/v1/resources/convert_create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(convertAnonymRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create new Version through conversion, Resource.current version is not changed
+         * @summary convert_update resource
+         * @param {string} id Resource id
+         * @param {ConvertAnonymRequest} convertAnonymRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        convertUpdateResource: async (id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('convertUpdateResource', 'id', id)
+            // verify required parameter 'convertAnonymRequest' is not null or undefined
+            assertParamExists('convertUpdateResource', 'convertAnonymRequest', convertAnonymRequest)
+            const localVarPath = `/api/v1/resources/{id}/convert_update`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(convertAnonymRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary delete resource
+         * @param {string} id Resource id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteResource: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteResource', 'id', id)
+            const localVarPath = `/api/v1/resources/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -360,6 +498,84 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getResource', 'id', id)
             const localVarPath = `/api/v1/resources/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Resource asset items, not only versions
+         * @summary get versions
+         * @param {string} id Version id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResourceAssetItems: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getResourceAssetItems', 'id', id)
+            const localVarPath = `/api/v1/resources/{id}/asset-items`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Resource versions, asset items each of which is versioned representation of resource
+         * @summary get versions
+         * @param {string} id Resource id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResourceVersions: async (id: string, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getResourceVersions', 'id', id)
+            const localVarPath = `/api/v1/resources/{id}/versions`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -585,6 +801,51 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Change current resource version
+         * @summary set_current resource
+         * @param {string} id Resource id
+         * @param {SetResourceCurrentRequest} setResourceCurrentRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setResourceCurrent: async (id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('setResourceCurrent', 'id', id)
+            // verify required parameter 'setResourceCurrentRequest' is not null or undefined
+            assertParamExists('setResourceCurrent', 'setResourceCurrentRequest', setResourceCurrentRequest)
+            const localVarPath = `/api/v1/resources/{id}/set_current`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (spaceKey != null) {
+                localVarHeaderParameter['space-key'] = String(spaceKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setResourceCurrentRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Sign in user
          * @summary create session
          * @param {SignInRequest} [signInRequest] 
@@ -719,6 +980,43 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Create new Resource through conversion, Resource.current version is not ready
+         * @summary convert_create resource
+         * @param {ConvertAnonymRequest} convertAnonymRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async convertCreateResource(convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.convertCreateResource(convertAnonymRequest, spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Create new Version through conversion, Resource.current version is not changed
+         * @summary convert_update resource
+         * @param {string} id Resource id
+         * @param {ConvertAnonymRequest} convertAnonymRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async convertUpdateResource(id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.convertUpdateResource(id, convertAnonymRequest, spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary delete resource
+         * @param {string} id Resource id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteResource(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteResource(id, spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get description of Conversion Task
          * @summary show conversion
          * @param {string} id id
@@ -763,6 +1061,30 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async getResource(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getResource(id, spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Resource asset items, not only versions
+         * @summary get versions
+         * @param {string} id Version id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getResourceAssetItems(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getResourceAssetItems(id, spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Resource versions, asset items each of which is versioned representation of resource
+         * @summary get versions
+         * @param {string} id Resource id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getResourceVersions(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getResourceVersions(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -826,6 +1148,19 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Change current resource version
+         * @summary set_current resource
+         * @param {string} id Resource id
+         * @param {SetResourceCurrentRequest} setResourceCurrentRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setResourceCurrent(id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setResourceCurrent(id, setResourceCurrentRequest, spaceKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Sign in user
          * @summary create session
          * @param {SignInRequest} [signInRequest] 
@@ -881,6 +1216,40 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.convertAnonym(convertAnonymRequest, options).then((request) => request(axios, basePath));
         },
         /**
+         * Create new Resource through conversion, Resource.current version is not ready
+         * @summary convert_create resource
+         * @param {ConvertAnonymRequest} convertAnonymRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        convertCreateResource(convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.convertCreateResource(convertAnonymRequest, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create new Version through conversion, Resource.current version is not changed
+         * @summary convert_update resource
+         * @param {string} id Resource id
+         * @param {ConvertAnonymRequest} convertAnonymRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        convertUpdateResource(id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.convertUpdateResource(id, convertAnonymRequest, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary delete resource
+         * @param {string} id Resource id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteResource(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteResource(id, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get description of Conversion Task
          * @summary show conversion
          * @param {string} id id
@@ -922,6 +1291,28 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getResource(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
             return localVarFp.getResource(id, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resource asset items, not only versions
+         * @summary get versions
+         * @param {string} id Version id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResourceAssetItems(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getResourceAssetItems(id, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resource versions, asset items each of which is versioned representation of resource
+         * @summary get versions
+         * @param {string} id Resource id
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResourceVersions(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.getResourceVersions(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -979,6 +1370,18 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.resourceAuthPassword(id, resourceAuthPasswordRequest, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Change current resource version
+         * @summary set_current resource
+         * @param {string} id Resource id
+         * @param {SetResourceCurrentRequest} setResourceCurrentRequest 
+         * @param {string} [spaceKey] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setResourceCurrent(id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.setResourceCurrent(id, setResourceCurrentRequest, spaceKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Sign in user
          * @summary create session
          * @param {SignInRequest} [signInRequest] 
@@ -1033,6 +1436,46 @@ export class DefaultApi extends BaseAPI {
     }
 
     /**
+     * Create new Resource through conversion, Resource.current version is not ready
+     * @summary convert_create resource
+     * @param {ConvertAnonymRequest} convertAnonymRequest 
+     * @param {string} [spaceKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public convertCreateResource(convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).convertCreateResource(convertAnonymRequest, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Create new Version through conversion, Resource.current version is not changed
+     * @summary convert_update resource
+     * @param {string} id Resource id
+     * @param {ConvertAnonymRequest} convertAnonymRequest 
+     * @param {string} [spaceKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public convertUpdateResource(id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).convertUpdateResource(id, convertAnonymRequest, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary delete resource
+     * @param {string} id Resource id
+     * @param {string} [spaceKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteResource(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).deleteResource(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Get description of Conversion Task
      * @summary show conversion
      * @param {string} id id
@@ -1081,6 +1524,32 @@ export class DefaultApi extends BaseAPI {
      */
     public getResource(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).getResource(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Resource asset items, not only versions
+     * @summary get versions
+     * @param {string} id Version id
+     * @param {string} [spaceKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getResourceAssetItems(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getResourceAssetItems(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Resource versions, asset items each of which is versioned representation of resource
+     * @summary get versions
+     * @param {string} id Resource id
+     * @param {string} [spaceKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getResourceVersions(id: string, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).getResourceVersions(id, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1146,6 +1615,20 @@ export class DefaultApi extends BaseAPI {
      */
     public resourceAuthPassword(id: string, resourceAuthPasswordRequest: ResourceAuthPasswordRequest, spaceKey?: string, options?: AxiosRequestConfig) {
         return DefaultApiFp(this.configuration).resourceAuthPassword(id, resourceAuthPasswordRequest, spaceKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Change current resource version
+     * @summary set_current resource
+     * @param {string} id Resource id
+     * @param {SetResourceCurrentRequest} setResourceCurrentRequest 
+     * @param {string} [spaceKey] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public setResourceCurrent(id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).setResourceCurrent(id, setResourceCurrentRequest, spaceKey, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

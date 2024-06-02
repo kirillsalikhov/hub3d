@@ -1,14 +1,6 @@
 import {useCallback, useState} from "react";
-import {MiniDrop} from "@/pages/_dummy_comps/MiniDrop";
-import {createAxios} from "@/util/axios";
-
-
-const axiosInstance = createAxios();
-
-const convertUpdateResource = async (resourceId, versionData) => {
-    const {data} = await axiosInstance.post(`/api/v1/resources/${resourceId}/convert_update`, versionData);
-    return data;
-}
+import {MiniDrop} from "./MiniDrop";
+import Client from '../../util/Client';
 
 export const CreateVersionForm = ({resource, onSuccess}) => {
     const [data, setData] = useState({
@@ -26,8 +18,16 @@ export const CreateVersionForm = ({resource, onSuccess}) => {
     },[]);
 
     const handleSubmit = useCallback(async () => {
-        const {version} = await convertUpdateResource(resource.id, data);
-        onSuccess(version);
+        try {
+            const res = await Client.convertUpdateResource(resource.id, data);
+            // TODO for Marina: there is also task returned
+            const {version} = res.data;
+            onSuccess(version);
+        } catch (error) {
+            // TODO for Marina: actually no error check
+            console.log(error);
+            throw error;
+        }
     }, [data]);
 
     return (

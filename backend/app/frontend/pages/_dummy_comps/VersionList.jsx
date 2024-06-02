@@ -1,18 +1,5 @@
-import {createAxios} from "@/util/axios";
 import {useCallback, useEffect, useReducer, useState} from "react";
-
-const axiosInstance = createAxios();
-
-const getVersions = async (resourceId) => {
-    const {data} = await axiosInstance.get(`/api/v1/resources/${resourceId}/versions`);
-    return data;
-}
-
-const setCurrent = async (resourceId, versionId) => {
-
-    const {data} = await axiosInstance.patch(`/api/v1/resources/${resourceId}/set_current`, {current_id: versionId});
-    return data;
-}
+import Client from '../../util/Client';
 
 const statusColor = (() => {
     const _c = (color) => `bg-${color}-100`;
@@ -53,7 +40,7 @@ const useApiCall = (apiCall) => {
 
     useEffect(() => {
         (async () => {
-            const data = await apiCall();
+            const {data} = await apiCall();
             setData(data);
             setLoading(false);
         })();
@@ -63,15 +50,22 @@ const useApiCall = (apiCall) => {
 }
 
 export const VersionList = ({resource}) => {
-    const {data, loading } = useApiCall(() => getVersions(resource.id))
+    const {data, loading } = useApiCall(() => Client.getResourceVersions(resource.id))
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const versions = data ?? [];
 
     const setCurrentHandler = useCallback(async (versionId) => {
-        const data = await setCurrent(resource.id, versionId);
-        // NOTE don't do this way !!!
-        resource.current_id = data.current_id;
-        forceUpdate();
+        try {
+            const res = await Client.setResourceCurrent(resource.id, {current_id: versionId});
+            const {current_id} = res.data;
+            // NOTE don't do this way !!!
+            resource.current_id = current_id;
+            forceUpdate();
+        } catch (error) {
+            // TODO for Marina: actually no error check
+            console.log(error);
+            throw error;
+        }
     }, [resource.id]);
 
     return (

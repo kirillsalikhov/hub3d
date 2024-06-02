@@ -1,15 +1,8 @@
-import {createAxios} from "@/util/axios";
 import {useCallback, useState} from "react";
 import {Link} from "react-router-dom";
 import {CreateVersionForm} from "@/pages/_dummy_comps/CreateVersionForm";
 import {VersionList} from "@/pages/_dummy_comps/VersionList";
-
-const axiosInstance = createAxios();
-
-const deleteResource = async (id) => {
-    const res = await axiosInstance.delete(`/api/v1/resources/${id}`);
-    console.log(res);
-}
+import Client from '../../util/Client';
 
 export const ResourceItem = ({resource, onDelete}) => {
     const [showForm, setShowForm] = useState(false);
@@ -24,12 +17,17 @@ export const ResourceItem = ({resource, onDelete}) => {
     }, [showVersions]);
 
     const deleteHandler = useCallback(async () => {
-        await deleteResource(resource.id);
-        onDelete(resource.id);
+        try {
+            await Client.deleteResource(resource.id);
+            onDelete(resource.id);
+        } catch (error) {
+            // TODO for Marina: actually no error check
+            console.log(error);
+            throw error;
+        }
     }, []);
 
     const onVersionCreate = useCallback((version) => {
-        console.log(version, 'version');
         setShowForm(false);
     }, []);
 
