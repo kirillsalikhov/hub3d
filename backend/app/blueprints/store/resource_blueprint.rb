@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-class Store::ResourceBlueprint < Blueprinter::Base
+class Store::ResourceBlueprint < ApplicationBlueprint
   identifier :id
-
-  field :space_id
-  # TODO move somewhere, repetition
-  field :space_key do |o|
-    o.get_space.space_key
-  end
+  space_ids
 
   fields :name, :current_id, :created_at, :updated_at
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Store::FileBlueprint < Blueprinter::Base
+class Store::FileBlueprint < ApplicationBlueprint
   field :filename
   field :byte_size, name: :size
 

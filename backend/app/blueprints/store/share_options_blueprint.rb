@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-class Store::ShareOptionsBlueprint < Blueprinter::Base
+class Store::ShareOptionsBlueprint < ApplicationBlueprint
   fields :link_access
-
-  field :space_id
-  # TODO move somewhere, repetition
-  field :space_key do |o|
-    o.get_space.space_key
-  end
+  space_ids
 
   field :has_link_password do |share_options|
     share_options.link_password.present?
