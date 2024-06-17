@@ -2,33 +2,27 @@ class Store::ResourcePolicy < ApplicationPolicy
   # @return [Store::Resource]
   attr_reader :record
 
+  def index?
+    member_level_access?
+  end
+
   def show?
-    is_public? || is_member? || has_password_link_access?
+    is_public? || member_level_access? || has_password_link_access?
   end
 
   def share?
-    # TODO should be different, collaborator should share but not manage
-    # TODO may be this should be in ShareOptionsPolicy
-    manage?
+    member_level_access?
   end
 
+  def set_current? = manage?
+  def convert_create? = manage?
+  def convert_update? = manage?
+
   def manage?
-    is_member?
+    editor_level_access?
   end
 
   protected
-
-  def is_member?
-    membership&.is_member?
-  end
-
-  # @return [Membership]
-  def membership
-    return nil unless user
-    # TODO investigate
-    # might be issues if no membership
-    @membership ||= record.get_space.membership(user.id)
-  end
 
   def is_public?
     record.share_options.public?

@@ -13,7 +13,10 @@ RSpec.describe "api/resources" do
       produces "application/json"
       operationId "getResources"
 
-      before { create_list(:resource, 3, space: space) }
+      before {
+        sign_in owner
+        create_list(:resource, 3, space: space)
+      }
 
       response(200, "successful") do
         after do |example|
@@ -121,6 +124,10 @@ RSpec.describe "api/resources" do
     parameter name: "id", in: :path, type: :string, description: "Resource id"
     parameter name: "space-key", in: :header, type: :string
 
+    before {
+      sign_in owner
+    }
+
     post("convert_update resource") do
       consumes "application/json"
       produces "application/json"
@@ -166,6 +173,10 @@ RSpec.describe "api/resources" do
   path "/api/v1/resources/{id}/set_current" do
     parameter name: "id", in: :path, type: :string, description: "Resource id"
     parameter name: "space-key", in: :header, type: :string
+
+    before {
+      sign_in owner
+    }
 
     patch("set_current resource") do
       consumes "application/json"

@@ -10,6 +10,7 @@ class Space < ApplicationRecord
   end
 
   def membership(user_id)
+    # TODO cache ?
     memberships.find_by(user_id: user_id)
   end
 

@@ -3,7 +3,8 @@ class Store::ShareOptionsPolicy < ApplicationPolicy
   attr_reader :record
 
   def show?
-    Pundit.policy(user, record.resource).show?
+    # TODO check if it's possible to change to ShareOptionsPolicy.manage?
+    resource_policy.show?
   end
 
   def auth_password?
@@ -11,6 +12,8 @@ class Store::ShareOptionsPolicy < ApplicationPolicy
   end
 
   def manage?
-    Pundit.policy(user, record.resource).manage?
+    resource_policy.share?
   end
+
+  def resource_policy = Pundit.policy(user, record.resource)
 end

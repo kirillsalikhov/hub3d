@@ -1,7 +1,6 @@
 require "swagger_helper"
 
 RSpec.describe "api/share_options" do
-  # TODO change author
   let(:owner) { create(:user, :with_space) }
   let(:space) { owner.default_space }
   let("space-key") { space.space_key }  # rubocop:disable RSpec/VariableName, RSpec/VariableDefinition

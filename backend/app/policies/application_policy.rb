@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "singleton"
+
 class ApplicationPolicy
   attr_reader :user, :record
 
@@ -58,4 +60,28 @@ class ApplicationPolicy
 
     attr_reader :user, :scope
   end
+
+  class NullMembership
+    include Singleton
+
+    def owner_level_access? = false
+    def editor_level_access? = false
+    def member_level_access? = false
+  end
+
+  delegate :owner_level_access?,
+    :editor_level_access?,
+    :member_level_access?, to: :membership
+
+  protected
+
+  # @return [Membership]
+  def membership
+    return NullMembership.instance unless user
+    # TODO investigate, also probably cache inside space
+    # might be issues if no membership
+    @membership ||= get_space.membership(user.id) || NullMembership.instance
+  end
+
+  def get_space = record.get_space
 end

@@ -4,13 +4,8 @@ describe Store::ResourcePolicy do
   let(:owner) { create(:user, :with_space) }
   let(:space) { owner.default_space }
 
-  let(:member) {
-    u = create(:user)
-    space.memberships
-      .build(user: u, roles: [:collaborator])
-      .save!
-    u
-  }
+  let(:editor) { _member(space, [:editor]) }
+  let(:member) { _member(space, [:collaborator]) }
 
   let(:anon) { nil }
   let(:another_user) { create(:user) }
@@ -18,6 +13,14 @@ describe Store::ResourcePolicy do
   let(:private_resource) { create(:resource, :private, author: owner, space: space) }
   let(:public_resource) { create(:resource, :public, author: owner, space: space) }
   let(:password_resource) { create(:resource, :password, author: owner, space: space) }
+
+  def _member(space, roles)
+    u = create(:user)
+    space.memberships
+      .build(user: u, roles: roles)
+      .save!
+    u
+  end
 
   permissions :manage? do
     let(:resource) { public_resource }
@@ -30,9 +33,13 @@ describe Store::ResourcePolicy do
       expect(policy).not_to permit(another_user, resource)
     end
 
-    it "allow if member" do
+    it "deny if only member" do
+      expect(policy).not_to permit(member, resource)
+    end
+
+    it "allow if editor or owner" do
       expect(policy).to permit(owner, resource)
-      expect(policy).to permit(member, resource)
+      expect(policy).to permit(editor, resource)
     end
   end
 
