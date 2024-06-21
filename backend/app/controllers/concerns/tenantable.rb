@@ -7,7 +7,7 @@ module Tenantable
 
   # for classic controller
   def set_tenant_from_path
-    # TODO should be no if check ???
+    # TODO should be no if check ?
     set_current_tenant(Space.friendly.find(params["space_key"])) if params["space_key"]
   end
 

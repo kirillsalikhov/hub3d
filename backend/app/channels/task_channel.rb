@@ -3,7 +3,7 @@ class TaskChannel < ApplicationCable::Channel
     # TODO check tenant ?
 
     # TODO change to per "tasks_user"
-    # TODO But there's also case when it's neede to track others conversions ?
+    # TODO But there's also case when it's needed to track others conversions ?
     stream_from "task_#{params[:task]}"
     conversion_task = Store::ConversionTask.find_by(id: params[:task])
     if conversion_task.present?

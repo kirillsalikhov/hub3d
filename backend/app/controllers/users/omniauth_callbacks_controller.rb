@@ -4,16 +4,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user.present?
       sign_out_all_scopes
-      # TODO !!! check if TransferGuest works
+      # TODO check if TransferGuest works
       sign_in_and_redirect user, event: :authentication
     else
-      # TODO This is not checked
+      # TODO test this
       redirect_to new_user_session_path
     end
   end
 
   def failure
-    # TODO This is not checked, and copy pasted
+    # TODO test this
     set_flash_message! :alert, :failure, kind: OmniAuth::Utils.camelize(failed_strategy.name), reason: failure_message
     redirect_to after_omniauth_failure_path_for(resource_name)
   end

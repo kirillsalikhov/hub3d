@@ -7,11 +7,8 @@ class User::AuthFromOmniauth < ActiveInteraction::Base
 
   def execute
     user = existing_user || new_user
-
     ensure_provider_data(user)
-
     user.save!
-
     user
   end
 

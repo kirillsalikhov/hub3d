@@ -12,6 +12,6 @@ class User < ApplicationRecord
 
   has_many :resources, class_name: "Store::Resource", foreign_key: :author_id, dependent: :nullify
 
-  # TODO check that user has edit there
+  # TODO check that user has edit permission there
   def default_space = spaces.first
 end

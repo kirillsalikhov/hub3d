@@ -10,7 +10,6 @@ class Version::Create < ActiveInteraction::Base
 
 
   def execute
-    # TODO versions assoc is wrong, should be contained_in
     # @type [Store::Version]
     @version = resource.asset_items.new(
       status: status,

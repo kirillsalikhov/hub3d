@@ -6,7 +6,6 @@ class PagesController < ApplicationController
   def conversion
     conversion_task = Store::ConversionTask.find(params[:id])
 
-    # TODO maybe add title computed field on conversion task ?
     # TODO maybe helper is_finished or so ?
     if conversion_task.status == Store::ConversionTask::STATUSES[:finished]
       # TODO maybe move helper method on ConversionTask ?

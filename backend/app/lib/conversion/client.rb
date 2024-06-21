@@ -76,7 +76,6 @@ module Conversion
     end
 
     def download_file(src)
-      # TODO change for debugging, (thought it adds hash at the end )
       tempfile = Tempfile.new("change_for_debugging")
       File.binwrite(tempfile, RestClient.get(src))
 
