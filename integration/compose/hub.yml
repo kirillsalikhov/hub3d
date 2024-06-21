@@ -1,7 +1,10 @@
 version: '3.7'
 
 x-base-backend: &base_backend
-  build: ../../backend
+  build:
+    context: ../../backend
+    args:
+      NPM_TOKEN: ${WG_NPM_TOKEN}
   image: ${CI_REGISTRY:-docker.webgears3d.com/hub3d}/backend:${CI_BACKEND_TAG:-1.1.0}
   environment:
     RAILS_ENV: production
@@ -29,9 +32,6 @@ services:
   backend:
     <<: *base_backend
     command: bundle exec rails s -p 3050 -b '0.0.0.0'
-    ports:
-      # TODO remove from prod
-      - "3050:3050"
 
   # Yes, it's empty container, that starts and stop immediately
   # it's override in dev/frontend.yml

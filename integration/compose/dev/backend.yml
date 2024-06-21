@@ -7,6 +7,8 @@ services:
         RAILS_ENV: development
     environment:
       RAILS_ENV: development
+    ports:
+      - "3050:3050"
     develop:
       watch:
         - path: ../../backend

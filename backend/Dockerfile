@@ -36,10 +36,14 @@ RUN --mount=type=cache,id=bld-gem-cache,sharing=locked,target=/srv/vendor  \
     cp -ar /srv/vendor . && \
     gem install foreman
 
-COPY package.json package-lock.json .npmrc ./
+COPY package.json package-lock.json ./
+
+ARG NPM_TOKEN
 
 RUN --mount=type=cache,id=bld-npm-cache,target=/root/.npm \
-    npm ci
+    echo "//npmrepo.webgears3d.com/:_authToken=${NPM_TOKEN}" > ./.npmrc && \
+    npm ci && \
+    rm -f ./.npmrc
 
 COPY . .
 
