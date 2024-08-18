@@ -1,8 +1,23 @@
 import {useCallback, useEffect, useReducer, useState} from "react";
-import Client from '../../util/Client';
+import Client from '@/util/_Client';
+import {Resource} from "@/pages/_dummy_comps/_ResourceItem.tsx";
+import {AxiosResponse} from "axios";
+
+type VersionStatus = 'pending' | 'in_progress' | 'ready' | 'failed' | 'canceled'
+
+interface Version {
+    id: string,
+    space_id: string,
+    space_key: string,
+    resource_id: string,
+    status: VersionStatus,
+    is_version: boolean,
+    created_at: string,
+    updated_at: string
+}
 
 const statusColor = (() => {
-    const _c = (color) => `bg-${color}-100`;
+    const _c = (color: string) => `bg-${color}-100`;
     const _statusIdx = {
         'pending': _c('gray'),
         'in_progress': _c('blue'),
@@ -11,7 +26,7 @@ const statusColor = (() => {
         'canceled': _c('pink')
     }
 
-    return (status) => _statusIdx[status];
+    return (status: VersionStatus) => _statusIdx[status];
 })();
 
 const VersionItem = ({version, isCurrent, setCurrentAction}) => {
@@ -34,13 +49,13 @@ const VersionItem = ({version, isCurrent, setCurrentAction}) => {
     )
 }
 
-const useApiCall = (apiCall) => {
+const useApiCall = <T,>(apiCall: () => Promise<AxiosResponse<T>>) => {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState<T>(null);
 
     useEffect(() => {
         (async () => {
-            const {data} = await apiCall();
+            const { data } = await apiCall();
             setData(data);
             setLoading(false);
         })();
@@ -49,15 +64,23 @@ const useApiCall = (apiCall) => {
     return { data, loading };
 }
 
-export const VersionList = ({resource}) => {
-    const {data, loading } = useApiCall(() => Client.getResourceVersions(resource.id))
+type VersionListProps = {
+    resource: Resource
+}
+
+export const VersionList = ({resource}: VersionListProps) => {
+    const {data, loading } = useApiCall(() => {
+        // TODO remove when openApi response types
+        return Client.getResourceVersions(resource.id) as unknown as Promise<AxiosResponse<Version[]>>;
+    });
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const versions = data ?? [];
 
-    const setCurrentHandler = useCallback(async (versionId) => {
+    const setCurrentHandler = useCallback(async (versionId: string) => {
         try {
             const res = await Client.setResourceCurrent(resource.id, {current_id: versionId});
-            const {current_id} = res.data;
+            // TODO remove when openApi response types
+            const {current_id} = res.data as unknown as Resource;
             // NOTE don't do this way !!!
             resource.current_id = current_id;
             forceUpdate();
