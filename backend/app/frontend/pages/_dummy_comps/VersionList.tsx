@@ -69,7 +69,6 @@ export const VersionList = ({resource}: VersionListProps) => {
     const setCurrentHandler = useCallback(async (versionId: string) => {
         try {
             const res = await Client.setResourceCurrent(resource.id, {current_id: versionId});
-            // TODO remove when openApi response types
             const {current_id} = res.data;
             // NOTE don't do this way !!!
             resource.current_id = current_id;
