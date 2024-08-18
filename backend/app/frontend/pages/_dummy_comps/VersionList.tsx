@@ -1,20 +1,7 @@
 import {useCallback, useEffect, useReducer, useState} from "react";
 import Client from '@/util/_Client';
-import {Resource} from "@/pages/_dummy_comps/ResourceItem";
 import {AxiosResponse} from "axios";
-
-type VersionStatus = 'pending' | 'in_progress' | 'ready' | 'failed' | 'canceled'
-
-export interface Version {
-    id: string,
-    space_id: string,
-    space_key: string,
-    resource_id: string,
-    status: VersionStatus,
-    is_version: boolean,
-    created_at: string,
-    updated_at: string
-}
+import {Version, VersionStatus, Resource} from "@/util/api-client";
 
 const statusColor = (() => {
     const _c = (color: string) => `bg-${color}-100`;
@@ -29,7 +16,13 @@ const statusColor = (() => {
     return (status: VersionStatus) => _statusIdx[status];
 })();
 
-const VersionItem = ({version, isCurrent, setCurrentAction}) => {
+type VersionItemProps = {
+    version: Version,
+    isCurrent: boolean,
+    setCurrentAction: (id: string) => void
+}
+
+const VersionItem = ({version, isCurrent, setCurrentAction} : VersionItemProps) => {
     return (
         <div className="px-2 py-1 mt-2 flex gap-2 justify-between rounded bg-slate-300">
             <div className="flex gap-2">
@@ -69,10 +62,7 @@ type VersionListProps = {
 }
 
 export const VersionList = ({resource}: VersionListProps) => {
-    const {data, loading } = useApiCall(() => {
-        // TODO remove when openApi response types
-        return Client.getResourceVersions(resource.id) as unknown as Promise<AxiosResponse<Version[]>>;
-    });
+    const {data, loading } = useApiCall(() => Client.getResourceVersions(resource.id));
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const versions = data ?? [];
 
@@ -80,7 +70,7 @@ export const VersionList = ({resource}: VersionListProps) => {
         try {
             const res = await Client.setResourceCurrent(resource.id, {current_id: versionId});
             // TODO remove when openApi response types
-            const {current_id} = res.data as unknown as Resource;
+            const {current_id} = res.data;
             // NOTE don't do this way !!!
             resource.current_id = current_id;
             forceUpdate();

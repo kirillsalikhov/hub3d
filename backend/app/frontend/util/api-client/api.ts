@@ -113,6 +113,93 @@ export interface ConvertAnonymRequest {
 /**
  * 
  * @export
+ * @interface ConvertCreateResource200Response
+ */
+export interface ConvertCreateResource200Response {
+    /**
+     * 
+     * @type {Resource}
+     * @memberof ConvertCreateResource200Response
+     */
+    'resource'?: Resource;
+    /**
+     * 
+     * @type {ConversionTask}
+     * @memberof ConvertCreateResource200Response
+     */
+    'task'?: ConversionTask;
+}
+/**
+ * 
+ * @export
+ * @interface ConvertUpdateResource200Response
+ */
+export interface ConvertUpdateResource200Response {
+    /**
+     * 
+     * @type {Version}
+     * @memberof ConvertUpdateResource200Response
+     */
+    'version'?: Version;
+    /**
+     * 
+     * @type {ConversionTask}
+     * @memberof ConvertUpdateResource200Response
+     */
+    'task'?: ConversionTask;
+}
+/**
+ * 
+ * @export
+ * @interface Resource
+ */
+export interface Resource {
+    /**
+     * 
+     * @type {string}
+     * @memberof Resource
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Resource
+     */
+    'space_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Resource
+     */
+    'space_key': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Resource
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Resource
+     */
+    'current_id'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Resource
+     */
+    'created_at': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Resource
+     */
+    'updated_at': string;
+}
+/**
+ * 
+ * @export
  * @interface ResourceAuthPasswordRequest
  */
 export interface ResourceAuthPasswordRequest {
@@ -206,6 +293,80 @@ export const UpdateShareOptionsRequestLinkAccessEnum = {
 } as const;
 
 export type UpdateShareOptionsRequestLinkAccessEnum = typeof UpdateShareOptionsRequestLinkAccessEnum[keyof typeof UpdateShareOptionsRequestLinkAccessEnum];
+
+/**
+ * 
+ * @export
+ * @interface Version
+ */
+export interface Version {
+    /**
+     * 
+     * @type {string}
+     * @memberof Version
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Version
+     */
+    'space_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Version
+     */
+    'space_key': string;
+    /**
+     * 
+     * @type {VersionStatus}
+     * @memberof Version
+     */
+    'status': VersionStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof Version
+     */
+    'resource_id': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Version
+     */
+    'is_version': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Version
+     */
+    'created_at': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Version
+     */
+    'updated_at': string;
+}
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const VersionStatus = {
+    Pending: 'pending',
+    InProgress: 'in_progress',
+    Ready: 'ready',
+    Failed: 'failed',
+    Canceled: 'canceled'
+} as const;
+
+export type VersionStatus = typeof VersionStatus[keyof typeof VersionStatus];
+
 
 
 /**
@@ -987,7 +1148,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async convertCreateResource(convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async convertCreateResource(convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConvertCreateResource200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.convertCreateResource(convertAnonymRequest, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1000,7 +1161,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async convertUpdateResource(id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async convertUpdateResource(id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConvertUpdateResource200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.convertUpdateResource(id, convertAnonymRequest, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1071,7 +1232,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getResourceAssetItems(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getResourceAssetItems(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Version>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getResourceAssetItems(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1083,7 +1244,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getResourceVersions(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getResourceVersions(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Version>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getResourceVersions(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1094,7 +1255,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getResources(spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getResources(spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Resource>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getResources(spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1118,7 +1279,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVersion(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getVersion(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Version>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVersion(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1156,7 +1317,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setResourceCurrent(id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setResourceCurrent(id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Resource>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setResourceCurrent(id, setResourceCurrentRequest, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1223,7 +1384,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        convertCreateResource(convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+        convertCreateResource(convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: any): AxiosPromise<ConvertCreateResource200Response> {
             return localVarFp.convertCreateResource(convertAnonymRequest, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1235,7 +1396,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        convertUpdateResource(id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+        convertUpdateResource(id: string, convertAnonymRequest: ConvertAnonymRequest, spaceKey?: string, options?: any): AxiosPromise<ConvertUpdateResource200Response> {
             return localVarFp.convertUpdateResource(id, convertAnonymRequest, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1300,7 +1461,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResourceAssetItems(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+        getResourceAssetItems(id: string, spaceKey?: string, options?: any): AxiosPromise<Array<Version>> {
             return localVarFp.getResourceAssetItems(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1311,7 +1472,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResourceVersions(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+        getResourceVersions(id: string, spaceKey?: string, options?: any): AxiosPromise<Array<Version>> {
             return localVarFp.getResourceVersions(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1321,7 +1482,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResources(spaceKey?: string, options?: any): AxiosPromise<void> {
+        getResources(spaceKey?: string, options?: any): AxiosPromise<Array<Resource>> {
             return localVarFp.getResources(spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1343,7 +1504,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVersion(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+        getVersion(id: string, spaceKey?: string, options?: any): AxiosPromise<Version> {
             return localVarFp.getVersion(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1378,7 +1539,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setResourceCurrent(id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options?: any): AxiosPromise<void> {
+        setResourceCurrent(id: string, setResourceCurrentRequest: SetResourceCurrentRequest, spaceKey?: string, options?: any): AxiosPromise<Resource> {
             return localVarFp.setResourceCurrent(id, setResourceCurrentRequest, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**

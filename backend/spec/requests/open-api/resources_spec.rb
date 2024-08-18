@@ -19,6 +19,8 @@ RSpec.describe "api/resources" do
       }
 
       response(200, "successful") do
+        schema type: :array, items: {"$ref" => "#/components/schemas/resource"}
+
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {example: json_body}
@@ -98,6 +100,12 @@ RSpec.describe "api/resources" do
         }
 
       response(200, "successful") do
+        schema type: :object,
+          properties: {
+            resource: {"$ref" => "#/components/schemas/resource"},
+            task: {"$ref" => "#/components/schemas/conversion_task"}
+          },
+          required: [:resource, :task]
 
         let(:params) {
           {input_file: fixture_blob("input_models/small-model.stp").signed_id}
@@ -144,6 +152,13 @@ RSpec.describe "api/resources" do
         }
 
       response(200, "successful") do
+        schema type: :object,
+          properties: {
+            version: {"$ref" => "#/components/schemas/version"},
+            task: {"$ref" => "#/components/schemas/conversion_task"}
+          },
+          required: [:version, :task]
+
 
         let(:resource) { create(:resource, :with_version, author: owner, space: space) }
         let(:id) { resource.id }
@@ -194,10 +209,11 @@ RSpec.describe "api/resources" do
         }
 
       response(200, "successful") do
+        schema "$ref" => "#/components/schemas/resource"
 
         let(:resource) { create(:resource, :with_versions, author: owner, space: space) }
         let(:id) { resource.id }
-        let(:params) { {current_id: resource.versions.last.id } }
+        let(:params) { {current_id: resource.versions.last.id} }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -212,5 +228,4 @@ RSpec.describe "api/resources" do
       end
     end
   end
-
 end

@@ -24,6 +24,41 @@ RSpec.configure do |config|
       paths: {},
       components: {
         schemas: {
+
+          resource: {
+            type: "object",
+            properties: {
+              id: {type: :string, format: :uuid},
+              space_id: {type: :string},
+              space_key: {type: :string},
+              name: {type: :string},
+              current_id: {type: :string, format: "uuid", nullable: true},
+              created_at: {type: :string, format: :date_time},
+              updated_at: {type: :string, format: :date_time}
+            },
+            required: [:id, :space_id, :space_key, :name, :created_at, :updated_at]
+          },
+
+          version: {
+            type: "object",
+            properties: {
+              id: {type: :string, format: :uuid},
+              space_id: {type: "string"},
+              space_key: {type: "string"},
+              status: {"$ref" => "#/components/schemas/version_status"},
+              resource_id: {type: "string", format: "uuid"},
+              is_version: {type: "boolean"},
+              created_at: {type: :string, format: :date_time},
+              updated_at: {type: :string, format: :date_time}
+            },
+            required: [:space_id, :space_key, :status, :resource_id, :is_version, :created_at, :updated_at]
+          },
+
+          version_status: {
+            type: :string,
+            enum: %w[pending in_progress ready failed canceled]
+          },
+
           conversion_task: {
             type: "object",
             properties: {

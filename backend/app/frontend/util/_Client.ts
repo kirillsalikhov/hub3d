@@ -1,4 +1,4 @@
-import {Configuration, DefaultApi} from '@/util/api-client/index';
+import {Configuration, DefaultApi} from '@/util/api-client';
 import { createAxios } from './axios';
 
 const isBrowser = () => typeof window !== 'undefined'

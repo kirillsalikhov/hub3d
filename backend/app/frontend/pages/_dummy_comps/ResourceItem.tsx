@@ -3,16 +3,7 @@ import {Link} from "react-router-dom";
 import {CreateVersionForm} from "@/pages/_dummy_comps/CreateVersionForm";
 import {VersionList} from "@/pages/_dummy_comps/VersionList";
 import Client from '../../util/_Client';
-
-export interface Resource {
-    id: string,
-    space_id: string,
-    space_key: string,
-    name: string,
-    current_id: string,
-    created_at: string,
-    updated_at: string
-}
+import {Resource} from "@/util/api-client";
 
 interface ResourceItemProps {
     resource: Resource,

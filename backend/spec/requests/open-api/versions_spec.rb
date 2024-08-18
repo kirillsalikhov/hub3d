@@ -22,6 +22,8 @@ RSpec.describe "api/versions" do
       operationId "getVersion"
 
       response(200, "successful") do
+        schema "$ref" => "#/components/schemas/version"
+
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {example: json_body}
@@ -77,6 +79,8 @@ RSpec.describe "api/versions" do
       description "Resource versions, asset items each of which is versioned representation of resource"
 
       response(200, "successful") do
+        schema type: :array, items: {"$ref" => "#/components/schemas/version"}
+
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {example: json_body}
@@ -105,6 +109,8 @@ RSpec.describe "api/versions" do
       description "Resource asset items, not only versions"
 
       response(200, "successful") do
+        schema type: :array, items: {"$ref" => "#/components/schemas/version"}
+
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {example: json_body}
