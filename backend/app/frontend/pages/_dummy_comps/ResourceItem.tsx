@@ -2,9 +2,24 @@ import {useCallback, useState} from "react";
 import {Link} from "react-router-dom";
 import {CreateVersionForm} from "@/pages/_dummy_comps/CreateVersionForm";
 import {VersionList} from "@/pages/_dummy_comps/VersionList";
-import Client from '../../util/Client';
+import Client from '../../util/_Client';
 
-export const ResourceItem = ({resource, onDelete}) => {
+export interface Resource {
+    id: string,
+    space_id: string,
+    space_key: string,
+    name: string,
+    current_id: string,
+    created_at: string,
+    updated_at: string
+}
+
+interface ResourceItemProps {
+    resource: Resource,
+    onDelete: (id: string) => void
+}
+
+export const ResourceItem = ({resource, onDelete}: ResourceItemProps) => {
     const [showForm, setShowForm] = useState(false);
     const [showVersions, setShowVersions] = useState(false);
 
@@ -27,7 +42,7 @@ export const ResourceItem = ({resource, onDelete}) => {
         }
     }, []);
 
-    const onVersionCreate = useCallback((version) => {
+    const onVersionCreate = useCallback(() => {
         setShowForm(false);
     }, []);
 

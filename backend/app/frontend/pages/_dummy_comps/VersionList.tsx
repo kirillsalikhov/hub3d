@@ -1,11 +1,11 @@
 import {useCallback, useEffect, useReducer, useState} from "react";
 import Client from '@/util/_Client';
-import {Resource} from "@/pages/_dummy_comps/_ResourceItem.tsx";
+import {Resource} from "@/pages/_dummy_comps/ResourceItem";
 import {AxiosResponse} from "axios";
 
 type VersionStatus = 'pending' | 'in_progress' | 'ready' | 'failed' | 'canceled'
 
-interface Version {
+export interface Version {
     id: string,
     space_id: string,
     space_key: string,

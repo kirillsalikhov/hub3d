@@ -1,13 +1,24 @@
 import {useCallback, useState} from "react";
 import {MiniDrop} from "./MiniDrop";
-import Client from '../../util/Client';
+import Client from '../../util/_Client';
+import {Resource} from "@/pages/_dummy_comps/ResourceItem";
+import {Version} from "@/pages/_dummy_comps/VersionList.tsx";
 
-export const CreateVersionForm = ({resource, onSuccess}) => {
-    const [data, setData] = useState({
+type CreateVersionFormProps = {
+    resource: Resource,
+    onSuccess?: (version: Version) => void,
+}
+
+export interface IConvertParams {
+    input_file: string
+}
+
+export const CreateVersionForm = ({resource, onSuccess}: CreateVersionFormProps) => {
+    const [data, setData] = useState<IConvertParams>({
         input_file: null
     });
 
-    const onUpload = useCallback((signedId) => {
+    const onUpload = useCallback((signedId: string) => {
         setData((prevState) => {
             return {
                 ...prevState,
@@ -20,8 +31,12 @@ export const CreateVersionForm = ({resource, onSuccess}) => {
     const handleSubmit = useCallback(async () => {
         try {
             const res = await Client.convertUpdateResource(resource.id, data);
+            type ConvertUpdateResource = {
+                version: Version
+            }
             // TODO for Marina: there is also task returned
-            const {version} = res.data;
+            // TODO remove type casts when OpenApi
+            const {version} = res.data as unknown as ConvertUpdateResource;
             onSuccess(version);
         } catch (error) {
             // TODO for Marina: actually no error check

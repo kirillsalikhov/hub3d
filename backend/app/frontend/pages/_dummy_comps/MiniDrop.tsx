@@ -5,7 +5,13 @@ import {useDropzoneUpload} from "@/components/Dropzone/useDropzoneUpload";
 import {PlusIcon} from "@heroicons/react/20/solid";
 import {progressTransitionDuration} from "@/components/Progress";
 
-export const MiniDrop = ({onSuccess, fileRecord, onDelete}) => {
+type MiniDropPros = {
+    onSuccess: (signedId: string) => void,
+    fileRecord?: {signed_id: string, filename: string},
+    onDelete?: () => void
+}
+
+export const MiniDrop = ({onSuccess, fileRecord, onDelete} : MiniDropPros) => {
     const signed_id = fileRecord?.signed_id;
     const filename = fileRecord?.filename;
 

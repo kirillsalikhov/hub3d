@@ -1,13 +1,16 @@
 import {MiniDrop} from "./MiniDrop";
 import {useCallback, useState} from "react";
-import Client from '../../util/Client';
+import Client from '../../util/_Client';
+import {IConvertParams} from "@/pages/_dummy_comps/CreateVersionForm.tsx";
+import {Resource} from "@/pages/_dummy_comps/ResourceItem.tsx";
+
 
 export const CreateResourceForm = ({onCreate}) => {
-    const [data, setData] = useState({
+    const [data, setData] = useState<IConvertParams>({
         input_file: null
     });
 
-    const onUpload = useCallback((signedId) => {
+    const onUpload = useCallback((signedId: string) => {
         setData((prevState) => {
             return {
                 ...prevState,
@@ -19,10 +22,15 @@ export const CreateResourceForm = ({onCreate}) => {
 
     const handleSubmit = useCallback(async () => {
         try {
+            type ConvertCreateResource = {
+                resource: Resource
+            }
+
             const res = await Client.convertCreateResource(data);
+
             // TODO for Marina: there are questions with Client.convertUpdateResource():
             // convertCreateResource returns {resource, task} ; convertUpdateResource returns {version, task}
-            const {resource} = res.data;
+            const {resource} = res.data as unknown as ConvertCreateResource;
             onCreate(resource);
         } catch (error) {
             // TODO for Marina: actually no error check
