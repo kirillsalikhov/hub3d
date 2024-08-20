@@ -29,6 +29,7 @@
     "yup": "^1.4.0"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.51.23",
     "@wg/industrial-app": "^8.0.19",
     "axios": "^0.27.2",
     "express": "^4.19.2"

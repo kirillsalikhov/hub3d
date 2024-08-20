@@ -7,8 +7,9 @@ import { Resource } from '../pages/Resource.jsx';
 import ResourcePassword from '../pages/ResourcePassword.jsx';
 import { Dashboard } from '../pages/Dashboard.jsx';
 import {getConversionPageData, getDashboardPageData, getResourcePageData} from './loaderHelper';
+import {QueryClient} from "@tanstack/react-query";
 
-export const routes = [
+export const routes = (queryClient: QueryClient) => [
     {
         element: <Layout />,
         errorElement: <ErrorPage />,
@@ -19,7 +20,7 @@ export const routes = [
                     {
                         path: '',
                         element: <Dashboard />,
-                        loader: () => getDashboardPageData(),
+                        loader: () => getDashboardPageData(queryClient)(),
                         handle: { className: 'space-dashboard' }
                     },
                     {

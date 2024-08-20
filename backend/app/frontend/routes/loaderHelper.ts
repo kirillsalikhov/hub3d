@@ -1,4 +1,6 @@
 import Client from '../util/Client.js';
+import {QueryClient} from "@tanstack/react-query";
+import {getResourcesQueryOpts} from "@/pages/_dummy_comps/queries.ts";
 
 export const getConversionPageData = async (conversionId) => {
     try {
@@ -33,10 +35,11 @@ export const getResourcePageData = async (resourceId) => {
     }
 }
 
-export const getDashboardPageData = async () => {
+export const getDashboardPageData = (queryClient: QueryClient) => async () => {
+    // TODO move func getDashboardPageData out of here
     try {
-        const resourcesResponse = await Client.getResources();
-        return {resources: resourcesResponse.data};
+        return queryClient.getQueryData(getResourcesQueryOpts().queryKey) ??
+            (await queryClient.fetchQuery(getResourcesQueryOpts()));
     } catch (err) {
         handleLoaderError(err);
     }
