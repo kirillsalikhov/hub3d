@@ -41,23 +41,36 @@ export const useGetResourceVersions = ({resourceId} : UseGetResourceVersionsOpts
 }
 
 //--- split ---/
-const setResourceCurrent = async (resourceId: string, versionId: string) => {
-    const res = await Client.setResourceCurrent(resourceId, {current_id: versionId});
+const setResourceCurrent = async ({resource_id, version_id} : {resource_id: string, version_id: string}) => {
+    const res = await Client.setResourceCurrent(resource_id, {current_id: version_id});
     const {current_id} = res.data;
     return current_id;
 }
 
-type UseResourceSetCurrentOpts = {
-    resourceId: string
-}
-
-export const useResourceSetCurrent = ({resourceId}: UseResourceSetCurrentOpts) => {
+export const useResourceSetCurrent = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (versionId: string) => setResourceCurrent(resourceId, versionId),
+        mutationFn: setResourceCurrent,
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['resources']});
+            return queryClient.invalidateQueries({queryKey: ['resources']});
+        },
+    })
+}
+
+// --- delete ---/
+
+const deleteResource = async ({id} : {id: string}) => {
+    return Client.deleteResource(id);
+}
+
+export const useDeleteResource = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: deleteResource,
+        onSuccess: () => {
+            return queryClient.invalidateQueries({queryKey: ['resources']});
         },
     })
 }

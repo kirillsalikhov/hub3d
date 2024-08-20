@@ -1,9 +1,9 @@
-import {useCallback, useState} from "react";
+import {useCallback, useReducer, useState} from "react";
 import {Link} from "react-router-dom";
 import {CreateVersionForm} from "@/pages/_dummy_comps/CreateVersionForm";
 import {VersionList} from "@/pages/_dummy_comps/VersionList";
-import Client from '../../util/_Client';
 import {Resource} from "@/util/api-client";
+import {useDeleteResource} from "@/pages/_dummy_comps/queries.ts";
 
 interface ResourceItemProps {
     resource: Resource,
@@ -12,26 +12,13 @@ interface ResourceItemProps {
 
 export const ResourceItem = ({resource, onDelete}: ResourceItemProps) => {
     const [showForm, setShowForm] = useState(false);
-    const [showVersions, setShowVersions] = useState(false);
+    const [showVersions, toggleVersions] = useReducer((state) => !state, false);
 
     const toggleUpdateForm = useCallback(() => {
         setShowForm(!showForm);
     }, [showForm]);
 
-    const toggleShowVersions = useCallback(() => {
-        setShowVersions(!showVersions);
-    }, [showVersions]);
-
-    const deleteHandler = useCallback(async () => {
-        try {
-            await Client.deleteResource(resource.id);
-            onDelete(resource.id);
-        } catch (error) {
-            // TODO for Marina: actually no error check
-            console.log(error);
-            throw error;
-        }
-    }, []);
+    const deleteMutation = useDeleteResource();
 
     const onVersionCreate = useCallback(() => {
         setShowForm(false);
@@ -47,7 +34,7 @@ export const ResourceItem = ({resource, onDelete}: ResourceItemProps) => {
                     <Link className="underline my-auto min-w-[128px]" to={`resources/${resource.id}`}>
                         {resource.name}
                     </Link>
-                    <div onClick={toggleShowVersions}
+                    <div onClick={toggleVersions}
                         className="px-2 py-1 bg-gray-300 rounded cursor-pointer">
                         {showVersions? 'Close versions' : 'Versions'}
                     </div>
@@ -59,7 +46,7 @@ export const ResourceItem = ({resource, onDelete}: ResourceItemProps) => {
                         {showForm ? 'close': 'Add Version' }
                     </div>
                     <div
-                        onClick={deleteHandler}
+                        onClick={() => deleteMutation.mutate({id: resource.id})}
                         className="px-2 py-1 rounded bg-rose-400 cursor-pointer">
                         Delete
                     </div>

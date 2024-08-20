@@ -2,12 +2,13 @@ import { useLoaderData} from 'react-router-dom';
 import { CreateResourceForm } from './_dummy_comps/CreateResourceForm';
 import {useCallback, useReducer, useState} from "react";
 import {ResourceItem} from "./_dummy_comps/ResourceItem";
+import {useResources} from "@/pages/_dummy_comps/queries";
 
 
 // TODO for marina, it's dummy test page
 export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
-    const {resources} = useLoaderData();
+    const {data: resources, isLoading} = useResources();
 
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -29,6 +30,10 @@ export const Dashboard = () => {
         setShowForm(false);
         forceUpdate();
     }, []);
+
+    if (isLoading) {
+        return 'Loading resources ...'
+    }
 
     return (
         <div className="container px-6 mx-auto max-w-7xl">
