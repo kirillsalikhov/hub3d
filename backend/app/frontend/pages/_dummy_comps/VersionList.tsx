@@ -22,20 +22,7 @@ type VersionItemProps = {
 
 const VersionItem = ({version, isCurrent} : VersionItemProps) => {
     const {resource_id, id} = version;
-    const setCurrentMutation = useResourceSetCurrent();
-
-    const setCurrent = useCallback(async () => {
-        try {
-            setCurrentMutation.mutate({
-                resource_id,
-                version_id: id
-            });
-        } catch (error) {
-            // TODO for Marina: actually no error check
-            console.log(error);
-            throw error;
-        }
-    }, [resource_id, id]);
+    const setCurrentMutation = useResourceSetCurrent(resource_id);
 
     return (
         <div className="px-2 py-1 mt-2 flex gap-2 justify-between rounded bg-slate-300">
@@ -47,7 +34,7 @@ const VersionItem = ({version, isCurrent} : VersionItemProps) => {
                 {isCurrent ?
                     <div className="px-2 bg-slate-400 rounded">is Current</div>:
                     <div className="px-2 bg-indigo-400 rounded cursor-pointer"
-                         onClick={() => setCurrent()}>
+                         onClick={() => setCurrentMutation.mutate(id)}>
                         Make current
                     </div>
                 }

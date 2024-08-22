@@ -2,11 +2,11 @@
 
 import {queryOptions, useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import Client from "@/util/_Client";
-import {ConvertAnonymRequest} from "@/util/api-client";
+import {ConvertAnonymRequest, Resource, SetResourceCurrentRequest, Version} from "@/util/api-client";
 
 const getResources = async () => {
-    const resourcesResponse = await Client.getResources();
-    return resourcesResponse.data;
+    const res = await Client.getResources();
+    return res.data;
 }
 
 export const getResourcesQueryOpts = () => {
@@ -22,8 +22,8 @@ export const useResources = () => {
 
 //--- split ---//
 const getResourceVersions = async (resourceId: string) => {
-    const response = await Client.getResourceVersions(resourceId);
-    return response.data;
+    const res = await Client.getResourceVersions(resourceId);
+    return res.data;
 }
 
 const getResourceVersionsOpts = (resourceId: string) => {
@@ -42,58 +42,61 @@ export const useGetResourceVersions = ({resourceId} : UseGetResourceVersionsOpts
 }
 
 //--- split ---/
-const setResourceCurrent = async ({resource_id, version_id} : {resource_id: string, version_id: string}) => {
-    const res = await Client.setResourceCurrent(resource_id, {current_id: version_id});
-    const {current_id} = res.data;
-    return current_id;
-}
-
-export const useResourceSetCurrent = () => {
+export const useResourceSetCurrent = (resource_id: string) => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: setResourceCurrent,
-        onSuccess: () => {
-            return queryClient.invalidateQueries({queryKey: ['resources']});
+        mutationFn: async (versionId: string) => {
+            const res = await Client.setResourceCurrent(resource_id, {current_id: versionId});
+            return res.data;
+        },
+        onSuccess: (resource: Resource) => {
+            queryClient.setQueryData(['resources'], updateInArr(resource));
         },
     })
 }
 
 // --- delete ---/
-
-const deleteResource = async ({id} : {id: string}) => {
-    return Client.deleteResource(id);
-}
-
 export const useDeleteResource = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: deleteResource,
-        onSuccess: () => {
-            return queryClient.invalidateQueries({queryKey: ['resources']});
+        mutationFn: (id: string) => Client.deleteResource(id),
+        onSuccess: (_,id) => {
+            queryClient.setQueryData(['resources'], removeFromArr<Resource>(id));
         },
     })
 }
 
 // --- createResource --- //
-const convertCreateResource = async (data: ConvertAnonymRequest) => {
-    const response = await Client.convertCreateResource(data);
-    return response.data
-}
-
 export const useConvertCreateResource = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: convertCreateResource,
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['resources']});
+        mutationFn: async (data: ConvertAnonymRequest) => {
+            const res = await Client.convertCreateResource(data);
+            return res.data
+        },
+        onSuccess: ({resource}) => {
+            queryClient.setQueryData(['resources'], addToArr(resource));
         }
     })
 }
 
 // --- convertUpdateResource --- //
+type ArrMutator<T> = (items: T[]) => T[];
+
+const addToArr = <T>(item: T) : ArrMutator<T> => {
+    return (items: T[]) => [item, ...items];
+}
+
+const removeFromArr = <T extends {id: string}>(itemId: string) : ArrMutator<T> => {
+    return (items: T[]) => items.filter(old => old.id !== itemId);
+}
+
+const updateInArr = <T extends {id: string}>(item: T) : ArrMutator<T> => {
+    return (items: T[]) => items.map(old => old.id === item.id ? {...old, ...item} : old);
+}
 
 export const useConvertUpdateResource = (resourceId: string) => {
     const queryClient = useQueryClient();
@@ -103,9 +106,8 @@ export const useConvertUpdateResource = (resourceId: string) => {
             const res = await Client.convertUpdateResource(resourceId, data);
             return res.data;
         },
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['resources']});
-            queryClient.invalidateQueries({queryKey: ['versions', {resource: resourceId}]});
+        onSuccess: ({version}) => {
+            queryClient.setQueryData(['versions', {resource: resourceId}], addToArr(version));
         }
     })
 }

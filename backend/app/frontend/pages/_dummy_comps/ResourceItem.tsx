@@ -45,7 +45,7 @@ export const ResourceItem = ({resource}: ResourceItemProps) => {
                         {showForm ? 'close': 'Add Version' }
                     </div>
                     <div
-                        onClick={() => deleteMutation.mutate({id: resource.id})}
+                        onClick={() => deleteMutation.mutate(resource.id)}
                         className="px-2 py-1 rounded bg-rose-400 cursor-pointer">
                         Delete
                     </div>
