@@ -1,4 +1,3 @@
-import { useLoaderData} from 'react-router-dom';
 import { CreateResourceForm } from './_dummy_comps/CreateResourceForm';
 import {useCallback, useReducer, useState} from "react";
 import {ResourceItem} from "./_dummy_comps/ResourceItem";
@@ -10,25 +9,12 @@ export const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
     const {data: resources, isLoading} = useResources();
 
-    const [_, forceUpdate] = useReducer((x) => x + 1, 0);
-
     const toggleForm = useCallback(()=> {
         setShowForm(!showForm);
     }, [showForm]);
 
-    const onResourceDelete = useCallback((id) => {
-
-        const deleteIndex = resources.findIndex(r => r.id === id);
-        // NOTE !!! don't do this way
-        resources.splice(deleteIndex, 1);
-        forceUpdate();
-    }, []);
-
-    const onResourceCreate = useCallback(resource => {
-        // NOTE !!! don't do this way
-        resources.unshift(resource);
+    const onResourceCreate = useCallback( () => {
         setShowForm(false);
-        forceUpdate();
     }, []);
 
     if (isLoading) {
@@ -48,7 +34,6 @@ export const Dashboard = () => {
             {resources.map(resource => <ResourceItem
                 key={resource.id}
                 resource={resource}
-                onDelete={onResourceDelete}
             />)}
         </div>
     )

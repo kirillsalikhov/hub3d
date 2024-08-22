@@ -2,6 +2,7 @@
 
 import {queryOptions, useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import Client from "@/util/_Client";
+import {ConvertAnonymRequest} from "@/util/api-client";
 
 const getResources = async () => {
     const resourcesResponse = await Client.getResources();
@@ -74,3 +75,38 @@ export const useDeleteResource = () => {
         },
     })
 }
+
+// --- createResource --- //
+const convertCreateResource = async (data: ConvertAnonymRequest) => {
+    const response = await Client.convertCreateResource(data);
+    return response.data
+}
+
+export const useConvertCreateResource = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: convertCreateResource,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['resources']});
+        }
+    })
+}
+
+// --- convertUpdateResource --- //
+
+export const useConvertUpdateResource = (resourceId: string) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (data: ConvertAnonymRequest) => {
+            const res = await Client.convertUpdateResource(resourceId, data);
+            return res.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['resources']});
+            queryClient.invalidateQueries({queryKey: ['versions', {resource: resourceId}]});
+        }
+    })
+}
+

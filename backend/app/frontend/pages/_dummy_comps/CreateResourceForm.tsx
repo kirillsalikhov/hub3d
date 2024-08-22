@@ -1,10 +1,10 @@
 import {MiniDrop} from "./MiniDrop";
 import {useCallback, useState} from "react";
-import Client from '../../util/_Client';
-import {ConvertAnonymRequest, Resource} from "@/util/api-client";
+import {ConvertAnonymRequest} from "@/util/api-client";
+import {useConvertCreateResource} from "@/pages/_dummy_comps/queries.ts";
 
 type CreateResourceFormProps = {
-    onCreate: (resource: Resource) => void
+    onCreate: () => void
 }
 
 export const CreateResourceForm = ({onCreate} : CreateResourceFormProps) => {
@@ -22,20 +22,13 @@ export const CreateResourceForm = ({onCreate} : CreateResourceFormProps) => {
 
     },[]);
 
+    const createDiscussionMutation = useConvertCreateResource();
+
     const handleSubmit = useCallback(async () => {
-        try {
-            const res = await Client.convertCreateResource(data);
-
-            // TODO for Marina: there are questions with Client.convertUpdateResource():
-            // convertCreateResource returns {resource, task} ; convertUpdateResource returns {version, task}
-            const {resource} = res.data;
-            onCreate(resource);
-        } catch (error) {
-            // TODO for Marina: actually no error check
-            console.log(error);
-            throw error;
-        }
-
+        // TODO for Marina: there are questions with Client.convertUpdateResource():
+        // convertCreateResource returns {resource, task} ; convertUpdateResource returns {version, task}
+        createDiscussionMutation.mutate(data);
+        onCreate();
     }, [data]);
 
     return (

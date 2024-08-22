@@ -1,11 +1,11 @@
 import {useCallback, useState} from "react";
 import {MiniDrop} from "./MiniDrop";
-import Client from '../../util/_Client';
-import {ConvertAnonymRequest, Resource, Version} from "@/util/api-client";
+import {ConvertAnonymRequest, Resource} from "@/util/api-client";
+import {useConvertUpdateResource} from "@/pages/_dummy_comps/queries.ts";
 
 type CreateVersionFormProps = {
     resource: Resource,
-    onSuccess?: (version: Version) => void,
+    onSuccess?: () => void,
 }
 
 export const CreateVersionForm = ({resource, onSuccess}: CreateVersionFormProps) => {
@@ -23,12 +23,12 @@ export const CreateVersionForm = ({resource, onSuccess}: CreateVersionFormProps)
 
     },[]);
 
+    const convertUpdateResourceMutation = useConvertUpdateResource(resource.id);
+
     const handleSubmit = useCallback(async () => {
         try {
-            const res = await Client.convertUpdateResource(resource.id, data);
-            // TODO for Marina: there is also task returned
-            const {version} = res.data;
-            onSuccess(version);
+            convertUpdateResourceMutation.mutate(data);
+            onSuccess();
         } catch (error) {
             // TODO for Marina: actually no error check
             console.log(error);

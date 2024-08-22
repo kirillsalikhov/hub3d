@@ -7,10 +7,9 @@ import {useDeleteResource} from "@/pages/_dummy_comps/queries.ts";
 
 interface ResourceItemProps {
     resource: Resource,
-    onDelete: (id: string) => void
 }
 
-export const ResourceItem = ({resource, onDelete}: ResourceItemProps) => {
+export const ResourceItem = ({resource}: ResourceItemProps) => {
     const [showForm, setShowForm] = useState(false);
     const [showVersions, toggleVersions] = useReducer((state) => !state, false);
 
