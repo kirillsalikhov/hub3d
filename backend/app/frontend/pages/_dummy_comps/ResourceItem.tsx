@@ -1,27 +1,19 @@
-import {useCallback, useReducer, useState} from "react";
 import {Link} from "react-router-dom";
 import {CreateVersionForm} from "@/pages/_dummy_comps/CreateVersionForm";
 import {VersionList} from "@/pages/_dummy_comps/VersionList";
 import {Resource} from "@/util/api-client";
 import {useDeleteResource} from "@/pages/_dummy_comps/queries.ts";
+import {useBoolean} from "usehooks-ts";
 
 interface ResourceItemProps {
     resource: Resource,
 }
 
 export const ResourceItem = ({resource}: ResourceItemProps) => {
-    const [showForm, setShowForm] = useState(false);
-    const [showVersions, toggleVersions] = useReducer((state) => !state, false);
-
-    const toggleUpdateForm = useCallback(() => {
-        setShowForm(!showForm);
-    }, [showForm]);
+    const {value: showForm, setFalse: hideForm, toggle: toggleUpdateForm } = useBoolean(false);
+    const {value: showVersions, toggle: toggleVersions} = useBoolean(false);
 
     const deleteMutation = useDeleteResource();
-
-    const onVersionCreate = useCallback(() => {
-        setShowForm(false);
-    }, []);
 
     const roundedStyle = showVersions ? 'rounded-l-md rounded-md-lg': 'rounded-md'
 
@@ -55,7 +47,7 @@ export const ResourceItem = ({resource}: ResourceItemProps) => {
                 <VersionList resource={resource} />
             </div>}
             {showForm && <div className="ml-16">
-                <CreateVersionForm resource={resource} onSuccess={onVersionCreate}/>
+                <CreateVersionForm resource={resource} onSuccess={hideForm}/>
             </div>}
         </div>
     )

@@ -1,21 +1,13 @@
 import { CreateResourceForm } from './_dummy_comps/CreateResourceForm';
-import {useCallback, useReducer, useState} from "react";
 import {ResourceItem} from "./_dummy_comps/ResourceItem";
 import {useResources} from "@/pages/_dummy_comps/queries";
+import {useBoolean} from "usehooks-ts";
 
 
 // TODO for marina, it's dummy test page
 export const Dashboard = () => {
-    const [showForm, setShowForm] = useState(false);
+    const {value: showForm, setFalse: hideForm, toggle: toggleForm} = useBoolean(false);
     const {data: resources, isLoading} = useResources();
-
-    const toggleForm = useCallback(()=> {
-        setShowForm(!showForm);
-    }, [showForm]);
-
-    const onResourceCreate = useCallback( () => {
-        setShowForm(false);
-    }, []);
 
     if (isLoading) {
         return 'Loading resources ...'
@@ -29,7 +21,7 @@ export const Dashboard = () => {
                 {showForm ? "Close form" : "Create Resource"}
             </div>
 
-            {showForm && <CreateResourceForm onCreate={onResourceCreate}/>}
+            {showForm && <CreateResourceForm onCreate={hideForm}/>}
 
             {resources.map(resource => <ResourceItem
                 key={resource.id}
