@@ -4,6 +4,7 @@ import {useUploader} from "@/components/Uploader/useUploader";
 import {useDropzoneUpload} from "@/components/Dropzone/useDropzoneUpload";
 import {PlusIcon} from "@heroicons/react/20/solid";
 import {progressTransitionDuration} from "@/components/Progress";
+import {DropzoneInputProps, DropzoneRootProps} from "react-dropzone-esm";
 
 type MiniDropPros = {
     onSuccess: (signedId: string) => void,
@@ -38,11 +39,17 @@ export const MiniDrop = ({onSuccess, fileRecord, onDelete} : MiniDropPros) => {
     )
 }
 
+type DropZoneContent = {
+    rootProps: DropzoneRootProps,
+    inputProps: DropzoneInputProps,
+    isDragActive: boolean
+}
 // TODO: for Marina: I modified styles a bit
-const DropzoneContent = ({rootProps, inputProps, isDragActive}) => (
+const DropzoneContent = ({rootProps, inputProps, isDragActive}: DropZoneContent) => (
     <div>
         <form>
-            <div htmlFor="dropzone-file-upload" { ...rootProps }>
+            {/* TODO check htmlFor? */}
+            <div { ...rootProps }>
                 <input id="dropzone-file-upload" name="dropzone-file-upload" type="file"
                        className="sr-only" { ...inputProps } />
                 <div className={ `${ isDragActive ? 'bg-gradient-to-tr border-none' : '' } group cursor-pointer relative flex h-32 rounded-lg bg-white hover:bg-gradient-to-tr from-blue-500 via-pink-300 via-70% to-purple-600 border-2 border-dashed border-gray-300 hover:border-none` }>
@@ -61,8 +68,17 @@ const DropzoneContent = ({rootProps, inputProps, isDragActive}) => (
     </div>
 )
 
+// TODO fix, file is strange object
+type UploadProgressProps = {
+    progress: number
+    file: {
+        upload: {id: string},
+        file: {name: string}
+    }
+}
+
 // TODO: for Marina: I modified styles a bit
-export const UploadProgress = ({ file, progress }) => {
+export const UploadProgress = ({ file, progress } : UploadProgressProps) => {
     const uploadId = file.upload.id;
     const filename = file.file.name;
     return (

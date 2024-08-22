@@ -2,6 +2,7 @@ import { FormEvent, InputHTMLAttributes, memo } from 'react';
 import { ErrorMessage, useField, useFormikContext } from 'formik';
 
 interface ITextField extends InputHTMLAttributes<HTMLInputElement> {
+    name: string,
     showError: boolean;
 }
 

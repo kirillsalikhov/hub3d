@@ -1,6 +1,7 @@
 import { ResourceViewModel } from './ResourceViewModel';
 import { action, computed, makeObservable, observable, toJS } from 'mobx';
 export interface IPageData {
+    uploadsPath?: string
     [key: string]: unknown
 }
 export class Model {

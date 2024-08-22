@@ -4,7 +4,11 @@ import './style.css';
 import React from "react";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-export const App = ({children}) => {
+type AppProps = {
+    children: React.ReactNode;
+}
+
+export const App = ({children}: AppProps) => {
     const appEl = typeof document !== 'undefined' && document.getElementById('app');
     let model;
     if (appEl) {

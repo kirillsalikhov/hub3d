@@ -1,4 +1,3 @@
-import {useCallback} from "react";
 import {Version, VersionStatus, Resource} from "@/util/api-client";
 import {useGetResourceVersions, useResourceSetCurrent} from "@/pages/_dummy_comps/queries.ts";
 
@@ -56,7 +55,7 @@ export const VersionList = ({resource}: VersionListProps) => {
 
     return (
         <div className="p-2 rounded-b-lg bg-slate-200">
-            {versions.map(v => <VersionItem
+            {versions?.map(v => <VersionItem
                 version = {v}
                 key = {v.id}
                 isCurrent = {resource.current_id === v.id}

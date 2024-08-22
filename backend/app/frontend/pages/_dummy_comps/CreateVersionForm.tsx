@@ -5,12 +5,12 @@ import {useConvertUpdateResource} from "@/pages/_dummy_comps/queries.ts";
 
 type CreateVersionFormProps = {
     resource: Resource,
-    onSuccess?: () => void,
+    onSuccess: () => void,
 }
 
 export const CreateVersionForm = ({resource, onSuccess}: CreateVersionFormProps) => {
     const [data, setData] = useState<ConvertAnonymRequest>({
-        input_file: null
+        input_file: ''
     });
 
     const onUpload = useCallback((signedId: string) => {
@@ -28,6 +28,7 @@ export const CreateVersionForm = ({resource, onSuccess}: CreateVersionFormProps)
     const handleSubmit = useCallback(async () => {
         try {
             convertUpdateResourceMutation.mutate(data);
+            // TODO Should be on Mutation success
             onSuccess();
         } catch (error) {
             // TODO for Marina: actually no error check

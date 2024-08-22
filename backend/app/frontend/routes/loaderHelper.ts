@@ -2,7 +2,7 @@ import Client from '../util/Client.js';
 import {QueryClient} from "@tanstack/react-query";
 import {getResourcesQueryOpts} from "@/pages/_dummy_comps/queries.ts";
 
-export const getConversionPageData = async (conversionId) => {
+export const getConversionPageData = async (conversionId: string) => {
     try {
         const conversionResponse = await Client.getConversion(conversionId);
         const resourceId = conversionResponse.data.meta.dest_resource_id;
@@ -16,7 +16,7 @@ export const getConversionPageData = async (conversionId) => {
     }
 }
 
-export const getResourcePageData = async (resourceId) => {
+export const getResourcePageData = async (resourceId: string) => {
     try {
         const resourceResponse = await Client.getResource(resourceId);
         const versionId = resourceResponse.data.current_id;

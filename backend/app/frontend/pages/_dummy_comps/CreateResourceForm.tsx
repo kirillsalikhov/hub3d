@@ -9,7 +9,7 @@ type CreateResourceFormProps = {
 
 export const CreateResourceForm = ({onCreate} : CreateResourceFormProps) => {
     const [data, setData] = useState<ConvertAnonymRequest>({
-        input_file: null
+        input_file: ''
     });
 
     const onUpload = useCallback((signedId: string) => {
@@ -28,6 +28,7 @@ export const CreateResourceForm = ({onCreate} : CreateResourceFormProps) => {
         // TODO for Marina: there are questions with Client.convertUpdateResource():
         // convertCreateResource returns {resource, task} ; convertUpdateResource returns {version, task}
         createDiscussionMutation.mutate(data);
+        // TODO Should be on Mutation success
         onCreate();
     }, [data]);
 
