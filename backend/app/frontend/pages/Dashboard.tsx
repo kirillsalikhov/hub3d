@@ -23,7 +23,7 @@ export const Dashboard = () => {
 
             {showForm && <CreateResourceForm onCreate={hideForm}/>}
 
-            {resources.map(resource => <ResourceItem
+            {resources?.map(resource => <ResourceItem
                 key={resource.id}
                 resource={resource}
             />)}

@@ -12,7 +12,8 @@ export const App = ({children}: AppProps) => {
     const appEl = typeof document !== 'undefined' && document.getElementById('app');
     let model;
     if (appEl) {
-        const initialPageData = JSON.parse(appEl.dataset.page);
+        // TODO check, most likely won't need
+        const initialPageData = JSON.parse(appEl.dataset.page!);
         model = new Model(initialPageData);
     } else {
         model = new Model({});

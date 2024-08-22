@@ -1,4 +1,4 @@
-import { ConversionForm } from '../components/ConversionForm';
+import { ConversionForm } from '@/components/ConversionForm';
 
 const MainText = () => (
     <div>

@@ -48,7 +48,6 @@ type DropZoneContent = {
 const DropzoneContent = ({rootProps, inputProps, isDragActive}: DropZoneContent) => (
     <div>
         <form>
-            {/* TODO check htmlFor? */}
             <div { ...rootProps }>
                 <input id="dropzone-file-upload" name="dropzone-file-upload" type="file"
                        className="sr-only" { ...inputProps } />
