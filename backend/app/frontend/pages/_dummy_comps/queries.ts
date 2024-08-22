@@ -11,7 +11,7 @@ const getResources = async () => {
 
 export const getResourcesQueryOpts = () => {
     return queryOptions({
-        queryKey: ['resources'],
+        queryKey: resourceKeys.list(),
         queryFn: getResources
     })
 }
@@ -28,7 +28,7 @@ const getResourceVersions = async (resourceId: string) => {
 
 const getResourceVersionsOpts = (resourceId: string) => {
     return queryOptions({
-        queryKey: ['versions', {resource: resourceId}],
+        queryKey: resourceKeys.resourceVersions(resourceId),
         queryFn: () => getResourceVersions(resourceId)
     })
 }
@@ -51,7 +51,7 @@ export const useResourceSetCurrent = (resource_id: string) => {
             return res.data;
         },
         onSuccess: (resource: Resource) => {
-            queryClient.setQueryData(['resources'], updateInArr(resource));
+            queryClient.setQueryData(resourceKeys.list(), updateInArr(resource));
         },
     })
 }
@@ -63,7 +63,7 @@ export const useDeleteResource = () => {
     return useMutation({
         mutationFn: (id: string) => Client.deleteResource(id),
         onSuccess: (_,id) => {
-            queryClient.setQueryData(['resources'], removeFromArr<Resource>(id));
+            queryClient.setQueryData(resourceKeys.list(), removeFromArr<Resource>(id));
         },
     })
 }
@@ -78,12 +78,11 @@ export const useConvertCreateResource = () => {
             return res.data
         },
         onSuccess: ({resource}) => {
-            queryClient.setQueryData(['resources'], addToArr(resource));
+            queryClient.setQueryData(resourceKeys.list(), addToArr(resource));
         }
     })
 }
-
-// --- convertUpdateResource --- //
+// move to lib
 type ArrMutator<T> = (items: T[]) => T[];
 
 const addToArr = <T>(item: T) : ArrMutator<T> => {
@@ -98,6 +97,16 @@ const updateInArr = <T extends {id: string}>(item: T) : ArrMutator<T> => {
     return (items: T[]) => items.map(old => old.id === item.id ? {...old, ...item} : old);
 }
 
+// --- keys --- //
+
+const resourceKeys = {
+    all: ['resources'] as const,
+    lists: () => [...resourceKeys.all, 'list'] as const,
+    list: () => [...resourceKeys.lists(), 'all'] as const,
+    resourceVersions: (resourceId: string) => [...resourceKeys.all, resourceId, 'versions']
+}
+
+
 export const useConvertUpdateResource = (resourceId: string) => {
     const queryClient = useQueryClient();
 
@@ -107,7 +116,7 @@ export const useConvertUpdateResource = (resourceId: string) => {
             return res.data;
         },
         onSuccess: ({version}) => {
-            queryClient.setQueryData(['versions', {resource: resourceId}], addToArr(version));
+            queryClient.setQueryData(resourceKeys.resourceVersions(resourceId), addToArr(version));
         }
     })
 }
