@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // TODO For Marina: I hope for https://github.com/ElMassimo/js_from_routes
 // otherwise it's ok to hardcode somewhere
@@ -10,7 +10,7 @@ const google_auth_path = '/users/auth/google_oauth2';
 //  2.  when google redirects to it's auth page, redirect doesn't work inside js
 //      (sure for redirects with error due cors, probably for others too)
 // P.s. this note can be deleted
-export const GoogleButton = ({ url = google_auth_path }): ReactNode => {
+export const GoogleButton = ({ url = google_auth_path }) => {
     const [ token, setToken ] = useState<string>('should-be-overridden');
 
     useEffect(() => {

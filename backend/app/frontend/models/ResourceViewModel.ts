@@ -12,7 +12,7 @@ export class ResourceViewModel {
         });
     }
 
-    setHasLinkPassword(hasLinkPassword) {
+    setHasLinkPassword(hasLinkPassword: boolean) {
         this.hasLinkPassword = hasLinkPassword
     }
 }

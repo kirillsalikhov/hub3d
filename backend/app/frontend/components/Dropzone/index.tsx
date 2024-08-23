@@ -36,7 +36,7 @@ type DropZoneContent = {
 const DropzoneContent = ({rootProps, inputProps, isDragActive}: DropZoneContent) => (
     <div className="col-span-full">
         <form>
-            <div htmlFor="dropzone-file-upload" { ...rootProps }>
+            <div { ...rootProps }>
                 <input id="dropzone-file-upload" name="dropzone-file-upload" type="file"
                        className="sr-only" { ...inputProps } />
                 <div className={ `${ isDragActive ? 'bg-gradient-to-tr border-none' : '' } group cursor-pointer relative flex rounded-lg h-80 bg-white hover:bg-gradient-to-tr from-blue-500 via-pink-300 via-70% to-purple-600 border-2 border-dashed border-gray-300 hover:border-none` }>

@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { LogoSign } from '../components/LogoSign';
-import { Card } from '../components/Card';
+import { Card } from '@/components/Card';
 import { resourceUrl } from '../util/url';
 import { useNavigate } from '../routes/useNavigate';
 import Client from "../util/Client";

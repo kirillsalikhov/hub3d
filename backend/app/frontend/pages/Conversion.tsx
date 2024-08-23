@@ -7,6 +7,7 @@ import Client from '../util/_Client';
 import { resourceUrl } from '@/util/url';
 import { useNavigate } from '@/routes/useNavigate';
 import {ConversionTask} from "@/util/api-client";
+import {AxiosResponse} from "axios";
 
 const STATUSES = {
     finished: 'finished',
@@ -21,7 +22,7 @@ export default function Conversion() {
     const { conversionTask, resourceName } = useLoaderData() as {conversionTask: ConversionTask, resourceName: string};
     const [ progress, setProgress ] = useState(Math.max(conversionTask.progress, .01));
     const [ status, setStatus ] = useState(conversionTask.status);
-    const [ logs, setLogs ] = useState(null);
+    const [ logs, setLogs ] = useState<JSON | null>(null);
     const { record } = useWebsocket({ channel: 'TaskChannel', task: conversionTask.id });
     const navigate = useNavigate();
 
@@ -37,11 +38,15 @@ export default function Conversion() {
     useEffect(() => {
         if (status === STATUSES.finished) {
             setTimeout(() => {
-                navigate(resourceUrl(conversionTask.space_key, conversionTask.meta.dest_resource_id));
+                // TODO more handle for this case
+                // it could be if Not resource was converted, e.g. texture
+                if (conversionTask.meta?.dest_resource_id) {
+                    navigate(resourceUrl(conversionTask.space_key, conversionTask.meta.dest_resource_id));
+                }
             }, progressTransitionDuration);
         }
         if (status === STATUSES.failed) {
-            Client.getConversionLogs(conversionTask.id)
+            (Client.getConversionLogs(conversionTask.id) as unknown as Promise<AxiosResponse<JSON>>)
                 .then(({ data: logs }) => setLogs(logs))
                 .catch(({ status }) => {
                     if (status === 404) {
@@ -76,7 +81,7 @@ export default function Conversion() {
                 </div>
             </div>
             <div className="mt-12 sm:mt-16">
-                { status === STATUSES.failed && <ConversionLogs logs={ logs } /> }
+                { status === STATUSES.failed && logs && <ConversionLogs logs={ logs } /> }
             </div>
         </div>
     )
