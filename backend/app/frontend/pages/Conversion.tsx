@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { Progress, progressTransitionDuration } from '../components/Progress';
-import { ConversionLogs } from '../components/ConversionLogs';
+import { Progress, progressTransitionDuration } from '@/components/Progress';
+import { ConversionLogs } from '@/components/ConversionLogs';
 import { useWebsocket } from '../util/useWebsocket';
-import Client from '../util/Client';
-import { resourceUrl } from '../util/url';
-import { useNavigate } from '../routes/useNavigate';
+import Client from '../util/_Client';
+import { resourceUrl } from '@/util/url';
+import { useNavigate } from '@/routes/useNavigate';
+import {ConversionTask} from "@/util/api-client";
 
 const STATUSES = {
     finished: 'finished',
@@ -16,7 +17,8 @@ const STATUSES = {
 }
 
 export default function Conversion() {
-    const { conversionTask, resourceName } = useLoaderData();
+    // TODO move loader func here, ger return type from it
+    const { conversionTask, resourceName } = useLoaderData() as {conversionTask: ConversionTask, resourceName: string};
     const [ progress, setProgress ] = useState(Math.max(conversionTask.progress, .01));
     const [ status, setStatus ] = useState(conversionTask.status);
     const [ logs, setLogs ] = useState(null);
