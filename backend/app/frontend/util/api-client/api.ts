@@ -26,6 +26,23 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const ConversionStatus = {
+    Finished: 'finished',
+    InProgress: 'inProgress',
+    Failed: 'failed',
+    Canceled: 'canceled',
+    Canceling: 'canceling'
+} as const;
+
+export type ConversionStatus = typeof ConversionStatus[keyof typeof ConversionStatus];
+
+
+/**
+ * 
+ * @export
  * @interface ConversionTask
  */
 export interface ConversionTask {
@@ -34,13 +51,31 @@ export interface ConversionTask {
      * @type {string}
      * @memberof ConversionTask
      */
-    'status'?: string;
+    'id': string;
     /**
      * 
      * @type {string}
      * @memberof ConversionTask
      */
-    'progress'?: string;
+    'space_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ConversionTask
+     */
+    'space_key': string;
+    /**
+     * 
+     * @type {ConversionStatus}
+     * @memberof ConversionTask
+     */
+    'status': ConversionStatus;
+    /**
+     * 
+     * @type {number}
+     * @memberof ConversionTask
+     */
+    'progress': number;
     /**
      * 
      * @type {string}
@@ -52,25 +87,25 @@ export interface ConversionTask {
      * @type {string}
      * @memberof ConversionTask
      */
-    'end_time'?: string | null;
+    'end_time': string | null;
     /**
      * 
      * @type {string}
      * @memberof ConversionTask
      */
-    'conversion_job_id'?: string | null;
+    'conversion_job_id': string | null;
     /**
      * 
      * @type {string}
      * @memberof ConversionTask
      */
-    'created_at'?: string;
+    'created_at': string;
     /**
      * 
      * @type {string}
      * @memberof ConversionTask
      */
-    'updated_at'?: string;
+    'updated_at': string;
     /**
      * 
      * @type {ConversionTaskMeta}
@@ -78,6 +113,8 @@ export interface ConversionTask {
      */
     'meta'?: ConversionTaskMeta;
 }
+
+
 /**
  * 
  * @export
@@ -121,13 +158,13 @@ export interface ConvertCreateResource200Response {
      * @type {Resource}
      * @memberof ConvertCreateResource200Response
      */
-    'resource'?: Resource;
+    'resource': Resource;
     /**
      * 
      * @type {ConversionTask}
      * @memberof ConvertCreateResource200Response
      */
-    'task'?: ConversionTask;
+    'task': ConversionTask;
 }
 /**
  * 
@@ -140,13 +177,13 @@ export interface ConvertUpdateResource200Response {
      * @type {Version}
      * @memberof ConvertUpdateResource200Response
      */
-    'version'?: Version;
+    'version': Version;
     /**
      * 
      * @type {ConversionTask}
      * @memberof ConvertUpdateResource200Response
      */
-    'task'?: ConversionTask;
+    'task': ConversionTask;
 }
 /**
  * 
@@ -305,7 +342,7 @@ export interface Version {
      * @type {string}
      * @memberof Version
      */
-    'id'?: string;
+    'id': string;
     /**
      * 
      * @type {string}

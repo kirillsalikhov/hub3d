@@ -20,45 +20,45 @@ paths:
           content:
             application/json:
               example:
-              - id: 6d8b33ae-5bd7-4c94-8443-681dfc7f13c7
-                space_id: ce151184-7f74-403b-ac43-e2bd112d4ef5
-                space_key: 6bloh9ds
+              - id: 07a1c488-b472-40fb-ae88-f152564cebd0
+                space_id: 70424cf6-e42e-46bd-87c6-a2073f201b21
+                space_key: JvL2tC11
+                progress: 0.0
                 status: inProgress
-                progress: '0.0'
-                start_time: 2024-08-18 16:20:24 UTC
+                start_time: 2024-08-23 11:06:55 UTC
                 end_time: 
-                conversion_job_id: 596642e6-56fb-404d-9cc7-9b7dca3fb0b3
-                created_at: 2024-08-18 16:20:24 UTC
-                updated_at: 2024-08-18 16:20:24 UTC
+                conversion_job_id: e06d3f48-1f43-4edc-80bd-489daa09d1ed
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
                 meta:
-                  dest_resource_id: 2d4511f6-55c2-47f1-8813-97f2d6534200
-                  dest_version_id: '038e0b6c-01c4-4dd2-9803-b1ba44dc879f'
-              - id: 0f01530e-f0d2-46fe-8e10-e903b2e0ce45
-                space_id: ce151184-7f74-403b-ac43-e2bd112d4ef5
-                space_key: 6bloh9ds
+                  dest_resource_id: aea42ef6-1361-4f80-b16e-62cd226fc9b1
+                  dest_version_id: 7037129e-78df-4e40-9f38-19ed85d503c5
+              - id: 8e9d899a-12d2-4866-adf5-02461f1b747a
+                space_id: 70424cf6-e42e-46bd-87c6-a2073f201b21
+                space_key: JvL2tC11
+                progress: 0.0
                 status: inProgress
-                progress: '0.0'
-                start_time: 2024-08-18 16:20:24 UTC
+                start_time: 2024-08-23 11:06:55 UTC
                 end_time: 
-                conversion_job_id: ab05cc52-ee68-4ac0-98a2-965f4bb92e97
-                created_at: 2024-08-18 16:20:24 UTC
-                updated_at: 2024-08-18 16:20:24 UTC
+                conversion_job_id: 2484fda3-191a-400a-b12f-8e1a9c3e5457
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
                 meta:
-                  dest_resource_id: 2e4d57e2-939b-436f-894e-e3a05719b58d
-                  dest_version_id: 2143100f-cc8b-4a0f-8bc5-5f38ef2f899f
-              - id: 125ebca4-d542-4a8b-bd77-9e62bbac266f
-                space_id: ce151184-7f74-403b-ac43-e2bd112d4ef5
-                space_key: 6bloh9ds
+                  dest_resource_id: 84ca5cea-60fc-4406-b016-da75ad5933e7
+                  dest_version_id: e18559c3-2cf8-4313-a25c-721094add2bd
+              - id: 1f19cc5f-7847-41f9-bd7d-ba3a44f5725f
+                space_id: 70424cf6-e42e-46bd-87c6-a2073f201b21
+                space_key: JvL2tC11
+                progress: 0.0
                 status: inProgress
-                progress: '0.0'
-                start_time: 2024-08-18 16:20:24 UTC
+                start_time: 2024-08-23 11:06:55 UTC
                 end_time: 
-                conversion_job_id: e71220eb-95ad-472e-a540-bb86bb236d51
-                created_at: 2024-08-18 16:20:24 UTC
-                updated_at: 2024-08-18 16:20:24 UTC
+                conversion_job_id: 530c2186-b3f7-4bdd-8802-27ad21f7a32a
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
                 meta:
-                  dest_resource_id: 9f172ba9-89da-42e8-af70-b0c18244eb79
-                  dest_version_id: b2d124d0-c339-477c-9d6b-5dd41f9a696e
+                  dest_resource_id: 85c8b60a-e5f1-43ba-823b-eed92ec921db
+                  dest_version_id: 00a62919-5da0-44d1-ba29-0128bdbdc245
               schema:
                 type: array
                 items:
@@ -85,19 +85,19 @@ paths:
           content:
             application/json:
               example:
-                id: 5fc06751-7e2e-4d90-bf46-c35444a159d1
-                space_id: 674a35ce-57ac-495c-9f58-43094ffdcdb6
-                space_key: Bn2FrLBA
+                id: 46bd60f0-ac20-44ae-96c9-32b437a1f8f6
+                space_id: 97c720d1-3c9e-4917-b16f-db64ed9f7e56
+                space_key: fNn8tcPv
+                progress: 0.0
                 status: inProgress
-                progress: '0.0'
-                start_time: 2024-08-18 16:20:24 UTC
+                start_time: 2024-08-23 11:06:55 UTC
                 end_time: 
-                conversion_job_id: 810dac1f-be9b-4acb-b267-1cc48750365d
-                created_at: 2024-08-18 16:20:24 UTC
-                updated_at: 2024-08-18 16:20:24 UTC
+                conversion_job_id: 2eaf1866-9258-454a-84bc-4b635051664a
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
                 meta:
-                  dest_resource_id: 3f389c8f-cf3c-44f9-9b7f-804010a22ddd
-                  dest_version_id: 3a9422d7-b422-4245-84ca-438f486c0d72
+                  dest_resource_id: b037542d-4ee6-4d1c-9b85-7224a1d0d4ed
+                  dest_version_id: 4ee40614-fb0a-437b-b148-c8050852521f
               schema:
                 "$ref": "#/components/schemas/conversion_task"
   "/api/v1/conversions/{id}/logs":
@@ -131,19 +131,19 @@ paths:
           content:
             application/json:
               example:
-                id: d7cb9e5f-892a-4083-9574-a7a064a2a282
-                space_id: af15d28c-59ec-48a3-96ba-518ea8ac38a5
-                space_key: yRjrxLzu
+                id: 4554513a-5f20-40b7-97db-5275f3001c14
+                space_id: 178c1f9b-e189-4cea-8b66-9dde26175ab9
+                space_key: XwuLMLWI
+                progress: 0.0
                 status: inProgress
-                progress: '0.0'
-                start_time: 2024-08-18 16:20:25 UTC
+                start_time: 2024-08-23 11:06:55 UTC
                 end_time: 
-                conversion_job_id: a154c021-456c-44e5-873c-3e39f839fdd6
-                created_at: 2024-08-18 16:20:25 UTC
-                updated_at: 2024-08-18 16:20:25 UTC
+                conversion_job_id: 53be3161-dbe6-4ee1-8080-ae87caf1e6af
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
                 meta:
-                  dest_resource_id: 906e821f-581d-4a99-89d1-ac2e8e14ec8e
-                  dest_version_id: fda3df82-51d2-4cde-be03-ca2bdc5c0920
+                  dest_resource_id: 19655ec4-6d2a-4233-8e34-a73b1e934f27
+                  dest_version_id: 36ca9024-42bc-4bec-bc21-b4e05b5d7608
               schema:
                 "$ref": "#/components/schemas/conversion_task"
       requestBody:
@@ -170,10 +170,10 @@ paths:
             application/json:
               example:
                 user:
-                  id: b8f01c08-ed47-41ee-bfa4-0f2a35c9fd58
+                  id: 1b5ef6a9-3906-415d-a6b3-5da35f4ac4c6
                   email: valid@email.com
-                  created_at: '2024-08-18T16:20:25.253Z'
-                  updated_at: '2024-08-18T16:20:25.253Z'
+                  created_at: '2024-08-23T11:06:55.609Z'
+                  updated_at: '2024-08-23T11:06:55.609Z'
                   guest: false
                   uid: 
                   provider: 
@@ -224,27 +224,27 @@ paths:
           content:
             application/json:
               example:
-              - id: cd8cae3a-c99c-44f6-99e8-e97246a37005
-                space_id: dcdf3951-578e-4134-949b-2043f5729f1f
-                space_key: 9nD8UaBp
-                name: unde.ifc
+              - id: b08588be-7013-4bcf-bcd3-8f0e66050e7d
+                space_id: 6cec00e4-d2bc-4d0a-a9ad-1752ad9d9fea
+                space_key: hxCHIp3N
+                name: alias.ifc
                 current_id: 
-                created_at: 2024-08-18 16:20:25 UTC
-                updated_at: 2024-08-18 16:20:25 UTC
-              - id: c27549f9-4c99-450b-a761-c41041112668
-                space_id: dcdf3951-578e-4134-949b-2043f5729f1f
-                space_key: 9nD8UaBp
-                name: aut.ifc
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
+              - id: 3cf73512-3162-43dc-ba84-6a499cc3f49a
+                space_id: 6cec00e4-d2bc-4d0a-a9ad-1752ad9d9fea
+                space_key: hxCHIp3N
+                name: ullam.ifc
                 current_id: 
-                created_at: 2024-08-18 16:20:25 UTC
-                updated_at: 2024-08-18 16:20:25 UTC
-              - id: e549ea71-d44b-400d-8f2e-3fe6d6d50f9c
-                space_id: dcdf3951-578e-4134-949b-2043f5729f1f
-                space_key: 9nD8UaBp
-                name: ut.ifc
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
+              - id: fb8a41c2-5113-4f60-a211-815ab7b8db21
+                space_id: 6cec00e4-d2bc-4d0a-a9ad-1752ad9d9fea
+                space_key: hxCHIp3N
+                name: non.ifc
                 current_id: 
-                created_at: 2024-08-18 16:20:25 UTC
-                updated_at: 2024-08-18 16:20:25 UTC
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
               schema:
                 type: array
                 items:
@@ -270,20 +270,20 @@ paths:
           content:
             application/json:
               example:
-                id: cb64520a-add6-4b20-8a52-88f830b5070f
-                space_id: c417fd8c-6528-4626-a094-153251b9fa23
-                space_key: HBdKZlxm
-                name: vero.ifc
+                id: af45c361-19a3-40e9-a28d-83632a1fdb71
+                space_id: 55d34c8f-5960-4ea2-befa-51a85b18d5ce
+                space_key: l3mkeAwz
+                name: molestiae.ifc
                 current_id: 
-                created_at: 2024-08-18 16:20:25 UTC
-                updated_at: 2024-08-18 16:20:25 UTC
+                created_at: 2024-08-23 11:06:55 UTC
+                updated_at: 2024-08-23 11:06:55 UTC
                 permissions:
                   manage: true
                   share: true
                 share_options:
                   link_access: none
-                  space_id: c417fd8c-6528-4626-a094-153251b9fa23
-                  space_key: HBdKZlxm
+                  space_id: 55d34c8f-5960-4ea2-befa-51a85b18d5ce
+                  space_key: l3mkeAwz
                   has_link_password: false
     delete:
       summary: delete resource
@@ -310,27 +310,27 @@ paths:
             application/json:
               example:
                 resource:
-                  id: 6bb705d1-14ac-4d49-80e7-fae16157b757
-                  space_id: bad94adc-6765-4472-ba7b-10db36f505e2
-                  space_key: 8MZC1eAD
+                  id: 7d6a4be5-d156-451c-970a-7a4e6d9c1418
+                  space_id: c829f162-a933-4413-aa54-08b9d31c80b9
+                  space_key: rO0rUeaw
                   name: small-model.stp
-                  current_id: 24271b78-a292-4908-b086-bbd8857d118c
-                  created_at: '2024-08-18T16:20:25.626Z'
-                  updated_at: '2024-08-18T16:20:25.642Z'
+                  current_id: 01fc8391-f01a-4844-b066-d4521e8b5fba
+                  created_at: '2024-08-23T11:06:55.877Z'
+                  updated_at: '2024-08-23T11:06:55.890Z'
                 task:
-                  id: 017735f6-5869-4bbd-8e0a-210b558bfdec
-                  space_id: bad94adc-6765-4472-ba7b-10db36f505e2
-                  space_key: 8MZC1eAD
+                  id: 795ea9f1-4137-44cc-875e-830d52aff09d
+                  space_id: c829f162-a933-4413-aa54-08b9d31c80b9
+                  space_key: rO0rUeaw
+                  progress: 0.0
                   status: inProgress
-                  progress: '0.0'
-                  start_time: '2024-08-18T16:20:25.616Z'
+                  start_time: '2024-08-23T11:06:55.868Z'
                   end_time: 
-                  conversion_job_id: cca26c48-b8ba-43a6-ae5f-7f1074985ba5
-                  created_at: '2024-08-18T16:20:25.618Z'
-                  updated_at: '2024-08-18T16:20:25.644Z'
+                  conversion_job_id: fd7f6b65-a246-4650-bec6-6feaa3ecf121
+                  created_at: '2024-08-23T11:06:55.870Z'
+                  updated_at: '2024-08-23T11:06:55.892Z'
                   meta:
-                    dest_resource_id: 6bb705d1-14ac-4d49-80e7-fae16157b757
-                    dest_version_id: 24271b78-a292-4908-b086-bbd8857d118c
+                    dest_resource_id: 7d6a4be5-d156-451c-970a-7a4e6d9c1418
+                    dest_version_id: 01fc8391-f01a-4844-b066-d4521e8b5fba
               schema:
                 type: object
                 properties:
@@ -338,6 +338,9 @@ paths:
                     "$ref": "#/components/schemas/resource"
                   task:
                     "$ref": "#/components/schemas/conversion_task"
+                required:
+                - resource
+                - task
       requestBody:
         content:
           application/json:
@@ -375,28 +378,28 @@ paths:
             application/json:
               example:
                 version:
-                  id: f21f93f9-f1bc-4b96-9746-5ab275a4ae1f
-                  space_id: fa3fda28-116b-4db3-a020-5544b611ac19
-                  space_key: CM09aFBN
-                  resource_id: 52181c85-085f-487b-b729-1e9636c29066
+                  id: 6516d598-5c7a-482e-b288-e0b15c13c270
+                  space_id: 7074d3c5-f9ef-400b-a64e-f5620c9b31bc
+                  space_key: mpLGKiq5
+                  resource_id: ec496d78-14ce-4b6d-b364-e22c1626d1e2
                   status: pending
                   is_version: true
-                  created_at: '2024-08-18T16:20:25.774Z'
-                  updated_at: '2024-08-18T16:20:25.774Z'
+                  created_at: '2024-08-23T11:06:55.997Z'
+                  updated_at: '2024-08-23T11:06:55.997Z'
                 task:
-                  id: 232aea3e-44cc-41c8-9b1d-39fe8c782c8a
-                  space_id: fa3fda28-116b-4db3-a020-5544b611ac19
-                  space_key: CM09aFBN
+                  id: e0e30366-0935-482b-a8ae-e96551d33d2d
+                  space_id: 7074d3c5-f9ef-400b-a64e-f5620c9b31bc
+                  space_key: mpLGKiq5
+                  progress: 0.0
                   status: inProgress
-                  progress: '0.0'
-                  start_time: '2024-08-18T16:20:25.763Z'
+                  start_time: '2024-08-23T11:06:55.989Z'
                   end_time: 
-                  conversion_job_id: b8289ef6-4c50-4da6-b444-87b6aab9446a
-                  created_at: '2024-08-18T16:20:25.766Z'
-                  updated_at: '2024-08-18T16:20:25.788Z'
+                  conversion_job_id: 163dac59-bdab-4f48-8cb2-5e2c9527fca4
+                  created_at: '2024-08-23T11:06:55.991Z'
+                  updated_at: '2024-08-23T11:06:56.006Z'
                   meta:
-                    dest_resource_id: 52181c85-085f-487b-b729-1e9636c29066
-                    dest_version_id: f21f93f9-f1bc-4b96-9746-5ab275a4ae1f
+                    dest_resource_id: ec496d78-14ce-4b6d-b364-e22c1626d1e2
+                    dest_version_id: 6516d598-5c7a-482e-b288-e0b15c13c270
               schema:
                 type: object
                 properties:
@@ -404,6 +407,9 @@ paths:
                     "$ref": "#/components/schemas/version"
                   task:
                     "$ref": "#/components/schemas/conversion_task"
+                required:
+                - version
+                - task
       requestBody:
         content:
           application/json:
@@ -439,20 +445,20 @@ paths:
           content:
             application/json:
               example:
-                id: 05c56ac6-4afc-4df5-81c7-bcdaeb4c0851
-                space_id: 352d33c0-24ef-4a14-9fe6-8e414fb88151
-                space_key: TZFSoNmf
-                name: mollitia.ifc
-                current_id: db098075-2e88-4cc8-8499-07823bbde764
-                created_at: 2024-08-18 16:20:25 UTC
-                updated_at: 2024-08-18 16:20:25 UTC
+                id: f3a7171a-4854-447b-aff3-c9f6d940af6c
+                space_id: f4040095-e42c-4325-bc62-dee13149d859
+                space_key: DecwVm8W
+                name: praesentium.ifc
+                current_id: bbd0e864-60e3-4b10-b1c3-e1ea66cfa197
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
                 permissions:
                   manage: true
                   share: true
                 share_options:
                   link_access: none
-                  space_id: 352d33c0-24ef-4a14-9fe6-8e414fb88151
-                  space_key: TZFSoNmf
+                  space_id: f4040095-e42c-4325-bc62-dee13149d859
+                  space_key: DecwVm8W
                   has_link_password: false
               schema:
                 "$ref": "#/components/schemas/resource"
@@ -481,10 +487,10 @@ paths:
             application/json:
               example:
                 user:
-                  id: e5c52123-2fad-473c-a24f-7142bfe717b1
-                  email: jacqulyn.mante@hegmann.test
-                  created_at: '2024-08-18T16:20:25.945Z'
-                  updated_at: '2024-08-18T16:20:25.945Z'
+                  id: 4e841684-db3d-41f8-935b-86fac5034b10
+                  email: melany_hickle@cremin-nicolas.test
+                  created_at: '2024-08-23T11:06:56.100Z'
+                  updated_at: '2024-08-23T11:06:56.100Z'
                   guest: false
                   uid: 
                   provider: 
@@ -532,8 +538,8 @@ paths:
             application/json:
               example:
                 link_access: none
-                space_id: 991d93e5-ae2f-493e-801e-05c365d7015e
-                space_key: zL85GC6u
+                space_id: d323f02f-46b1-423b-84a4-2f934a6dae0c
+                space_key: zDzKaWVE
                 has_link_password: false
     patch:
       summary: update resource's share_options
@@ -619,14 +625,14 @@ paths:
           content:
             application/json:
               example:
-                id: eecc07ff-d6b1-4a10-9081-a16dea839101
-                space_id: b02ae031-350a-47b9-b511-05c0959bc14f
-                space_key: l41QJguz
-                resource_id: 428872d1-ff75-4b47-a2e0-bf50a31983f2
+                id: 59b8ca01-f277-46da-8342-d0082d3bca4b
+                space_id: e9d352a7-f15d-46a7-b11f-90f111a2a589
+                space_key: CQZK0tnf
+                resource_id: 898cf80f-c7b1-4631-bf16-d361502a5f7e
                 status: ready
                 is_version: true
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
               schema:
                 "$ref": "#/components/schemas/version"
   "/api/v1/versions/{id}/files":
@@ -673,30 +679,30 @@ paths:
           content:
             application/json:
               example:
-              - id: 3e1dc00b-d7ad-4f40-96ae-6f7fbec35e86
-                space_id: 514411fe-1fe9-4bd3-b8c4-4c874ea72dad
-                space_key: 0alOS5HA
-                resource_id: 46761089-951d-45b7-985e-2db32d8d293e
+              - id: 1fc8db21-7510-47cf-bad8-a224d359bdbf
+                space_id: 96ebf1b0-1aae-4b51-870c-0c4d140cc25b
+                space_key: PZ6uayPb
+                resource_id: e38ca515-59ce-4eed-9302-9d6bb0796a37
                 status: ready
                 is_version: true
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
-              - id: 7a276824-1259-4e80-a3d3-000928059483
-                space_id: 514411fe-1fe9-4bd3-b8c4-4c874ea72dad
-                space_key: 0alOS5HA
-                resource_id: 46761089-951d-45b7-985e-2db32d8d293e
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
+              - id: 0db3da86-e8f2-479d-9d0d-1eb29eb1820a
+                space_id: 96ebf1b0-1aae-4b51-870c-0c4d140cc25b
+                space_key: PZ6uayPb
+                resource_id: e38ca515-59ce-4eed-9302-9d6bb0796a37
                 status: ready
                 is_version: true
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
-              - id: e6c83796-0ef8-4bf8-9f9d-707052c31cf9
-                space_id: 514411fe-1fe9-4bd3-b8c4-4c874ea72dad
-                space_key: 0alOS5HA
-                resource_id: 46761089-951d-45b7-985e-2db32d8d293e
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
+              - id: c9f606d8-e153-47c2-abe7-b64c90e88a89
+                space_id: 96ebf1b0-1aae-4b51-870c-0c4d140cc25b
+                space_key: PZ6uayPb
+                resource_id: e38ca515-59ce-4eed-9302-9d6bb0796a37
                 status: ready
                 is_version: true
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
               schema:
                 type: array
                 items:
@@ -723,54 +729,54 @@ paths:
           content:
             application/json:
               example:
-              - id: 59bc1967-7656-49ab-b946-3e7746ef2122
-                space_id: 6316211e-e62b-45a2-91d1-533eefbf78b6
-                space_key: Eywy8MnX
-                resource_id: 389deef3-828a-44e1-83eb-0aa90f33f5be
+              - id: 62628399-867b-429d-9d85-7c5287638eef
+                space_id: 69a58b23-47d5-4431-ac1d-3b3036181862
+                space_key: dMqHiWgN
+                resource_id: c36d44e7-a4c0-425f-a994-24230c058a84
                 status: ready
                 is_version: false
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
-              - id: ad937d50-12f6-45c4-863b-8d04b3d9958f
-                space_id: 6316211e-e62b-45a2-91d1-533eefbf78b6
-                space_key: Eywy8MnX
-                resource_id: 389deef3-828a-44e1-83eb-0aa90f33f5be
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
+              - id: a2557abf-b073-46d6-8bcf-730b2cefbb7f
+                space_id: 69a58b23-47d5-4431-ac1d-3b3036181862
+                space_key: dMqHiWgN
+                resource_id: c36d44e7-a4c0-425f-a994-24230c058a84
                 status: ready
                 is_version: true
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
-              - id: 7f9c379a-3a6c-402a-bd52-573351848c6a
-                space_id: 6316211e-e62b-45a2-91d1-533eefbf78b6
-                space_key: Eywy8MnX
-                resource_id: 389deef3-828a-44e1-83eb-0aa90f33f5be
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
+              - id: cd182d71-0e51-4897-9863-a916be03cc7d
+                space_id: 69a58b23-47d5-4431-ac1d-3b3036181862
+                space_key: dMqHiWgN
+                resource_id: c36d44e7-a4c0-425f-a994-24230c058a84
                 status: ready
                 is_version: false
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
-              - id: 54b5e6d5-8e79-4a74-a84b-116f2367902d
-                space_id: 6316211e-e62b-45a2-91d1-533eefbf78b6
-                space_key: Eywy8MnX
-                resource_id: 389deef3-828a-44e1-83eb-0aa90f33f5be
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
+              - id: eecc302e-37fa-4246-b553-a35a66aefd21
+                space_id: 69a58b23-47d5-4431-ac1d-3b3036181862
+                space_key: dMqHiWgN
+                resource_id: c36d44e7-a4c0-425f-a994-24230c058a84
                 status: ready
                 is_version: true
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
-              - id: 378ddc9b-7d15-48ae-92b3-2715d788a188
-                space_id: 6316211e-e62b-45a2-91d1-533eefbf78b6
-                space_key: Eywy8MnX
-                resource_id: 389deef3-828a-44e1-83eb-0aa90f33f5be
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
+              - id: 9c9aa2e1-0149-4ae2-b67f-3064386e6b31
+                space_id: 69a58b23-47d5-4431-ac1d-3b3036181862
+                space_key: dMqHiWgN
+                resource_id: c36d44e7-a4c0-425f-a994-24230c058a84
                 status: ready
                 is_version: false
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
-              - id: 585e7300-96f4-4f72-87f8-2acd7a1fca97
-                space_id: 6316211e-e62b-45a2-91d1-533eefbf78b6
-                space_key: Eywy8MnX
-                resource_id: 389deef3-828a-44e1-83eb-0aa90f33f5be
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
+              - id: 513db386-3a14-47cc-bb48-8d25ac947d15
+                space_id: 69a58b23-47d5-4431-ac1d-3b3036181862
+                space_key: dMqHiWgN
+                resource_id: c36d44e7-a4c0-425f-a994-24230c058a84
                 status: ready
                 is_version: true
-                created_at: 2024-08-18 16:20:26 UTC
-                updated_at: 2024-08-18 16:20:26 UTC
+                created_at: 2024-08-23 11:06:56 UTC
+                updated_at: 2024-08-23 11:06:56 UTC
               schema:
                 type: array
                 items:
@@ -785,6 +791,7 @@ components:
           format: uuid
         space_id:
           type: string
+          format: uuid
         space_key:
           type: string
         name:
@@ -814,6 +821,7 @@ components:
           format: uuid
         space_id:
           type: string
+          format: uuid
         space_key:
           type: string
         status:
@@ -830,6 +838,7 @@ components:
           type: string
           format: date_time
       required:
+      - id
       - space_id
       - space_key
       - status
@@ -845,14 +854,31 @@ components:
       - ready
       - failed
       - canceled
+    conversion_status:
+      type: string
+      enum:
+      - finished
+      - inProgress
+      - failed
+      - canceled
+      - canceling
     conversion_task:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+        space_id:
+          type: string
+          format: uuid
+        space_key:
+          type: string
         status:
-          type: string
-          example: finished
+          "$ref": "#/components/schemas/conversion_status"
         progress:
-          type: string
+          type: number
+          minimum: 0
+          maximum: 1
         start_time:
           type: string
           format: date_time
@@ -879,6 +905,16 @@ components:
             dest_version_id:
               type: string
               nullable: true
+      required:
+      - id
+      - space_id
+      - space_key
+      - status
+      - progress
+      - conversion_job_id
+      - end_time
+      - created_at
+      - updated_at
 servers:
 - url: http://{defaultHost}
   variables:

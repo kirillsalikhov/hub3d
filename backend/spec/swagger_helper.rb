@@ -29,7 +29,7 @@ RSpec.configure do |config|
             type: "object",
             properties: {
               id: {type: :string, format: :uuid},
-              space_id: {type: :string},
+              space_id: {type: :string, format: :uuid},
               space_key: {type: :string},
               name: {type: :string},
               current_id: {type: :string, format: "uuid", nullable: true},
@@ -43,7 +43,7 @@ RSpec.configure do |config|
             type: "object",
             properties: {
               id: {type: :string, format: :uuid},
-              space_id: {type: "string"},
+              space_id: {type: "string", format: :uuid},
               space_key: {type: "string"},
               status: {"$ref" => "#/components/schemas/version_status"},
               resource_id: {type: "string", format: "uuid"},
@@ -51,7 +51,7 @@ RSpec.configure do |config|
               created_at: {type: :string, format: :date_time},
               updated_at: {type: :string, format: :date_time}
             },
-            required: [:space_id, :space_key, :status, :resource_id, :is_version, :created_at, :updated_at]
+            required: [:id, :space_id, :space_key, :status, :resource_id, :is_version, :created_at, :updated_at]
           },
 
           version_status: {
@@ -59,14 +59,19 @@ RSpec.configure do |config|
             enum: %w[pending in_progress ready failed canceled]
           },
 
+          conversion_status: {
+            type: :string,
+            enum: %w[finished inProgress failed canceled canceling]
+          },
+
           conversion_task: {
             type: "object",
             properties: {
-              # TODO add enum
-              status: {type: :string, example: "finished"},
-              # TODO when serializer is ready make number
-              # progress: {type: :number, minimum: 0, maximum: 1},
-              progress: {type: :string},
+              id: {type: :string, format: :uuid},
+              space_id: {type: "string", format: :uuid},
+              space_key: {type: "string"},
+              status: {"$ref" => "#/components/schemas/conversion_status"},
+              progress: {type: :number, minimum: 0, maximum: 1},
               start_time: {type: :string, format: :date_time, nullable: true},
               end_time: {type: :string, format: :date_time, nullable: true},
               conversion_job_id: {type: :string, nullable: true},
@@ -79,7 +84,8 @@ RSpec.configure do |config|
                   dest_version_id: {type: :string, nullable: true}
                 }
               }
-            }
+            },
+            required: [:id, :space_id, :space_key, :status, :progress, :conversion_job_id, :end_time, :created_at, :updated_at]
           }
         }
       },
