@@ -1,11 +1,12 @@
-import { useCallback, useState } from 'react';
-import { Form, Formik } from 'formik';
+import { useCallback } from 'react';
+import {Form, Formik, FormikHelpers} from 'formik';
 import * as Yup from 'yup';
-import Client from '../util/Client';
-import { GoogleButton } from '../components/GoogleButton';
-import { TextField } from '../forms/TextField';
+import Client from '../util/_Client.ts';
+import { GoogleButton } from '@/components/GoogleButton';
+import { TextField } from '@/forms/TextField';
+import {SignUpRequest} from "@/util/api-client";
 
-const signUp = async (data) => {
+const signUp = async (data: SignUpRequest) => {
     try {
         await Client.signUp(data);
         return {};
@@ -15,12 +16,6 @@ const signUp = async (data) => {
     }
 }
 
-const initialValues = {
-    email: '',
-    password: '',
-    password_confirmation: ''
-}
-
 const validationSchema = Yup.object().shape({
     email: Yup.string().email().required(),
     password: Yup.string().required()
@@ -28,7 +23,7 @@ const validationSchema = Yup.object().shape({
         .max(128, 'Password length must be of maximum 128 characters'),
     password_confirmation: Yup.string()
         .when('password', {
-            is: val => val && val.length > 0,
+            is: (val: string) => val && val.length > 0,
             then: fieldSchema => fieldSchema
                 .oneOf([ Yup.ref('password') ], 'Passwords do not match')
         })
@@ -36,7 +31,15 @@ const validationSchema = Yup.object().shape({
 });
 
 export const SignUp = () => {
-    const handleSubmit = useCallback(async (values, bag) => {
+    const initialValues = {
+        email: '',
+        password: '',
+        password_confirmation: ''
+    }
+
+    type FormValues = typeof initialValues;
+
+    const handleSubmit = useCallback(async (values: FormValues, bag: FormikHelpers<FormValues>) => {
         const response = await signUp(values);
         if (response['errors']) {
             bag.setErrors({response: response['errors']});

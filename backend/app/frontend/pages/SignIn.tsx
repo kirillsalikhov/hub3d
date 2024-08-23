@@ -1,14 +1,16 @@
-import { useCallback, useState } from 'react';
-import { Form, Formik } from 'formik';
-import Client from '../util/Client';
-import { GoogleButton } from '../components/GoogleButton';
-import { TextField } from '../forms/TextField';
+import { useCallback } from 'react';
+import {Form, Formik, FormikHelpers} from 'formik';
+import Client from '../util/_Client';
+import { GoogleButton } from '@/components/GoogleButton';
+import { TextField } from '@/forms/TextField';
+import {SignInRequest} from "@/util/api-client";
 
-const login = async (data) => {
+const login = async (data: SignInRequest) => {
     try {
         await Client.signIn(data);
         return {};
     } catch (e) {
+        // TODO Maybe catch in callback ?
         const { response } = e;
         if (response.data && response.status === 401) {
             // TODO Marina, returns is {errors: "not authenticated"}
@@ -19,13 +21,14 @@ const login = async (data) => {
     }
 }
 
-const initialValues = {
-    email: '',
-    password: ''
-}
-
 export const SignIn = () => {
-    const handleSubmit = useCallback(async (values, bag) => {
+    const initialValues = {
+        email: '',
+        password: ''
+    }
+    type FormValues = typeof initialValues;
+
+    const handleSubmit = useCallback(async (values: FormValues, bag: FormikHelpers<FormValues>) => {
         const response = await login(values);
         if (response['errors']) {
             bag.setErrors({response: response['errors']});

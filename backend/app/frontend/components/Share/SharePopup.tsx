@@ -3,7 +3,7 @@ import Client from '../../util/_Client.ts';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { Switch } from '@headlessui/react';
 import { LinkSection } from './LinkSection';
-import {ErrorMessage, Field, Form, Formik, FormikHelpers} from 'formik';
+import {ErrorMessage, Form, Formik, FormikHelpers} from 'formik';
 import * as Yup from 'yup';
 import { TextField } from '@/forms/TextField';
 

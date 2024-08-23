@@ -1,14 +1,14 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useParams } from 'react-router-dom';
-import { LogoSign } from '../components/LogoSign';
+import { LogoSign } from '@/components/LogoSign';
 import { Card } from '@/components/Card';
 import { resourceUrl } from '../util/url';
 import { useNavigate } from '../routes/useNavigate';
-import Client from "../util/Client";
-import { ErrorMessage, Form, Formik } from 'formik';
-import { TextField } from '../forms/TextField';
+import Client from "../util/_Client";
+import {ErrorMessage, Form, Formik, FormikErrors, FormikHelpers} from 'formik';
+import { TextField } from '@/forms/TextField';
 
-const authPassword = async (resourceId, password) => {
+const authPassword = async (resourceId: string, password: string) => {
     try {
         // no data if match
         await Client.resourceAuthPassword(resourceId, { link_password: password });
@@ -27,11 +27,15 @@ const initialValues = {
 }
 
 export default function ResourcePassword() {
-    const { spaceKey, resourceId } = useParams();
+    const { spaceKey, resourceId } = useParams() as {spaceKey: string, resourceId: string};
     const navigate = useNavigate();
 
-    const handleSubmit = useCallback(async (values, bag) => {
-        const password = values['link_password'];
+    type PasswordFormValues = {
+        link_password: string
+    }
+
+    const handleSubmit = useCallback(async (values:PasswordFormValues, bag: FormikHelpers<PasswordFormValues>) => {
+        const password = values.link_password;
         const response = await authPassword(resourceId, password);
         if (response['errors']) {
             bag.setErrors(response['errors']);
@@ -40,11 +44,11 @@ export default function ResourcePassword() {
         }
     }, [ spaceKey, resourceId ]);
 
-    const validate = useCallback((values) => {
-        const errors = {};
-        const password = values['link_password'];
+    const validate = useCallback((values: PasswordFormValues) => {
+        const errors: FormikErrors<PasswordFormValues> = {};
+        const password = values.link_password;
         if (password.length <= 0) {
-            errors['link_password'] = '';
+            errors.link_password = '';
         }
         return errors;
     }, []);
