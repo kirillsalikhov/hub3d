@@ -4,12 +4,13 @@ import {getResourcesQueryOpts} from "@/pages/_dummy_comps/queries.ts";
 
 export const getConversionPageData = async (conversionId: string) => {
     try {
-        const conversionResponse = await Client.getConversion(conversionId);
-        const resourceId = conversionResponse.data.meta.dest_resource_id;
+        const {data: conversionTask} = await Client.getConversion(conversionId);
+        // TODO could be not set, e.g. texture
+        const resourceId = conversionTask.meta!.dest_resource_id!;
         const resourceResponse = await Client.getResource(resourceId);
         return {
             resourceName: resourceResponse.data.name,
-            conversionTask: conversionResponse.data
+            conversionTask
         }
     } catch (err) {
         handleLoaderError(err);
@@ -18,17 +19,20 @@ export const getConversionPageData = async (conversionId: string) => {
 
 export const getResourcePageData = async (resourceId: string) => {
     try {
-        const resourceResponse = await Client.getResource(resourceId);
-        const versionId = resourceResponse.data.current_id;
-        const [versionResponse, filesResponse] =
+        const {data: resource } = await Client.getResource(resourceId);
+        // TODO there might be no currentId
+        // check ??? current_id
+        const versionId = resource.current_id!;
+        const [{data: version}, {data: files} ] =
             await Promise.all([
-                Client.getVersion(versionId),
-                Client.getVersionFiles(versionId)
+                Client.getVersion(versionId!),
+                Client.getVersionFiles(versionId!)
             ]);
+
         return {
-            resource: resourceResponse.data,
-            version: versionResponse.data,
-            files: filesResponse.data
+            resource,
+            version,
+            files
         }
     } catch (err) {
         handleLoaderError(err);

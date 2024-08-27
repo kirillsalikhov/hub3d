@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { Share } from '../components/Share';
+import { Share } from '@/components/Share';
 import { useModel } from '../models/ModelProvider';
 import { isBrowser } from '../util/isBrowser';
+import {AssetFile, ResourceExtended} from "@/util/api-client";
 
-export const Resource = () => {
-    const { resource, files } = useLoaderData();
+export const ResourcePage = () => {
+    const { resource, files } = useLoaderData() as {resource: ResourceExtended, files: AssetFile[]};
     const { resourceViewModel } = useModel();
     const [ isImported, setIsImported ] = useState(false);
 
@@ -18,7 +19,11 @@ export const Resource = () => {
 
     const viewerRef = useRef(null);
 
-    const versionContents = {};
+    // TODO probably move to dataLoader
+    type VersionContents = {
+        [key: string]: {path: string}
+    }
+    const versionContents: VersionContents = {};
     for (const file of files) {
         versionContents[file.originFilePath] = { path: file.signedUrl }
     }
@@ -31,6 +36,7 @@ export const Resource = () => {
 
     useEffect(() => {
         if (isImported && resource.id) {
+            // TODO at least add types from iv, at most add iv app from types
             window.viewer.load({
                 resource,
                 versionContents,
@@ -41,11 +47,10 @@ export const Resource = () => {
     }, [resource.id, isImported]);
 
     useEffect(() => {
-        if (resource['share_options']) {
-            resourceViewModel.setHasLinkPassword(resource['share_options']?.['has_link_password']);
+        if (resource.share_options) {
+            resourceViewModel.setHasLinkPassword(resource.share_options?.has_link_password);
         }
-    }, [resource['share_options']])
-
+    }, [resource.share_options])
 
     return (
         <div id='viewer' ref={viewerRef} />
