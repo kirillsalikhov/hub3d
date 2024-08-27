@@ -22,6 +22,7 @@ class Api::ResourcesController < Api::ApplicationController
   def set_current
     authorize(@resource)
     resource = Resource::SetCurrent.run!(resource: @resource, version: params[:current_id])
+    # TODO :normal is more then needed
     render json: Store::ResourceBlueprint.render(resource, view: :normal, user: pundit_user)
   end
 

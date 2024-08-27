@@ -52,6 +52,8 @@ RSpec.describe "api/resources" do
       operationId "getResource"
 
       response(200, "successful") do
+        schema "$ref" => "#/components/schemas/resource_extended"
+
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {example: json_body}

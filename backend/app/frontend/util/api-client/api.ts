@@ -26,6 +26,37 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @interface AssetFile
+ */
+export interface AssetFile {
+    /**
+     * 
+     * @type {string}
+     * @memberof AssetFile
+     */
+    'filename': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof AssetFile
+     */
+    'size': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AssetFile
+     */
+    'signedUrl': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AssetFile
+     */
+    'originFilePath': string;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -250,6 +281,86 @@ export interface ResourceAuthPasswordRequest {
 /**
  * 
  * @export
+ * @interface ResourceExtended
+ */
+export interface ResourceExtended {
+    /**
+     * 
+     * @type {string}
+     * @memberof ResourceExtended
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResourceExtended
+     */
+    'space_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResourceExtended
+     */
+    'space_key': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResourceExtended
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResourceExtended
+     */
+    'current_id'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResourceExtended
+     */
+    'created_at': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResourceExtended
+     */
+    'updated_at': string;
+    /**
+     * 
+     * @type {ResourceExtendedAllOfPermissions}
+     * @memberof ResourceExtended
+     */
+    'permissions'?: ResourceExtendedAllOfPermissions;
+    /**
+     * 
+     * @type {ShareOptions}
+     * @memberof ResourceExtended
+     */
+    'share_options'?: ShareOptions;
+}
+/**
+ * 
+ * @export
+ * @interface ResourceExtendedAllOfPermissions
+ */
+export interface ResourceExtendedAllOfPermissions {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ResourceExtendedAllOfPermissions
+     */
+    'manage'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ResourceExtendedAllOfPermissions
+     */
+    'share'?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface SetResourceCurrentRequest
  */
 export interface SetResourceCurrentRequest {
@@ -259,6 +370,37 @@ export interface SetResourceCurrentRequest {
      * @memberof SetResourceCurrentRequest
      */
     'current_id': string;
+}
+/**
+ * 
+ * @export
+ * @interface ShareOptions
+ */
+export interface ShareOptions {
+    /**
+     * 
+     * @type {string}
+     * @memberof ShareOptions
+     */
+    'space_id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShareOptions
+     */
+    'space_key': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ShareOptions
+     */
+    'link_access': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ShareOptions
+     */
+    'has_link_password': boolean;
 }
 /**
  * 
@@ -725,7 +867,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * Resource asset items, not only versions
-         * @summary get versions
+         * @summary get asset items
          * @param {string} id Version id
          * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
@@ -1257,13 +1399,13 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getResource(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getResource(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResourceExtended>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getResource(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Resource asset items, not only versions
-         * @summary get versions
+         * @summary get asset items
          * @param {string} id Version id
          * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
@@ -1328,7 +1470,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVersionFiles(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getVersionFiles(id: string, spaceKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssetFile>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVersionFiles(id, spaceKey, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1487,12 +1629,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResource(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+        getResource(id: string, spaceKey?: string, options?: any): AxiosPromise<ResourceExtended> {
             return localVarFp.getResource(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Resource asset items, not only versions
-         * @summary get versions
+         * @summary get asset items
          * @param {string} id Version id
          * @param {string} [spaceKey] 
          * @param {*} [options] Override http request option.
@@ -1552,7 +1694,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVersionFiles(id: string, spaceKey?: string, options?: any): AxiosPromise<void> {
+        getVersionFiles(id: string, spaceKey?: string, options?: any): AxiosPromise<Array<AssetFile>> {
             return localVarFp.getVersionFiles(id, spaceKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1726,7 +1868,7 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * Resource asset items, not only versions
-     * @summary get versions
+     * @summary get asset items
      * @param {string} id Version id
      * @param {string} [spaceKey] 
      * @param {*} [options] Override http request option.

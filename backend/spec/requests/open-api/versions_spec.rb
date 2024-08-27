@@ -53,6 +53,8 @@ RSpec.describe "api/versions" do
       operationId "getVersionFiles"
 
       response(200, "successful") do
+        schema type: :array, items: {"$ref" => "#/components/schemas/asset_file"}
+
         after do |example|
           example.metadata[:response][:content] = {
             "application/json" => {example: json_body}
@@ -102,7 +104,7 @@ RSpec.describe "api/versions" do
     let(:resource) { create(:resource, :with_versions, author: owner, space: space) }
     let(:id) { resource.id }
 
-    get("get versions") do
+    get("get asset items") do
       consumes "application/json"
       produces "application/json"
       operationId "getResourceAssetItems"

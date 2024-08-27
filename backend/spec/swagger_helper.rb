@@ -26,32 +26,73 @@ RSpec.configure do |config|
         schemas: {
 
           resource: {
-            type: "object",
+            type: :object,
             properties: {
               id: {type: :string, format: :uuid},
               space_id: {type: :string, format: :uuid},
               space_key: {type: :string},
               name: {type: :string},
-              current_id: {type: :string, format: "uuid", nullable: true},
+              current_id: {type: :string, format: :uuid, nullable: true},
               created_at: {type: :string, format: :date_time},
               updated_at: {type: :string, format: :date_time}
             },
             required: [:id, :space_id, :space_key, :name, :created_at, :updated_at]
           },
 
+          share_options: {
+            type: :object,
+            properties: {
+              space_id: {type: :string, format: :uuid},
+              space_key: {type: :string},
+              link_access: {type: :string},
+              has_link_password: {type: :boolean}
+            },
+            required: [:link_access, :space_id, :space_key, :has_link_password]
+          },
+
+          resource_extended: {
+            allOf: [
+              {"$ref" => "#/components/schemas/resource"},
+              {
+                type: :object,
+                properties: {
+                  permissions: {
+                    type: :object,
+                    properties: {
+                      manage: {type: :boolean},
+                      share: {type: :boolean}
+                    }
+                  },
+                  share_options: {"$ref" => "#/components/schemas/share_options"}
+                }
+              }
+            ]
+          },
+
           version: {
-            type: "object",
+            type: :object,
             properties: {
               id: {type: :string, format: :uuid},
-              space_id: {type: "string", format: :uuid},
-              space_key: {type: "string"},
+              space_id: {type: :string, format: :uuid},
+              space_key: {type: :string},
               status: {"$ref" => "#/components/schemas/version_status"},
-              resource_id: {type: "string", format: "uuid"},
-              is_version: {type: "boolean"},
+              resource_id: {type: :string, format: :uuid},
+              is_version: {type: :boolean},
               created_at: {type: :string, format: :date_time},
               updated_at: {type: :string, format: :date_time}
             },
             required: [:id, :space_id, :space_key, :status, :resource_id, :is_version, :created_at, :updated_at]
+          },
+
+          asset_file: {
+            type: :object,
+            properties: {
+              filename: {type: :string},
+              size: {type: :integer},
+              signedUrl: {type: :string},
+              originFilePath: {type: :string}
+            },
+            required: [:filename, :size, :signedUrl, :originFilePath]
           },
 
           version_status: {
@@ -65,11 +106,11 @@ RSpec.configure do |config|
           },
 
           conversion_task: {
-            type: "object",
+            type: :object,
             properties: {
               id: {type: :string, format: :uuid},
-              space_id: {type: "string", format: :uuid},
-              space_key: {type: "string"},
+              space_id: {type: :string, format: :uuid},
+              space_key: {type: :string},
               status: {"$ref" => "#/components/schemas/conversion_status"},
               progress: {type: :number, minimum: 0, maximum: 1},
               start_time: {type: :string, format: :date_time, nullable: true},
