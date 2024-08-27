@@ -1,5 +1,5 @@
 import React from 'react';
-import Client from '../../util/_Client';
+import Client from '../../util/Client.ts';
 import { Dropzone } from '../Dropzone';
 import { MobileUploadForm } from '../MobileUploadForm';
 import { progressTransitionDuration } from '../Progress';

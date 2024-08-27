@@ -1,4 +1,4 @@
-import Client from '../util/_Client.ts';
+import Client from '../util/Client.ts';
 import {QueryClient} from "@tanstack/react-query";
 import {getResourcesQueryOpts} from "@/pages/_dummy_comps/queries.ts";
 

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import {Form, Formik, FormikHelpers} from 'formik';
 import * as Yup from 'yup';
-import Client from '../util/_Client.ts';
+import Client from '../util/Client.ts';
 import { GoogleButton } from '@/components/GoogleButton';
 import { TextField } from '@/forms/TextField';
 import {SignUpRequest} from "@/util/api-client";

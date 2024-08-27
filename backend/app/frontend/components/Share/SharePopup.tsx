@@ -1,5 +1,5 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react';
-import Client from '../../util/_Client.ts';
+import Client from '../../util/Client.ts';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { Switch } from '@headlessui/react';
 import { LinkSection } from './LinkSection';

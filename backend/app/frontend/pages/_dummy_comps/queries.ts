@@ -1,7 +1,7 @@
 // Rename file
 
 import {queryOptions, useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import Client from "@/util/_Client";
+import Client from "@/util/Client.ts";
 import {ConvertAnonymRequest, Resource, SetResourceCurrentRequest, Version} from "@/util/api-client";
 
 const getResources = async () => {

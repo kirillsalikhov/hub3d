@@ -4,7 +4,7 @@ import { LogoSign } from '@/components/LogoSign';
 import { Card } from '@/components/Card';
 import { resourceUrl } from '../util/url';
 import { useNavigate } from '../routes/useNavigate';
-import Client from "../util/_Client";
+import Client from "../util/Client.ts";
 import {ErrorMessage, Form, Formik, FormikErrors, FormikHelpers} from 'formik';
 import { TextField } from '@/forms/TextField';
 
